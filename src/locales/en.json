@@ -1,0 +1,244 @@
+{
+  "common": {
+    "learnMore": "Learn more",
+    "back": "Back",
+    "loading": "Sending",
+    "submit": "Send",
+    "backToTop": "Back to top",
+    "close": "Close"
+  },
+  "language": {
+    "eyebrow": "Choose your language",
+    "title": "Which language do you prefer?",
+    "subtitle": "You can switch any time from the navigation bar.",
+    "changedToast": "Language set to English"
+  },
+  "nav": {
+    "product": "Product",
+    "team": "Team",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle theme",
+    "changeLanguage": "Change language",
+    "notifyCta": "Notify me"
+  },
+  "hero": {
+    "eyebrow": "Private beta · Brussels",
+    "comingSoon": "Public launch: September 2026",
+    "title": "Your Uber, Bolt and Heetch rides, consolidated. Your commissions, calculated.",
+    "subtitle": "Cabs brings your ride-hailing platforms and cash revenue into one dashboard. See gross revenue, platform commissions and real net. No spreadsheet, no manual math.",
+    "trialNote": "One email at launch. No spam."
+  },
+  "notify": {
+    "cta": "Notify me",
+    "loading": "Subscribing",
+    "placeholder": "you@email.com",
+    "emailLabel": "Email address",
+    "privacyNote": "One email: the launch day. No spam, no sharing.",
+    "success": {
+      "title": "You're on the list.",
+      "subtitle": "We'll write you as soon as Cabs is ready."
+    },
+    "toast": {
+      "success": "Subscription confirmed. See you soon.",
+      "alreadySubscribed": "This email is already on the list."
+    },
+    "errors": {
+      "invalidEmail": "Please enter a valid email",
+      "network": "Network error. Please try again."
+    }
+  },
+  "features": {
+    "title": "What Cabs does for your fleet",
+    "subtitle": "A platform built for operators who are done with spreadsheets.",
+    "items": {
+      "aggregation": {
+        "title": "Multi-platform aggregation",
+        "description": "Uber, Bolt, Heetch, TaxiVert and cash. One source of truth, refreshed daily."
+      },
+      "commissions": {
+        "title": "Gross, net, commissions",
+        "description": "Cabs anticipates each platform's commission and shows you gross revenue and real net per driver, per vehicle, per period."
+      },
+      "time": {
+        "title": "No more manual math",
+        "description": "No more Excel, no more files sent over WhatsApp. Your numbers are live in the interface, available any time."
+      },
+      "structure": {
+        "title": "Custom structure",
+        "description": "50/50, flat-rate, rental. Configure your compensation model and Cabs applies it to your reports."
+      },
+      "drivers": {
+        "title": "Drivers and vehicles",
+        "description": "Profiles, availability, documents, deals. Your whole team in one view."
+      },
+      "exports": {
+        "title": "Accounting exports",
+        "description": "PDF and Excel ready for your accountant, detailed by platform and by driver."
+      }
+    }
+  },
+  "showcase": {
+    "title": "One dashboard. Everything that matters.",
+    "subtitle": "The three screens your operators use every day.",
+    "tabs": {
+      "dashboard": {
+        "label": "Dashboard",
+        "alt": "Cabs dashboard preview",
+        "caption": "At a glance: active drivers, vehicles on the road, monthly revenue."
+      },
+      "vehicles": {
+        "label": "Vehicles",
+        "alt": "Vehicle management preview",
+        "caption": "Every vehicle: status, maintenance, day/night driver, specifications."
+      },
+      "drivers": {
+        "label": "Drivers",
+        "alt": "Drivers management preview",
+        "caption": "Profiles, contact, status, quick actions. All in one place."
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "The team",
+    "title": "Three developers, one concrete problem",
+    "subtitle": "We are three web developers who took a close look at the taxi business. After watching operators juggle five tools, we decided to build one that fits them.",
+    "members": {
+      "kristian": {
+        "name": "Kristian Vasiaj",
+        "role": "Co-founder · Engineering"
+      },
+      "ismael": {
+        "name": "Ismael Bouzrouti",
+        "role": "Co-founder · Engineering"
+      },
+      "nawfel": {
+        "name": "Nawfel Ajari",
+        "role": "Co-founder · Engineering"
+      }
+    },
+    "socials": {
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "finalCta": {
+    "title": "Get notified at launch.",
+    "subtitle": "One email. No spam. You'll be the first to try at public launch."
+  },
+  "contact": {
+    "eyebrow": "Got a question?",
+    "title": "Write to us",
+    "subtitle": "For any question about the beta or the public launch. We reply within 48 business hours.",
+    "fields": {
+      "name": { "label": "Full name", "placeholder": "Sofia Rossi" },
+      "email": { "label": "Email", "placeholder": "sofia@yourcompany.com" },
+      "company": { "label": "Company (optional)", "placeholder": "Brussels Taxi SA" },
+      "message": { "label": "Message", "placeholder": "Tell us about your fleet, your needs, what's getting in the way today." }
+    },
+    "submit": "Send",
+    "retry": "Try again",
+    "successToast": "Message received. Reply within 48 business hours.",
+    "errorToast": "Couldn't send. Please try again in a moment.",
+    "errors": {
+      "name": "Please enter your full name",
+      "email": "Invalid email address",
+      "message": "Your message must be at least 10 characters"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Terms of Use",
+      "lastUpdate": "Last updated: April 2026",
+      "intro": "Cabs is currently in private beta with Brussels-based taxi operators. The operating company is being incorporated in Belgium. Full details (legal form, BCE number, registered office, VAT) will be published at public launch, scheduled for September 2026.",
+      "sections": {
+        "scope": {
+          "title": "Scope",
+          "body": "These terms govern the use of the cabs.brussels showcase website. No paid service is offered at this stage. The only action available is subscribing to the launch notification list."
+        },
+        "waitlist": {
+          "title": "Notification list",
+          "body": "By entering your email in the \"Notify me\" form, you accept to receive a single email on the day of public launch. No other communication will be sent. You can request deletion of your email at any time by writing to hello@cabs.brussels."
+        },
+        "contact": {
+          "title": "Contact",
+          "body": "Emails sent via the contact form are handled manually by the founding team. We reply within 48 business hours."
+        },
+        "liability": {
+          "title": "Liability",
+          "body": "The information on this site is descriptive and non-contractual. Features, supported platforms and pricing may evolve before public launch."
+        },
+        "law": {
+          "title": "Governing law",
+          "body": "These terms are governed by Belgian law. Any dispute falls under the exclusive jurisdiction of the Brussels courts."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdate": "Last updated: April 2026",
+      "intro": "This policy describes how Cabs processes your personal data on this showcase website, in compliance with Regulation (EU) 2016/679 (GDPR) and the Belgian law of 30 July 2018.",
+      "sections": {
+        "controller": {
+          "title": "Data controller",
+          "body": "The co-founders (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) act jointly as data controllers until the company is incorporated. Contact: hello@cabs.brussels."
+        },
+        "data": {
+          "title": "Data collected",
+          "body": "Notification list: your email address and language preference. Contact form: name, email, company (optional), message. No other data is collected from this site."
+        },
+        "purpose": {
+          "title": "Purposes",
+          "body": "Notification list: sending you a single email on public launch day. Contact form: answering your request. No advertising, no profiling, no commercial sharing."
+        },
+        "basis": {
+          "title": "Legal basis",
+          "body": "Explicit consent (article 6.1.a GDPR) for the notification list. Legitimate interest (article 6.1.f GDPR) for handling contact requests."
+        },
+        "retention": {
+          "title": "Retention",
+          "body": "Notification list: up to 30 days after the launch email, then deletion. Contact messages: 12 months after the last interaction."
+        },
+        "rights": {
+          "title": "Your rights",
+          "body": "You have the right to access, rectify, erase, port and object to the processing of your data. To exercise these rights, write to hello@cabs.brussels. You can also file a complaint with the Belgian Data Protection Authority (www.dataprotectionauthority.be)."
+        },
+        "hosting": {
+          "title": "Hosting and processors",
+          "body": "The site is hosted in the European Union. Notification list emails are stored on European servers. No transfer outside the EU is planned."
+        },
+        "cookies": {
+          "title": "Cookies and trackers",
+          "body": "This site uses no analytics cookies or advertising trackers. Only the browser's local storage is used to remember your language and theme (light/dark). No data is transmitted to any third party."
+        }
+      }
+    }
+  },
+  "footer": {
+    "tagline": "The platform taxi operators deserve.",
+    "madeIn": "Crafted in Brussels",
+    "status": "Private beta · Public launch September 2026",
+    "columns": {
+      "product": "Product",
+      "company": "Team",
+      "legal": "Legal"
+    },
+    "links": {
+      "features": "Features",
+      "showcase": "Screenshots",
+      "team": "Team",
+      "contact": "Contact",
+      "terms": "Terms",
+      "privacy": "Privacy"
+    },
+    "preIncorporationNotice": "Company under incorporation. Full details (BCE, registered office) published at public launch.",
+    "copyright": "© {{year}} Cabs. All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "subtitle": "This page doesn't exist or has moved.",
+    "cta": "Back to home"
+  },
+  "skipLink": "Skip to main content"
+}

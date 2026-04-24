@@ -1,0 +1,244 @@
+{
+  "common": {
+    "learnMore": "Mehr erfahren",
+    "back": "Zurück",
+    "loading": "Wird gesendet",
+    "submit": "Senden",
+    "backToTop": "Nach oben",
+    "close": "Schließen"
+  },
+  "language": {
+    "eyebrow": "Sprache wählen",
+    "title": "In welcher Sprache möchtest du lesen?",
+    "subtitle": "Du kannst jederzeit über die Navigationsleiste wechseln.",
+    "changedToast": "Sprache auf Deutsch gestellt"
+  },
+  "nav": {
+    "product": "Produkt",
+    "team": "Team",
+    "contact": "Kontakt",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "toggleTheme": "Design wechseln",
+    "changeLanguage": "Sprache ändern",
+    "notifyCta": "Benachrichtigen"
+  },
+  "hero": {
+    "eyebrow": "Private Beta · Brüssel",
+    "comingSoon": "Öffentlicher Launch: September 2026",
+    "title": "Ihre Fahrten auf Uber, Bolt und Heetch, konsolidiert. Ihre Kommissionen, berechnet.",
+    "subtitle": "Cabs vereint Ihre Ride-Hailing-Plattformen und Ihre Bareinnahmen in einem einzigen Dashboard. Sie sehen den Bruttoumsatz, die Plattformkommissionen und den tatsächlichen Nettowert. Ohne Tabelle, ohne manuelle Berechnung.",
+    "trialNote": "Eine einzige E-Mail zum Launch. Kein Spam."
+  },
+  "notify": {
+    "cta": "Benachrichtigen",
+    "loading": "Eintragen",
+    "placeholder": "deine@email.com",
+    "emailLabel": "E-Mail-Adresse",
+    "privacyNote": "Eine einzige E-Mail : der Launch-Tag. Kein Spam, keine Weitergabe.",
+    "success": {
+      "title": "Du stehst auf der Liste.",
+      "subtitle": "Wir schreiben dir, sobald Cabs bereit ist."
+    },
+    "toast": {
+      "success": "Eintrag bestätigt. Bis bald.",
+      "alreadySubscribed": "Diese E-Mail steht bereits auf der Liste."
+    },
+    "errors": {
+      "invalidEmail": "Bitte eine gültige E-Mail-Adresse eingeben",
+      "network": "Netzwerkfehler. Bitte erneut versuchen."
+    }
+  },
+  "features": {
+    "title": "Was Cabs für Ihre Flotte leistet",
+    "subtitle": "Eine Plattform für Betreiber, die genug von Tabellen haben.",
+    "items": {
+      "aggregation": {
+        "title": "Multi-Plattform-Aggregation",
+        "description": "Uber, Bolt, Heetch, TaxiVert und Bar. Eine einzige Quelle der Wahrheit, täglich aktualisiert."
+      },
+      "commissions": {
+        "title": "Brutto, Netto, Kommissionen",
+        "description": "Cabs antizipiert die Kommission jeder Plattform und zeigt Ihnen den Bruttoumsatz und das echte Netto pro Fahrer, pro Fahrzeug, pro Zeitraum."
+      },
+      "time": {
+        "title": "Schluss mit manuellen Berechnungen",
+        "description": "Kein Excel mehr, keine per WhatsApp verschickten Dateien. Ihre Zahlen sind in der Oberfläche aktuell, jederzeit abrufbar."
+      },
+      "structure": {
+        "title": "Maßgeschneiderte Struktur",
+        "description": "50/50, Pauschal, Miete. Konfigurieren Sie Ihr Vergütungsmodell und Cabs wendet es auf Ihre Berichte an."
+      },
+      "drivers": {
+        "title": "Fahrer und Fahrzeuge",
+        "description": "Profile, Verfügbarkeiten, Dokumente, Modelle. Ihr gesamtes Team in einer Ansicht."
+      },
+      "exports": {
+        "title": "Buchhaltungs-Exporte",
+        "description": "PDF und Excel bereit für Ihre Buchhaltung, detailliert pro Plattform und pro Fahrer."
+      }
+    }
+  },
+  "showcase": {
+    "title": "Ein Dashboard. Alles, was zählt.",
+    "subtitle": "Die drei Bildschirme, die Ihre Betreiber täglich nutzen.",
+    "tabs": {
+      "dashboard": {
+        "label": "Dashboard",
+        "alt": "Vorschau des Cabs-Dashboards",
+        "caption": "Überblick : aktive Fahrer, Fahrzeuge unterwegs, Monatsumsatz."
+      },
+      "vehicles": {
+        "label": "Fahrzeuge",
+        "alt": "Vorschau der Fahrzeugverwaltung",
+        "caption": "Jedes Fahrzeug : Status, Wartung, Tag/Nacht-Fahrer, Spezifikationen."
+      },
+      "drivers": {
+        "label": "Fahrer",
+        "alt": "Vorschau der Fahrerverwaltung",
+        "caption": "Profile, Kontakt, Status, schnelle Aktionen. Alles an einem Ort."
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "Das Team",
+    "title": "Drei Entwickler, ein konkretes Problem",
+    "subtitle": "Wir sind drei Webentwickler, die sich das Taxigeschäft genau angesehen haben. Nachdem wir Betreiber mit fünf Tools jonglieren sahen, beschlossen wir, ein einziges zu bauen, das zu ihnen passt.",
+    "members": {
+      "kristian": {
+        "name": "Kristian Vasiaj",
+        "role": "Mitgründer · Entwicklung"
+      },
+      "ismael": {
+        "name": "Ismael Bouzrouti",
+        "role": "Mitgründer · Entwicklung"
+      },
+      "nawfel": {
+        "name": "Nawfel Ajari",
+        "role": "Mitgründer · Entwicklung"
+      }
+    },
+    "socials": {
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "finalCta": {
+    "title": "Werden Sie zum Launch benachrichtigt.",
+    "subtitle": "Eine E-Mail. Kein Spam. Sie sind die Ersten, die beim öffentlichen Launch testen."
+  },
+  "contact": {
+    "eyebrow": "Eine Frage ?",
+    "title": "Schreiben Sie uns",
+    "subtitle": "Für jede Frage zur Beta oder zum öffentlichen Launch. Wir antworten innerhalb von 48 Werkstunden.",
+    "fields": {
+      "name": { "label": "Vollständiger Name", "placeholder": "Sofia Rossi" },
+      "email": { "label": "E-Mail", "placeholder": "sofia@ihrunternehmen.de" },
+      "company": { "label": "Unternehmen (optional)", "placeholder": "Brussels Taxi SA" },
+      "message": { "label": "Nachricht", "placeholder": "Erzählen Sie uns von Ihrer Flotte, Ihren Bedürfnissen, was heute hakt." }
+    },
+    "submit": "Senden",
+    "retry": "Erneut versuchen",
+    "successToast": "Nachricht erhalten. Antwort innerhalb von 48 Werkstunden.",
+    "errorToast": "Senden fehlgeschlagen. Bitte gleich erneut versuchen.",
+    "errors": {
+      "name": "Bitte geben Sie Ihren vollständigen Namen an",
+      "email": "Ungültige E-Mail-Adresse",
+      "message": "Ihre Nachricht muss mindestens 10 Zeichen lang sein"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "lastUpdate": "Zuletzt aktualisiert : April 2026",
+      "intro": "Cabs befindet sich derzeit in einer privaten Beta mit Brüsseler Taxibetreibern. Die betreibende Gesellschaft wird in Belgien gegründet. Die vollständigen Angaben (Rechtsform, BCE-Nummer, Sitz, Umsatzsteuer) werden zum öffentlichen Launch im September 2026 veröffentlicht.",
+      "sections": {
+        "scope": {
+          "title": "Gegenstand",
+          "body": "Diese Bedingungen regeln die Nutzung der Showcase-Website cabs.brussels. Derzeit wird kein kostenpflichtiger Dienst angeboten. Die einzige verfügbare Aktion ist der Eintrag in die Benachrichtigungsliste für den Launch."
+        },
+        "waitlist": {
+          "title": "Benachrichtigungsliste",
+          "body": "Durch Eingabe Ihrer E-Mail im Formular « Benachrichtigen » akzeptieren Sie, eine einzige E-Mail am Tag des öffentlichen Launches zu erhalten. Es werden keine weiteren Mitteilungen versendet. Sie können die Löschung Ihrer E-Mail jederzeit unter hello@cabs.brussels beantragen."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "body": "Über das Kontaktformular gesendete E-Mails werden manuell vom Gründerteam bearbeitet. Wir antworten innerhalb von 48 Werkstunden."
+        },
+        "liability": {
+          "title": "Haftung",
+          "body": "Die Informationen auf dieser Website sind beschreibend und nicht vertraglich. Funktionen, unterstützte Plattformen und Preise können sich vor dem öffentlichen Launch ändern."
+        },
+        "law": {
+          "title": "Anwendbares Recht",
+          "body": "Diese Bedingungen unterliegen belgischem Recht. Jeder Streitfall fällt in die ausschließliche Zuständigkeit der Gerichte von Brüssel."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "lastUpdate": "Zuletzt aktualisiert : April 2026",
+      "intro": "Diese Erklärung beschreibt, wie Cabs Ihre personenbezogenen Daten auf dieser Showcase-Website verarbeitet, gemäß der Verordnung (EU) 2016/679 (DSGVO) und dem belgischen Gesetz vom 30. Juli 2018.",
+      "sections": {
+        "controller": {
+          "title": "Verantwortlicher",
+          "body": "Die Mitgründer (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) handeln gemeinschaftlich als Verantwortliche bis zur Gründung der Gesellschaft. Kontakt : hello@cabs.brussels."
+        },
+        "data": {
+          "title": "Erfasste Daten",
+          "body": "Benachrichtigungsliste : Ihre E-Mail-Adresse und Sprachpräferenz. Kontaktformular : Name, E-Mail, Unternehmen (optional), Nachricht. Keine weiteren Daten werden auf dieser Website erhoben."
+        },
+        "purpose": {
+          "title": "Zwecke",
+          "body": "Benachrichtigungsliste : Ihnen eine einzige E-Mail am Tag des öffentlichen Launches zu senden. Kontaktformular : Ihre Anfrage zu beantworten. Keine Werbezwecke, kein Profiling, keine kommerzielle Weitergabe."
+        },
+        "basis": {
+          "title": "Rechtsgrundlage",
+          "body": "Ausdrückliche Einwilligung (Artikel 6.1.a DSGVO) für die Benachrichtigungsliste. Berechtigtes Interesse (Artikel 6.1.f DSGVO) zur Bearbeitung von Kontaktanfragen."
+        },
+        "retention": {
+          "title": "Aufbewahrung",
+          "body": "Benachrichtigungsliste : bis zu 30 Tage nach der Launch-E-Mail, dann Löschung. Kontaktnachrichten : 12 Monate nach der letzten Interaktion."
+        },
+        "rights": {
+          "title": "Ihre Rechte",
+          "body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Datenübertragbarkeit und Widerspruch. Um diese Rechte auszuüben, schreiben Sie an hello@cabs.brussels. Sie können auch Beschwerde bei der belgischen Datenschutzbehörde einlegen (www.dataprotectionauthority.be)."
+        },
+        "hosting": {
+          "title": "Hosting und Auftragsverarbeiter",
+          "body": "Die Website wird in der Europäischen Union gehostet. E-Mails der Benachrichtigungsliste werden auf europäischen Servern gespeichert. Keine Übermittlung außerhalb der EU ist vorgesehen."
+        },
+        "cookies": {
+          "title": "Cookies und Tracker",
+          "body": "Diese Website verwendet weder Analyse-Cookies noch Werbe-Tracker. Nur der lokale Speicher des Browsers wird verwendet, um Ihre Sprache und Ihr Design (hell/dunkel) zu speichern. Keine Daten werden an Dritte weitergegeben."
+        }
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Die Plattform, die Taxibetreiber verdienen.",
+    "madeIn": "Gefertigt in Brüssel",
+    "status": "Private Beta · Öffentlicher Launch September 2026",
+    "columns": {
+      "product": "Produkt",
+      "company": "Team",
+      "legal": "Rechtliches"
+    },
+    "links": {
+      "features": "Funktionen",
+      "showcase": "Screenshots",
+      "team": "Team",
+      "contact": "Kontakt",
+      "terms": "AGB",
+      "privacy": "Datenschutz"
+    },
+    "preIncorporationNotice": "Gesellschaft in Gründung. Vollständige Angaben (BCE, Sitz) werden zum öffentlichen Launch veröffentlicht.",
+    "copyright": "© {{year}} Cabs. Alle Rechte vorbehalten."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "subtitle": "Diese Seite existiert nicht oder wurde verschoben.",
+    "cta": "Zurück zur Startseite"
+  },
+  "skipLink": "Zum Hauptinhalt springen"
+}

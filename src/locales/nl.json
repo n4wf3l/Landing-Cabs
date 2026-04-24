@@ -1,0 +1,244 @@
+{
+  "common": {
+    "learnMore": "Meer weten",
+    "back": "Terug",
+    "loading": "Bezig",
+    "submit": "Verzenden",
+    "backToTop": "Terug naar boven",
+    "close": "Sluiten"
+  },
+  "language": {
+    "eyebrow": "Kies je taal",
+    "title": "In welke taal lees je het liefst?",
+    "subtitle": "Je kunt op elk moment wisselen via de navigatiebalk.",
+    "changedToast": "Taal ingesteld op Nederlands"
+  },
+  "nav": {
+    "product": "Product",
+    "team": "Team",
+    "contact": "Contact",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "toggleTheme": "Thema wisselen",
+    "changeLanguage": "Taal wijzigen",
+    "notifyCta": "Houd mij op de hoogte"
+  },
+  "hero": {
+    "eyebrow": "Private bèta · Brussel",
+    "comingSoon": "Publieke lancering: september 2026",
+    "title": "Je Uber-, Bolt- en Heetch-ritten, samengebracht. Je commissies, berekend.",
+    "subtitle": "Cabs brengt je VTC-platformen en je cashinkomsten samen in één dashboard. Zie de bruto-omzet, de commissies van de platformen en je echte nettowaarde. Zonder spreadsheet, zonder handmatig rekenwerk.",
+    "trialNote": "Eén e-mail bij de lancering. Geen spam."
+  },
+  "notify": {
+    "cta": "Houd mij op de hoogte",
+    "loading": "Bezig",
+    "placeholder": "jouw@email.com",
+    "emailLabel": "E-mailadres",
+    "privacyNote": "Eén e-mail: die van de lancering. Geen spam, geen delen.",
+    "success": {
+      "title": "Je staat op de lijst.",
+      "subtitle": "We mailen je zodra Cabs klaar is."
+    },
+    "toast": {
+      "success": "Inschrijving bevestigd. Tot snel.",
+      "alreadySubscribed": "Dit e-mailadres staat al op de lijst."
+    },
+    "errors": {
+      "invalidEmail": "Vul een geldig e-mailadres in",
+      "network": "Netwerkfout. Probeer opnieuw."
+    }
+  },
+  "features": {
+    "title": "Wat Cabs voor je vloot doet",
+    "subtitle": "Een platform voor operatoren die genoeg hebben van spreadsheets.",
+    "items": {
+      "aggregation": {
+        "title": "Multi-platform aggregatie",
+        "description": "Uber, Bolt, Heetch, TaxiVert en cash. Eén bron van waarheid, dagelijks bijgewerkt."
+      },
+      "commissions": {
+        "title": "Bruto, netto, commissies",
+        "description": "Cabs anticipeert de commissie van elk platform en toont je bruto-omzet en echte netto per chauffeur, per voertuig, per periode."
+      },
+      "time": {
+        "title": "Geen handmatig rekenwerk meer",
+        "description": "Geen Excel meer, geen bestanden via WhatsApp. Je cijfers zijn live in de interface, altijd beschikbaar."
+      },
+      "structure": {
+        "title": "Structuur op maat",
+        "description": "50/50, forfait, verhuur. Configureer je verloningsmodel en Cabs past het toe op je rapporten."
+      },
+      "drivers": {
+        "title": "Chauffeurs en voertuigen",
+        "description": "Profielen, beschikbaarheid, documenten, formules. Je hele team in één overzicht."
+      },
+      "exports": {
+        "title": "Boekhoudkundige exports",
+        "description": "PDF en Excel klaar voor je boekhouder, gedetailleerd per platform en per chauffeur."
+      }
+    }
+  },
+  "showcase": {
+    "title": "Eén dashboard. Alles wat telt.",
+    "subtitle": "De drie schermen die je operatoren elke dag gebruiken.",
+    "tabs": {
+      "dashboard": {
+        "label": "Dashboard",
+        "alt": "Voorvertoning van het Cabs-dashboard",
+        "caption": "Overzicht : actieve chauffeurs, voertuigen onderweg, maandomzet."
+      },
+      "vehicles": {
+        "label": "Voertuigen",
+        "alt": "Voorvertoning van voertuigbeheer",
+        "caption": "Elk voertuig : status, onderhoud, dag/nacht-chauffeur, specificaties."
+      },
+      "drivers": {
+        "label": "Chauffeurs",
+        "alt": "Voorvertoning van chauffeursbeheer",
+        "caption": "Profielen, contact, status, snelle acties. Alles op één plek."
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "Het team",
+    "title": "Drie ontwikkelaars, één concreet probleem",
+    "subtitle": "Wij zijn drie webontwikkelaars die het taxivak van dichtbij hebben bekeken. Nadat we operatoren met vijf tools hadden zien jongleren, besloten we er één te bouwen die bij hen past.",
+    "members": {
+      "kristian": {
+        "name": "Kristian Vasiaj",
+        "role": "Medeoprichter · Ontwikkeling"
+      },
+      "ismael": {
+        "name": "Ismael Bouzrouti",
+        "role": "Medeoprichter · Ontwikkeling"
+      },
+      "nawfel": {
+        "name": "Nawfel Ajari",
+        "role": "Medeoprichter · Ontwikkeling"
+      }
+    },
+    "socials": {
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "finalCta": {
+    "title": "Word verwittigd bij de lancering.",
+    "subtitle": "Eén e-mail. Geen spam. Je bent de eerste om te testen bij de publieke lancering."
+  },
+  "contact": {
+    "eyebrow": "Een vraag ?",
+    "title": "Schrijf ons",
+    "subtitle": "Voor elke vraag over de bèta of de publieke lancering. We antwoorden binnen 48 werkuren.",
+    "fields": {
+      "name": { "label": "Volledige naam", "placeholder": "Sofia Rossi" },
+      "email": { "label": "E-mail", "placeholder": "sofia@jouwbedrijf.be" },
+      "company": { "label": "Bedrijf (optioneel)", "placeholder": "Brussels Taxi SA" },
+      "message": { "label": "Bericht", "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot." }
+    },
+    "submit": "Verzenden",
+    "retry": "Opnieuw proberen",
+    "successToast": "Bericht ontvangen. Antwoord binnen 48 werkuren.",
+    "errorToast": "Verzenden mislukt. Probeer het zo dadelijk opnieuw.",
+    "errors": {
+      "name": "Geef je volledige naam op",
+      "email": "Ongeldig e-mailadres",
+      "message": "Je bericht moet minstens 10 tekens bevatten"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Gebruiksvoorwaarden",
+      "lastUpdate": "Laatste update : april 2026",
+      "intro": "Cabs bevindt zich momenteel in private bèta met Brusselse taxibedrijven. De exploiterende vennootschap is in oprichting in België. De volledige gegevens (rechtsvorm, KBO-nummer, maatschappelijke zetel, btw) worden bij de publieke lancering in september 2026 bekendgemaakt.",
+      "sections": {
+        "scope": {
+          "title": "Voorwerp",
+          "body": "Deze voorwaarden regelen het gebruik van de showcase-website cabs.brussels. Er wordt momenteel geen betaalde dienst aangeboden. De enige beschikbare actie is de inschrijving op de lijst voor lanceringsmeldingen."
+        },
+        "waitlist": {
+          "title": "Notificatielijst",
+          "body": "Door je e-mail in te voeren in het formulier « Houd mij op de hoogte », ga je akkoord met het ontvangen van één enkele e-mail op de dag van de publieke lancering. Geen andere communicatie wordt verzonden. Je kunt op elk moment de verwijdering van je e-mail aanvragen via hello@cabs.brussels."
+        },
+        "contact": {
+          "title": "Contact",
+          "body": "E-mails verzonden via het contactformulier worden handmatig verwerkt door het oprichtersteam. We antwoorden binnen 48 werkuren."
+        },
+        "liability": {
+          "title": "Aansprakelijkheid",
+          "body": "De informatie op deze site is beschrijvend en niet-contractueel. Functies, ondersteunde platformen en tarieven kunnen evolueren vóór de publieke lancering."
+        },
+        "law": {
+          "title": "Toepasselijk recht",
+          "body": "Deze voorwaarden zijn onderworpen aan het Belgisch recht. Elk geschil valt onder de exclusieve bevoegdheid van de rechtbanken van Brussel."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Privacybeleid",
+      "lastUpdate": "Laatste update : april 2026",
+      "intro": "Dit beleid beschrijft hoe Cabs je persoonsgegevens verwerkt op deze showcase-website, in overeenstemming met de Verordening (EU) 2016/679 (AVG) en de Belgische wet van 30 juli 2018.",
+      "sections": {
+        "controller": {
+          "title": "Verwerkingsverantwoordelijke",
+          "body": "De medeoprichters (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) treden gezamenlijk op als verwerkingsverantwoordelijken tot de oprichting van de vennootschap. Contact : hello@cabs.brussels."
+        },
+        "data": {
+          "title": "Verzamelde gegevens",
+          "body": "Notificatielijst : je e-mailadres en taalvoorkeur. Contactformulier : naam, e-mail, bedrijf (optioneel), bericht. Geen andere gegevens worden op deze site verzameld."
+        },
+        "purpose": {
+          "title": "Doeleinden",
+          "body": "Notificatielijst : je één e-mail sturen op de dag van de publieke lancering. Contactformulier : je verzoek beantwoorden. Geen reclamedoeleinden, geen profilering, geen commerciële verdeling."
+        },
+        "basis": {
+          "title": "Rechtsgrond",
+          "body": "Expliciete toestemming (artikel 6.1.a AVG) voor de notificatielijst. Gerechtvaardigd belang (artikel 6.1.f AVG) voor de behandeling van contactverzoeken."
+        },
+        "retention": {
+          "title": "Bewaartermijn",
+          "body": "Notificatielijst : tot 30 dagen na de lanceringsmail, daarna verwijdering. Contactberichten : 12 maanden na de laatste interactie."
+        },
+        "rights": {
+          "title": "Je rechten",
+          "body": "Je hebt recht op inzage, rectificatie, wissing, overdraagbaarheid en bezwaar. Om deze rechten uit te oefenen, schrijf naar hello@cabs.brussels. Je kunt ook een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (www.gegevensbeschermingsautoriteit.be)."
+        },
+        "hosting": {
+          "title": "Hosting en verwerkers",
+          "body": "De site wordt gehost in de Europese Unie. E-mails van de notificatielijst worden op Europese servers opgeslagen. Er is geen overdracht buiten de EU gepland."
+        },
+        "cookies": {
+          "title": "Cookies en trackers",
+          "body": "Deze site gebruikt geen analytische cookies of reclametrackers. Alleen de lokale opslag van de browser wordt gebruikt om je taal en thema (licht/donker) te onthouden. Er worden geen gegevens aan derden doorgegeven."
+        }
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Het platform dat taxi-operatoren verdienen.",
+    "madeIn": "Gemaakt in Brussel",
+    "status": "Private bèta · Publieke lancering september 2026",
+    "columns": {
+      "product": "Product",
+      "company": "Team",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "features": "Functies",
+      "showcase": "Screenshots",
+      "team": "Team",
+      "contact": "Contact",
+      "terms": "Voorwaarden",
+      "privacy": "Privacy"
+    },
+    "preIncorporationNotice": "Vennootschap in oprichting. Volledige gegevens (KBO, maatschappelijke zetel) bekendgemaakt bij de publieke lancering.",
+    "copyright": "© {{year}} Cabs. Alle rechten voorbehouden."
+  },
+  "notFound": {
+    "title": "Pagina niet gevonden",
+    "subtitle": "Deze pagina bestaat niet of is verplaatst.",
+    "cta": "Terug naar home"
+  },
+  "skipLink": "Naar hoofdinhoud"
+}
