@@ -62,10 +62,20 @@
   }
   html {
     @apply scroll-smooth;
+    /* Block iOS Safari edge-swipe (back/forward) and any page-level
+       horizontal scroll chaining. Carousel widgets that use framer-motion
+       drag override touch-action on themselves, so the in-page swipe
+       still works. */
+    overscroll-behavior-x: none;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: 'cv11', 'ss01';
+    /* Vertical pan only at the page level. Horizontal touch gestures
+       are reserved for opted-in widgets (the ProductTicker carousel
+       sets its own touch-action via framer-motion's drag prop). */
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
   }
   *:focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;

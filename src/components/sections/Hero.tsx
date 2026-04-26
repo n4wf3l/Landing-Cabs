@@ -67,47 +67,41 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Mobile-only header preceding the ProductTicker swipe carousel.
-              Hidden on lg+ where the ticker sits beside the hero text. */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          {/* Mobile-only swipe hint, sits between the hero CTA and the
+              ProductTicker carousel. The ticker keeps its own decorative
+              taxi-roof sticker; no duplicate logo here. */}
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 8 }}
+            animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="flex flex-col items-center gap-2 lg:hidden"
+            className="flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:hidden"
           >
-            <img
-              src={`${import.meta.env.BASE_URL}taxi-logo.png`}
-              alt="Cabs"
-              className="h-14 w-auto opacity-95"
-            />
-            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              <motion.span
-                aria-hidden
-                animate={reduce ? undefined : { x: [0, -3, 0] }}
-                transition={
-                  reduce
-                    ? undefined
-                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
-                }
-                className="inline-flex text-primary/70"
-              >
-                <ChevronLeft className="h-3 w-3" />
-              </motion.span>
-              {t('hero.swipeHint')}
-              <motion.span
-                aria-hidden
-                animate={reduce ? undefined : { x: [0, 3, 0] }}
-                transition={
-                  reduce
-                    ? undefined
-                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
-                }
-                className="inline-flex text-primary/70"
-              >
-                <ChevronRight className="h-3 w-3" />
-              </motion.span>
-            </p>
-          </motion.div>
+            <motion.span
+              aria-hidden
+              animate={reduce ? undefined : { x: [0, -3, 0] }}
+              transition={
+                reduce
+                  ? undefined
+                  : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+              }
+              className="inline-flex text-primary/70"
+            >
+              <ChevronLeft className="h-3 w-3" />
+            </motion.span>
+            {t('hero.swipeHint')}
+            <motion.span
+              aria-hidden
+              animate={reduce ? undefined : { x: [0, 3, 0] }}
+              transition={
+                reduce
+                  ? undefined
+                  : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+              }
+              className="inline-flex text-primary/70"
+            >
+              <ChevronRight className="h-3 w-3" />
+            </motion.span>
+          </motion.p>
 
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
