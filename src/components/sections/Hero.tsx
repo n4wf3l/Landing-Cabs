@@ -74,7 +74,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:hidden"
+            className="mt-12 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:mt-0 lg:hidden"
           >
             <motion.span
               aria-hidden
