@@ -160,26 +160,38 @@ export default function Contact() {
         ]}
       />
 
-      <section className="relative overflow-hidden pt-20 sm:pt-28">
-        <GlowEffect color="mixed" className="opacity-70" />
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <Sparkles className="h-3 w-3" />
-              {t('contact.eyebrow')}
-            </span>
-            <h1 className="mt-6 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-              {t('contact.title')}
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-balance text-muted-foreground sm:text-lg">
-              {t('contact.subtitle')}
-            </p>
-          </div>
+      {/*
+        Hero + form sit on a single shared backdrop so the GlowEffect can
+        span both without a hard seam. The mask-image fades the glow at
+        the bottom so it dissolves smoothly into the FAQ section below.
+      */}
+      <div className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]"
+        >
+          <GlowEffect color="mixed" className="opacity-70" />
         </div>
-      </section>
 
-      <section className="relative pb-24 pt-14 sm:pt-20">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative pt-20 sm:pt-28">
+          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                <Sparkles className="h-3 w-3" />
+                {t('contact.eyebrow')}
+              </span>
+              <h1 className="mt-6 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                {t('contact.title')}
+              </h1>
+              <p className="mx-auto mt-4 max-w-2xl text-balance text-muted-foreground sm:text-lg">
+                {t('contact.subtitle')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative pb-24 pt-14 sm:pt-20">
+          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.4fr_1fr]">
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -352,7 +364,8 @@ export default function Contact() {
             </motion.aside>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
 
       <FAQSection />
     </>
