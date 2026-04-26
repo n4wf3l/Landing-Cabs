@@ -67,12 +67,6 @@ export function SplashScreen() {
     // entrance animations while the splash fades out, not after.
     markSeen()
     setVisible(false)
-    // Force the user to land at the top of the page. Without this,
-    // scroll-snap-type: y mandatory on mobile can latch onto a snap
-    // target lower in the page (e.g. PainPoints) at first paint.
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'auto' })
-    })
   }, [markSeen])
 
   useEffect(() => {
@@ -104,15 +98,10 @@ export function SplashScreen() {
     return () => window.clearInterval(id)
   }, [visible, reduce, taglines.length])
 
-  // Snappy fade-in for every block — no cascading delays. The user
-  // perceives the splash as instantly ready instead of waiting ~1.3s
-  // for the language buttons to appear at the bottom of an animation
-  // chain. Delay arg ignored on purpose; kept for back-compat.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const fadeUp = (_delay: number) => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 4 },
+  const fadeUp = (delay: number) => ({
+    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 8 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: reduce ? 0.01 : 0.2, ease: EASE },
+    transition: { duration: reduce ? 0.01 : 0.5, delay: reduce ? 0 : delay, ease: EASE },
   })
 
   return (
@@ -126,7 +115,7 @@ export function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: reduce ? 0 : 0.2, ease: EASE },
+            transition: { duration: reduce ? 0 : 0.4, ease: EASE },
           }}
           className={cn(
             'fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden px-6 py-10',
@@ -150,9 +139,9 @@ export function SplashScreen() {
                 className="h-12 w-auto"
               />
               <motion.span
-                initial={reduce ? { opacity: 0 } : { opacity: 0, x: -4 }}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: reduce ? 0.01 : 0.2, ease: EASE }}
+                transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.1, ease: EASE }}
                 className={cn(
                   'text-3xl font-bold tracking-tight',
                   isDark ? 'text-white' : 'text-zinc-900',
@@ -195,7 +184,7 @@ export function SplashScreen() {
               aria-hidden
               initial={reduce ? { opacity: 0 } : { scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: reduce ? 0.01 : 0.25, ease: EASE }}
+              transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.35, ease: EASE }}
               className="mt-8 block h-px w-16 origin-center bg-gradient-to-r from-transparent via-primary/60 to-transparent"
             />
 
@@ -278,16 +267,17 @@ export function SplashScreen() {
                 Langue · Language · Taal · Sprache
               </p>
               <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
-                {LOCALES.map((locale) => (
+                {LOCALES.map((locale, i) => (
                   <motion.button
                     key={locale.code}
                     type="button"
                     onClick={() => pickLanguage(locale.code)}
                     aria-label={locale.label}
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{
-                      duration: reduce ? 0.01 : 0.2,
+                      duration: reduce ? 0.01 : 0.4,
+                      delay: reduce ? 0 : 0.75 + i * 0.06,
                       ease: EASE,
                     }}
                     whileHover={!reduce && supportsHover ? { y: -2 } : undefined}
@@ -322,7 +312,7 @@ export function SplashScreen() {
             aria-label="Skip"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: reduce ? 0.01 : 0.2, ease: EASE }}
+            transition={{ delay: reduce ? 0 : 1.1, duration: 0.3 }}
             className={cn(
               'absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs transition-colors sm:right-6 sm:top-6',
               isDark

@@ -32,7 +32,7 @@ export function PainPoints() {
   return (
     <section
       id="pains"
-      className="relative snap-start scroll-mt-20 overflow-hidden bg-card/30 py-24 sm:py-32 lg:snap-align-none"
+      className="relative scroll-mt-20 overflow-hidden bg-card/30 py-24 sm:py-32"
     >
       <div
         aria-hidden
