@@ -26,6 +26,11 @@
     <link rel="alternate" hreflang="de" href="https://www.joincabs.com/?lang=de" />
     <link rel="alternate" hreflang="x-default" href="https://www.joincabs.com/" />
 
+    <!-- Preload the carousel logo so it shows up the moment the ticker
+         mounts, instead of after a network round-trip (perceived as
+         "loading" on slow mobile connections). -->
+    <link rel="preload" as="image" href="/taxi-logo.png" />
+
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

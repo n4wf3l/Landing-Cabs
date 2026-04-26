@@ -71,9 +71,9 @@ export function Hero() {
               ProductTicker carousel. The ticker keeps its own decorative
               taxi-roof sticker; no duplicate logo here. */}
           <motion.p
-            initial={reduce ? false : { opacity: 0, y: 8 }}
-            animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.5, delay: 0.32 }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={introReady ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className="mt-20 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:mt-0 lg:hidden"
           >
             <motion.span
@@ -104,13 +104,9 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
-            animate={
-              introReady
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: 16, scale: 0.96 }
-            }
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={introReady ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className="flex justify-center lg:justify-end"
           >
             <ProductTicker />
