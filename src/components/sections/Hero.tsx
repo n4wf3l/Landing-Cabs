@@ -28,10 +28,13 @@ export function Hero() {
 
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-[1.2fr_1fr] lg:gap-16 lg:py-16">
-          {/* Snap section 1 (mobile): hero text + CTA. Full viewport height
-              with snap-start so it locks into view. On lg+, behaves as a
-              normal grid column without snap. */}
-          <div className="flex min-h-[calc(100dvh-4rem)] snap-start flex-col items-center justify-center py-12 text-center lg:min-h-0 lg:snap-align-none lg:items-start lg:py-0 lg:text-left">
+          {/* Snap section 1 (mobile): hero text + CTA. Full viewport
+              height so the next snap target sits cleanly one screen down,
+              but NO snap-align — the natural scroll position 0 is enough
+              to keep the user here on load. Adding snap-align here was
+              causing scroll-snap mandatory to misfire and land on a
+              later section at first paint. */}
+          <div className="flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center py-12 text-center lg:min-h-0 lg:items-start lg:py-0 lg:text-left">
             <motion.span
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}

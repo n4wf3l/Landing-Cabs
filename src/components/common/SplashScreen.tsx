@@ -67,6 +67,12 @@ export function SplashScreen() {
     // entrance animations while the splash fades out, not after.
     markSeen()
     setVisible(false)
+    // Force the user to land at the top of the page. Without this,
+    // scroll-snap-type: y mandatory on mobile can latch onto a snap
+    // target lower in the page (e.g. PainPoints) at first paint.
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    })
   }, [markSeen])
 
   useEffect(() => {
