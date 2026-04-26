@@ -11,7 +11,12 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Logo } from '@/components/common/Logo'
@@ -197,7 +202,7 @@ function MobileMenu({ open, onClose, onAnchor }: MobileMenuProps) {
     { kind: 'route', to: '/contact', key: 'nav.contact', Icon: Mail },
   ]
 
-  const listVariants = {
+  const listVariants: Variants = {
     hidden: {},
     show: {
       transition: {
@@ -210,14 +215,14 @@ function MobileMenu({ open, onClose, onAnchor }: MobileMenuProps) {
     },
   }
 
-  const rowVariants = {
+  const rowVariants: Variants = {
     hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 12 },
     show: {
       opacity: 1,
       y: 0,
       transition: reduce
         ? { duration: 0.01 }
-        : { type: 'spring' as const, stiffness: 280, damping: 26 },
+        : { type: 'spring', stiffness: 280, damping: 26 },
     },
     exit: reduce ? { opacity: 0 } : { opacity: 0, y: 8, transition: { duration: 0.18 } },
   }
@@ -370,7 +375,7 @@ function CardNavRow({
   onAnchor,
 }: {
   row: MenuRow
-  rowVariants: Record<string, unknown>
+  rowVariants: Variants
   onClose: () => void
   onAnchor: (href: string) => void
 }) {
