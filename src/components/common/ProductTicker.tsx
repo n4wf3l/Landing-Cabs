@@ -115,15 +115,32 @@ export function ProductTicker({ className }: Props) {
         as one shape. `filter: drop-shadow()` follows the rendered alpha (not
         the bounding box), and `-mb-1` makes the bottom of the logo overlap
         the rounded top of the card so the silhouette stays continuous.
+
+        The wrapper is also the swipe surface on touch screens — drag-x with
+        elastic bounce-back, and a release threshold (offset OR velocity)
+        triggers prev/next. Vertical scrolling still propagates via
+        `touch-pan-y`. Disabled when prefers-reduced-motion is on.
       */}
-      <div className="[filter:drop-shadow(0_10px_28px_rgba(59,130,246,0.35))_drop-shadow(0_0_18px_rgba(250,204,21,0.18))]">
+      <motion.div
+        drag={reduce ? false : 'x'}
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        dragMomentum={false}
+        onDragEnd={(_, info) => {
+          const OFFSET = 50
+          const VELOCITY = 300
+          if (info.offset.x < -OFFSET || info.velocity.x < -VELOCITY) next()
+          else if (info.offset.x > OFFSET || info.velocity.x > VELOCITY) prev()
+        }}
+        className="touch-pan-y [filter:drop-shadow(0_10px_28px_rgba(59,130,246,0.35))_drop-shadow(0_0_18px_rgba(250,204,21,0.18))]"
+      >
         <img
           src={`${import.meta.env.BASE_URL}taxi-logo.png`}
           alt=""
           aria-hidden
           decoding="async"
           loading="eager"
-          className="pointer-events-none relative -mb-1 ml-4 block h-12 w-auto select-none"
+          className="pointer-events-none relative -mb-1 ml-4 block h-9 w-auto select-none md:h-12"
         />
         <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 backdrop-blur-xl">
           <div
@@ -151,7 +168,7 @@ export function ProductTicker({ className }: Props) {
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
