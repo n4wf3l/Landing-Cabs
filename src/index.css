@@ -77,6 +77,17 @@
     touch-action: pan-y;
     overscroll-behavior-x: none;
   }
+  /* Mobile-only scroll snap. Sections opt-in via the .snap-start class
+     (Tailwind's snap-start utility). Proximity mode = soft snap that only
+     kicks in near a snap target, so long sections like ROI / showcase
+     stay free-scrollable in the middle. scroll-padding-top accounts for
+     the fixed navbar (~4rem) so anchored sections don't slip under it. */
+  @media (max-width: 1023px) {
+    html {
+      scroll-snap-type: y proximity;
+      scroll-padding-top: 4rem;
+    }
+  }
   *:focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }

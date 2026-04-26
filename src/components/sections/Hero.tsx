@@ -22,13 +22,16 @@ export function Hero() {
   const introReady = !isFirstVisit
 
   return (
-    <section className="relative flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden py-12 sm:py-16">
+    <section className="relative overflow-hidden">
       <AnimatedGridBackground />
       <GlowEffect color="mixed" />
 
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-[1.2fr_1fr] lg:gap-16 lg:py-16">
+          {/* Snap section 1 (mobile): hero text + CTA. Full viewport height
+              with snap-start so it locks into view. On lg+, behaves as a
+              normal grid column without snap. */}
+          <div className="flex min-h-[calc(100dvh-4rem)] snap-start flex-col items-center justify-center py-12 text-center lg:min-h-0 lg:snap-align-none lg:items-start lg:py-0 lg:text-left">
             <motion.span
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
@@ -67,54 +70,58 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Mobile-only swipe hint, sits between the hero CTA and the
-              ProductTicker carousel. The ticker keeps its own decorative
-              taxi-roof sticker; no duplicate logo here. */}
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 8 }}
-            animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.5, delay: 0.32 }}
-            className="flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:hidden"
-          >
-            <motion.span
-              aria-hidden
-              animate={reduce ? undefined : { x: [0, -3, 0] }}
-              transition={
-                reduce
-                  ? undefined
-                  : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
-              }
-              className="inline-flex text-primary/70"
+          {/* Snap section 2 (mobile): swipe hint + ProductTicker carousel,
+              vertically centered. On lg+, this wrapper becomes display:contents
+              so the swipe hint and ticker behave as direct grid children
+              of the parent (the swipe hint is then hidden via its own
+              lg:hidden, leaving just the ticker as the second column). */}
+          <div className="flex min-h-[calc(100dvh-4rem)] snap-start flex-col items-center justify-center gap-4 py-8 lg:contents lg:snap-align-none">
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+              transition={{ duration: 0.5, delay: 0.32 }}
+              className="flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:hidden"
             >
-              <ChevronLeft className="h-3 w-3" />
-            </motion.span>
-            {t('hero.swipeHint')}
-            <motion.span
-              aria-hidden
-              animate={reduce ? undefined : { x: [0, 3, 0] }}
-              transition={
-                reduce
-                  ? undefined
-                  : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
-              }
-              className="inline-flex text-primary/70"
-            >
-              <ChevronRight className="h-3 w-3" />
-            </motion.span>
-          </motion.p>
+              <motion.span
+                aria-hidden
+                animate={reduce ? undefined : { x: [0, -3, 0] }}
+                transition={
+                  reduce
+                    ? undefined
+                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+                }
+                className="inline-flex text-primary/70"
+              >
+                <ChevronLeft className="h-3 w-3" />
+              </motion.span>
+              {t('hero.swipeHint')}
+              <motion.span
+                aria-hidden
+                animate={reduce ? undefined : { x: [0, 3, 0] }}
+                transition={
+                  reduce
+                    ? undefined
+                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+                }
+                className="inline-flex text-primary/70"
+              >
+                <ChevronRight className="h-3 w-3" />
+              </motion.span>
+            </motion.p>
 
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
-            animate={
-              introReady
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: 16, scale: 0.96 }
-            }
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center lg:justify-end"
-          >
-            <ProductTicker />
-          </motion.div>
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
+              animate={
+                introReady
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 16, scale: 0.96 }
+              }
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="flex justify-center lg:justify-end"
+            >
+              <ProductTicker />
+            </motion.div>
+          </div>
         </div>
 
         <motion.button
