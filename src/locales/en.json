@@ -194,6 +194,11 @@
       "errorsMonth": "Anomalies caught",
       "errorsMonthHint": "Missing receipts, time gaps, forgotten rides, etc."
     },
+    "annual": {
+      "label": "Annual savings",
+      "perYear": "/ year",
+      "tagline": "That's what you're leaving on the table every year without Cabs."
+    },
     "disclaimer": "Conservative estimates from the Belgian taxi sector: 0.5 h/wk per vehicle + 1.5 h/wk per driver of admin time, valued at the average dispatcher/admin loaded cost in Belgium (≈ €25/h). Drivers enter net amounts directly in the app, so platform commissions are not recomputed.",
     "methodology": {
       "toggle": "Methodology and sources",

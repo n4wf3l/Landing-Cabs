@@ -194,6 +194,11 @@
       "errorsMonth": "Erkannte Anomalien",
       "errorsMonthHint": "Fehlende Tickets, Stundenabweichungen, vergessene Fahrten usw."
     },
+    "annual": {
+      "label": "Jährliche Einsparung",
+      "perYear": "/ Jahr",
+      "tagline": "Genau das lassen Sie ohne Cabs jedes Jahr liegen."
+    },
     "disclaimer": "Konservative Schätzungen aus dem belgischen Taxisektor: 0,5 Std/Woche pro Fahrzeug + 1,5 Std/Woche pro Fahrer Verwaltungsaufwand, bewertet zu durchschnittlichen Dispatch-/Admin-Kosten in Belgien (≈ 25 €/Std). Fahrer geben Netto-Beträge direkt in der App ein, daher werden Plattformprovisionen nicht neu berechnet.",
     "methodology": {
       "toggle": "Methodik und Quellen",

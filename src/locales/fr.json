@@ -194,6 +194,11 @@
       "errorsMonth": "Anomalies détectées",
       "errorsMonthHint": "Tickets manquants, écarts d'heures, courses oubliées, etc."
     },
+    "annual": {
+      "label": "Économie annuelle",
+      "perYear": "/ an",
+      "tagline": "C'est ça que vous laissez sur la table chaque année sans Cabs."
+    },
     "disclaimer": "Estimations conservatrices basées sur le secteur taxi belge : 0,5 h/sem par véhicule + 1,5 h/sem par chauffeur sur l'admin, valorisées au coût horaire moyen d'un dispatch/admin en Belgique (≈ 25 €/h). Les chauffeurs entrent eux-mêmes le net dans l'app, donc aucune commission plateforme n'est recalculée.",
     "methodology": {
       "toggle": "Méthodologie et sources",

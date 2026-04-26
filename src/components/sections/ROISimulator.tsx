@@ -65,11 +65,12 @@ export function ROISimulator() {
   const [vehicles, setVehicles] = useState(8)
   const [drivers, setDrivers] = useState(12)
 
-  const metrics = useMemo(() => {
+  const { metrics, eurYear } = useMemo(() => {
     const hoursWeek = vehicles * HOURS_PER_VEHICLE + drivers * HOURS_PER_DRIVER
     const hoursMonth = hoursWeek * 4.33
     const daysMonth = hoursMonth / 8
     const eurMonth = Math.round(hoursMonth * EUR_PER_HOUR_ADMIN)
+    const eurYear = eurMonth * 12
     const errorsMonth = drivers * 2
 
     const m: Metric[] = [
@@ -98,7 +99,7 @@ export function ROISimulator() {
         hintKey: 'roi.metrics.errorsMonthHint',
       },
     ]
-    return m
+    return { metrics: m, eurYear }
   }, [vehicles, drivers])
 
   return (
@@ -172,6 +173,33 @@ export function ROISimulator() {
                   </p>
                 </div>
               ))}
+            </div>
+
+            {/* Annual savings headline — the punchline. Bumps a small monthly
+                figure (e.g. €2,381) into the number that lands for a patron
+                (€28,572/year). This sits AFTER the four breakdown metrics so
+                the user has built up the math before seeing the total. */}
+            <div className="relative overflow-hidden border-t border-primary/30 bg-gradient-to-r from-primary/15 via-primary/5 to-primary/20 px-6 py-5">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-x-12 -top-12 h-24 bg-gradient-to-b from-primary/10 to-transparent blur-2xl"
+              />
+              <div className="relative flex flex-col items-start justify-between gap-1 sm:flex-row sm:items-center sm:gap-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                    {t('roi.annual.label')}
+                  </p>
+                  <p className="mt-1 text-3xl font-extrabold tabular-nums tracking-tight text-foreground sm:text-4xl">
+                    €{eurYear.toLocaleString('fr-BE')}
+                    <span className="ml-2 text-base font-medium text-muted-foreground sm:text-lg">
+                      {t('roi.annual.perYear')}
+                    </span>
+                  </p>
+                </div>
+                <p className="text-xs leading-relaxed text-muted-foreground sm:max-w-[200px] sm:text-right">
+                  {t('roi.annual.tagline')}
+                </p>
+              </div>
             </div>
 
             {/* Footer disclaimer + methodology */}
