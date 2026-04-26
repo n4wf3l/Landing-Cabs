@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev:server": "npm --prefix server run dev",
     "dev:all": "concurrently --kill-others-on-fail -n web,api -c blue,magenta \"npm run dev\" \"npm run dev:server\"",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/write-php-config.cjs",
     "lint": "eslint .",
     "og:generate": "node scripts/generate-og-and-icons.mjs",
     "preview": "vite preview",
