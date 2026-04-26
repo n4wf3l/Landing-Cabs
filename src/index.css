@@ -78,13 +78,15 @@
     overscroll-behavior-x: none;
   }
   /* Mobile-only scroll snap. Sections opt-in via the .snap-start class
-     (Tailwind's snap-start utility). Proximity mode = soft snap that only
-     kicks in near a snap target, so long sections like ROI / showcase
-     stay free-scrollable in the middle. scroll-padding-top accounts for
-     the fixed navbar (~4rem) so anchored sections don't slip under it. */
+     (Tailwind's snap-start utility). Mandatory mode = ANY scroll snaps
+     to the nearest snap point, even a small flick. After PainPoints
+     (the last snap target), there are no more snap-aligned sections so
+     the browser falls back to free scroll for the rest of the page.
+     scroll-padding-top accounts for the fixed navbar (~4rem) so the
+     snap targets don't slip under it. */
   @media (max-width: 1023px) {
     html {
-      scroll-snap-type: y proximity;
+      scroll-snap-type: y mandatory;
       scroll-padding-top: 4rem;
     }
   }
