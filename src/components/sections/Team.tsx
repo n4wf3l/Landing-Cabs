@@ -24,7 +24,7 @@ export function Team() {
   const activeFounder = FOUNDERS.find((f) => f.key === openKey) ?? null
 
   return (
-    <section id="team" className="scroll-mt-20 py-24 sm:py-32">
+    <section id="team" className="scroll-mt-20 py-14 sm:py-24 lg:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow={t('team.eyebrow')}
@@ -32,12 +32,18 @@ export function Team() {
           subtitle={t('team.subtitle')}
         />
 
+        {/*
+          Mobile: horizontal row layout (avatar left, name/role right,
+          socials at the far right). Drops each card from ~400 px tall to
+          ~90 px and fits all three founders in roughly one screen.
+          ≥sm: original vertical centered card.
+        */}
         <motion.ul
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-15%' }}
           variants={staggerContainer}
-          className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
         >
           {FOUNDERS.map((founder) => {
             const name = t(`team.members.${founder.key}.name`)
@@ -65,7 +71,8 @@ export function Team() {
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 24 }}
                   className={cn(
-                    'group relative flex cursor-pointer flex-col items-center overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-8 text-center backdrop-blur transition-colors',
+                    'group relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-4 text-left backdrop-blur transition-colors',
+                    'sm:flex-col sm:items-center sm:gap-0 sm:p-8 sm:text-center',
                     'hover:border-primary/40 hover:shadow-glow',
                     'focus-visible:border-primary/60 focus-visible:shadow-glow focus-visible:outline-none',
                   )}
@@ -76,26 +83,33 @@ export function Team() {
                       alt={name}
                       loading="lazy"
                       decoding="async"
-                      className="h-20 w-20 rounded-full object-cover shadow-glow ring-2 ring-primary/40"
+                      className="h-14 w-14 shrink-0 rounded-full object-cover shadow-glow ring-2 ring-primary/40 sm:h-20 sm:w-20"
                     />
                   ) : (
                     <div
                       aria-hidden
-                      className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-brand text-2xl font-bold text-primary-foreground shadow-glow"
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-brand text-xl font-bold text-primary-foreground shadow-glow sm:h-20 sm:w-20 sm:text-2xl"
                     >
                       {founder.initials}
                     </div>
                   )}
-                  <h3 className="mt-5 text-lg font-semibold">{name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{role}</p>
 
-                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                    <Sparkles className="h-2.5 w-2.5" />
-                    {t('team.modal.openLabel', { name }).split(' ').slice(0, 2).join(' ')}
-                  </span>
+                  <div className="min-w-0 flex-1 sm:flex-none">
+                    <h3 className="truncate text-base font-semibold sm:mt-5 sm:text-lg">
+                      {name}
+                    </h3>
+                    <p className="truncate text-xs text-muted-foreground sm:mt-1 sm:text-sm">
+                      {role}
+                    </p>
+
+                    <span className="mt-3 hidden items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-primary opacity-0 transition-opacity group-hover:opacity-100 sm:inline-flex">
+                      <Sparkles className="h-2.5 w-2.5" />
+                      {t('team.modal.openLabel', { name }).split(' ').slice(0, 2).join(' ')}
+                    </span>
+                  </div>
 
                   <div
-                    className="mt-5 flex items-center gap-2"
+                    className="ml-auto flex shrink-0 items-center gap-1.5 sm:ml-0 sm:mt-5 sm:gap-2"
                     onClick={stopProp}
                     onKeyDown={stopProp}
                   >
@@ -105,9 +119,9 @@ export function Team() {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={`${name} ${t('team.socials.instagram')}`}
-                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:h-9 sm:w-9"
                       >
-                        <InstagramIcon className="h-4 w-4" />
+                        <InstagramIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                       </a>
                     )}
                     <a
@@ -115,9 +129,9 @@ export function Team() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`${name} ${t('team.socials.linkedin')}`}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:h-9 sm:w-9"
                     >
-                      <LinkedinIcon className="h-4 w-4" />
+                      <LinkedinIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </a>
                   </div>
                 </motion.div>
