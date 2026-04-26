@@ -24,7 +24,6 @@ interface PlatformSetting {
   key: string
   label: string
   enabled: boolean
-  commission: number
   pending?: boolean
   fixed?: boolean
 }
@@ -51,12 +50,12 @@ const DEFAULTS: SettingsState = {
   vatNumber: 'BE 0789.123.456',
   address: 'Avenue Louise 480, 1050 Bruxelles',
   platforms: [
-    { key: 'uber', label: 'Uber', enabled: true, commission: 25.0 },
-    { key: 'bolt', label: 'Bolt', enabled: true, commission: 18.0 },
-    { key: 'heetch', label: 'Heetch', enabled: true, commission: 22.0 },
-    { key: 'taxivert', label: 'TaxiVert', enabled: true, commission: 15.0 },
-    { key: 'card', label: 'Carte bancaire', enabled: true, commission: 1.5 },
-    { key: 'cash', label: 'Cash', enabled: true, commission: 0, fixed: true },
+    { key: 'uber', label: 'Uber', enabled: true },
+    { key: 'bolt', label: 'Bolt', enabled: true },
+    { key: 'heetch', label: 'Heetch', enabled: true },
+    { key: 'taxivert', label: 'TaxiVert', enabled: true },
+    { key: 'card', label: 'Carte bancaire', enabled: true },
+    { key: 'cash', label: 'Cash', enabled: true, fixed: true },
   ],
   carwashSplit: '50_50',
   fuelSplit: '50_50',
@@ -318,12 +317,6 @@ function PlatformsSection({
             onToggle={() =>
               updatePlatform(p.key, { enabled: !p.enabled, pending: !p.fixed })
             }
-            onCommission={(v) =>
-              updatePlatform(p.key, {
-                commission: v,
-                pending: !p.fixed && v !== p.commission,
-              })
-            }
           />
         ))}
       </ul>
@@ -334,11 +327,9 @@ function PlatformsSection({
 function PlatformRow({
   platform,
   onToggle,
-  onCommission,
 }: {
   platform: PlatformSetting
   onToggle: () => void
-  onCommission: (v: number) => void
 }) {
   const { t } = useTranslation()
   const isDisabled = !platform.enabled
@@ -371,23 +362,6 @@ function PlatformRow({
       <span className="min-w-0 flex-1 text-[11px] font-semibold tracking-tight">
         {platform.label}
       </span>
-
-      <div className="flex items-center gap-1">
-        <input
-          type="number"
-          step="0.1"
-          min="0"
-          max="100"
-          value={platform.commission}
-          onChange={(e) => onCommission(Number(e.target.value) || 0)}
-          disabled={!platform.enabled || platform.fixed}
-          className={cn(
-            'w-14 rounded-md border border-border/40 bg-background/60 px-1.5 py-0.5 text-right text-[11px] tabular-nums outline-none transition-colors focus:border-primary/60 focus:bg-background',
-            (platform.fixed || isDisabled) && 'cursor-not-allowed opacity-60',
-          )}
-        />
-        <span className="text-[10px] text-muted-foreground">%</span>
-      </div>
 
       <span
         className={cn(

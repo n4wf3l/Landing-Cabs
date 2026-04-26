@@ -9,7 +9,6 @@ import {
   type ReactNode,
 } from 'react'
 import { RIDE_POOL } from './mockData'
-import { COMMISSION_RATES } from './types'
 import type { CompletedRide, PhoneSimAction, PhoneSimState } from './types'
 
 const STORAGE_KEY = 'cabs-phone-sim-v1'
@@ -130,20 +129,17 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
     case 'COMPLETE_RIDE': {
       const ride = state.currentRide
       if (!ride) return state
-      // Cabs has no API into Uber/Bolt/Heetch — the driver always types
-      // the fare from the platform app or meter at the end of the ride.
-      const brut = action.fareEntered
-      const rate = COMMISSION_RATES[action.platform]
-      const commission = Number((brut * rate).toFixed(2))
-      const net = Number((brut - commission).toFixed(2))
+      // The driver enters the net they actually receive (already deducted
+      // by the platform). Cabs has no Uber/Bolt/Heetch API to derive a
+      // gross/commission breakdown course-by-course, and that breakdown
+      // is reconciled operator-side against the weekly platform exports
+      // anyway — not relevant to the driver's flow.
       const completed: CompletedRide = {
         id: ride.id,
         pickup: ride.template.pickup,
         destination: ride.template.destination,
         platform: action.platform,
-        brut: Number(brut.toFixed(2)),
-        commission,
-        net,
+        net: Number(action.netEntered.toFixed(2)),
         durationSec: ride.arrivedDurationSec ?? 1,
         completedAt: Date.now(),
       }
@@ -167,18 +163,15 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
       const ride = state.currentRide
       if (!ride) return state
       // Cancelled rides are tracked in todayRides for operator
-      // accountability (high cancel rate = problem driver). They don't
-      // contribute to brut/net — Cabs has no platform API to know if a
-      // cancellation fee was paid out, and the driver hasn't yet picked
-      // a platform here. We default platform to 'cash' as a placeholder
+      // accountability (high cancel rate = problem driver). Net is 0 —
+      // any cancellation fee paid by the platform shows up in the weekly
+      // export, not here. Platform defaults to 'cash' as a placeholder
       // that the UI ignores when `cancelled` is true.
       const cancelled: CompletedRide = {
         id: ride.id,
         pickup: ride.template.pickup,
         destination: ride.template.destination,
         platform: 'cash',
-        brut: 0,
-        commission: 0,
         net: 0,
         durationSec: Math.max(1, action.durationSec),
         completedAt: Date.now(),

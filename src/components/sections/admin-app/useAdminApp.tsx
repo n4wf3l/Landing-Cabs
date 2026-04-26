@@ -108,7 +108,15 @@ export function AdminAppProvider({
   )
   const [modal, setModal] = useState<ModalKind>(null)
   const [demoToast, setDemoToast] = useState<DemoToast | null>(null)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  // Sidebar starts collapsed below `lg` (≤1024 px): on a phone or narrow
+  // tablet the dashboard already fights for horizontal room, so the rail
+  // ships as the icon-only `w-12` strip. On desktop we ship it expanded
+  // because the page is wide enough that hiding the labels just hurts
+  // navigation discoverability for no gain.
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return !window.matchMedia('(min-width: 1024px)').matches
+  })
   const toastTimerRef = useRef<number | null>(null)
   const toastIdRef = useRef(0)
 

@@ -23,16 +23,10 @@ interface TripSheetRide {
   pickup: string
   destination: string
   platform: Platform
-  brut: number
-  commission: number
+  // Net the driver actually received — already deducted by the platform.
+  // Cabs doesn't break out commission course-by-course; that's reconciled
+  // operator-side against the platforms' weekly payout exports.
   net: number
-}
-
-const COMMISSION_RATES: Record<Platform, number> = {
-  uber: 0.25,
-  bolt: 0.18,
-  heetch: 0.22,
-  cash: 0,
 }
 
 const PLATFORM_LABELS: Record<Platform, string> = {
@@ -50,19 +44,20 @@ const PLATFORM_TONE: Record<Platform, string> = {
 }
 
 // A small ride pool to seed each shift with realistic Brussels routes.
-const RIDE_POOL: Omit<TripSheetRide, 'id' | 'commission' | 'net'>[] = [
-  { pickup: 'Place Flagey', destination: 'Gare du Midi', platform: 'uber', brut: 14.2 },
-  { pickup: 'Châtelain', destination: 'Schuman', platform: 'bolt', brut: 9.8 },
-  { pickup: 'Avenue Louise', destination: 'Brussels Airport', platform: 'uber', brut: 42.5 },
-  { pickup: 'Sablon', destination: 'Atomium', platform: 'heetch', brut: 16.4 },
-  { pickup: 'Gare Centrale', destination: 'Uccle', platform: 'cash', brut: 22.0 },
-  { pickup: 'Saint-Gilles', destination: 'Woluwe', platform: 'bolt', brut: 18.6 },
-  { pickup: 'Ixelles', destination: 'Etterbeek', platform: 'uber', brut: 8.4 },
-  { pickup: 'Anderlecht', destination: 'Grand-Place', platform: 'heetch', brut: 13.2 },
-  { pickup: 'Schuman', destination: 'Avenue Louise', platform: 'cash', brut: 11.5 },
-  { pickup: 'Gare du Nord', destination: 'Forest', platform: 'uber', brut: 19.8 },
-  { pickup: 'Place Sainte-Catherine', destination: 'Auderghem', platform: 'bolt', brut: 21.4 },
-  { pickup: 'Ixelles', destination: 'Watermael', platform: 'heetch', brut: 12.6 },
+// `net` is what the driver receives after the platform's commission.
+const RIDE_POOL: Omit<TripSheetRide, 'id'>[] = [
+  { pickup: 'Place Flagey', destination: 'Gare du Midi', platform: 'uber', net: 10.7 },
+  { pickup: 'Châtelain', destination: 'Schuman', platform: 'bolt', net: 7.9 },
+  { pickup: 'Avenue Louise', destination: 'Brussels Airport', platform: 'uber', net: 31.9 },
+  { pickup: 'Sablon', destination: 'Atomium', platform: 'heetch', net: 13.1 },
+  { pickup: 'Gare Centrale', destination: 'Uccle', platform: 'cash', net: 22.0 },
+  { pickup: 'Saint-Gilles', destination: 'Woluwe', platform: 'bolt', net: 14.9 },
+  { pickup: 'Ixelles', destination: 'Etterbeek', platform: 'uber', net: 6.3 },
+  { pickup: 'Anderlecht', destination: 'Grand-Place', platform: 'heetch', net: 10.6 },
+  { pickup: 'Schuman', destination: 'Avenue Louise', platform: 'cash', net: 11.5 },
+  { pickup: 'Gare du Nord', destination: 'Forest', platform: 'uber', net: 14.9 },
+  { pickup: 'Place Sainte-Catherine', destination: 'Auderghem', platform: 'bolt', net: 17.2 },
+  { pickup: 'Ixelles', destination: 'Watermael', platform: 'heetch', net: 10.1 },
 ]
 
 function rideFromTemplate(
@@ -70,16 +65,12 @@ function rideFromTemplate(
   templateIdx: number,
   template: (typeof RIDE_POOL)[number],
 ): TripSheetRide {
-  const commission = Number((template.brut * COMMISSION_RATES[template.platform]).toFixed(2))
-  const net = Number((template.brut - commission).toFixed(2))
   return {
     id: `${shiftId}-${templateIdx}`,
     pickup: template.pickup,
     destination: template.destination,
     platform: template.platform,
-    brut: template.brut,
-    commission,
-    net,
+    net: template.net,
   }
 }
 
@@ -134,12 +125,8 @@ function TripSheetContent({
   const { startKm, endKm } = buildKm(shift)
   const distance = endKm - startKm
   const totals = rides.reduce(
-    (acc, r) => ({
-      brut: acc.brut + r.brut,
-      commission: acc.commission + r.commission,
-      net: acc.net + r.net,
-    }),
-    { brut: 0, commission: 0, net: 0 },
+    (acc, r) => ({ net: acc.net + r.net }),
+    { net: 0 },
   )
   const isNightShift = shift.startedAt >= '18:00' || shift.endedAt <= '06:00'
   const ShiftIcon = isNightShift ? Moon : Sun
@@ -287,12 +274,6 @@ function TripSheetContent({
                     <th className="border-b border-border/40 px-3 py-1.5 text-left text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                       {t('admin.tripsheet.rides.route')}
                     </th>
-                    <th className="border-b border-border/40 px-2 py-1.5 text-right text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      {t('admin.tripsheet.rides.brut')}
-                    </th>
-                    <th className="border-b border-border/40 px-2 py-1.5 text-right text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      −%
-                    </th>
                     <th className="border-b border-border/40 px-3 py-1.5 text-right text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                       {t('admin.tripsheet.rides.net')}
                     </th>
@@ -316,12 +297,6 @@ function TripSheetContent({
                           {r.pickup} → {r.destination}
                         </p>
                       </td>
-                      <td className="border-b border-border/30 px-2 py-1.5 text-right font-mono tabular-nums">
-                        €{r.brut.toFixed(2)}
-                      </td>
-                      <td className="border-b border-border/30 px-2 py-1.5 text-right font-mono tabular-nums text-rose-400">
-                        −€{r.commission.toFixed(2)}
-                      </td>
                       <td className="border-b border-border/30 px-3 py-1.5 text-right font-mono font-bold tabular-nums text-emerald-300">
                         €{r.net.toFixed(2)}
                       </td>
@@ -330,13 +305,7 @@ function TripSheetContent({
                 </tbody>
               </table>
             </div>
-            <footer className="grid grid-cols-3 gap-2 border-t border-border/40 bg-background/60 px-3 py-2">
-              <Total label={t('admin.tripsheet.totals.brut')} value={totals.brut} />
-              <Total
-                label={t('admin.tripsheet.totals.commission')}
-                value={totals.commission}
-                tone="negative"
-              />
+            <footer className="flex items-center justify-end border-t border-border/40 bg-background/60 px-3 py-2">
               <Total
                 label={t('admin.tripsheet.totals.net')}
                 value={totals.net}

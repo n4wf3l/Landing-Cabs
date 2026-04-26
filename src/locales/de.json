@@ -449,8 +449,7 @@
       "vsPrev": "vs Vorperiode",
       "peakLabel": "Spitze",
       "bestPlatformLabel": "Top-Plattform",
-      "platformShare": "{{percent}}% vom Brutto",
-      "brutToNet": "Vom Brutto zum Netto",
+      "platformShare": "{{percent}}% vom Netto",
       "platformMix": "Plattform-Mix",
       "topDrivers": "Top-Fahrer",
       "topVehicles": "Top-Fahrzeuge",
@@ -460,7 +459,6 @@
       "bestDayHint": "Spitze am {{day}} — ein Fahrzeug mehr einplanen.",
       "bestHour": "Beste Tageszeit",
       "bestHourHint": "Spitze um {{hour}} Uhr — Schichtenden anpassen.",
-      "commissionsLine": "Plattform-Provisionen im Zeitraum: {{amount}}.",
       "export": {
         "label": "Exportieren",
         "toast": "{{format}}-Export ({{period}}) — beim öffentlichen Launch verfügbar."
@@ -639,13 +637,10 @@
         "title": "Fahrten der Schicht",
         "platform": "Plattform",
         "route": "Strecke",
-        "brut": "Brutto",
-        "net": "Netto"
+        "net": "Fahrer-Netto"
       },
       "totals": {
-        "brut": "Brutto gesamt",
-        "commission": "Provisionen",
-        "net": "Echtes Netto"
+        "net": "Netto gesamt"
       },
       "legalNote": "Konform mit ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) Vorgaben.",
       "print": "Drucken",
@@ -759,10 +754,8 @@
       "history": {
         "eyebrow": "Letzte 7 Tage",
         "title": "Verlauf",
-        "brut": "Brutto",
-        "brutShort": "brutto",
-        "commission": "Provision",
-        "net": "Netto",
+        "ridesTotal": "Fahrten gesamt",
+        "net": "Netto gesamt",
         "ridesCount": "{{count}} Fahrten",
         "ridesShort": "Fahrten"
       },
@@ -808,7 +801,6 @@
         "title": "Schicht aktiv",
         "runningFor": "Seit {{time}}",
         "ridesToday": "Fahrten",
-        "brutToday": "Brutto",
         "netToday": "Netto",
         "startRide": "Fahrt starten",
         "endShift": "Beenden",
@@ -828,12 +820,10 @@
         "destinationPending": "Ziel",
         "destinationDetectedAtEnd": "wird bei Fahrtende erkannt",
         "gpsFixesLabel": "GPS-Punkte",
-        "fareAtEndNote": "Cabs hat keine API-Anbindung an Uber/Bolt/Heetch. Sie geben den Tarif am Ende manuell ein."
+        "fareAtEndNote": "Am Ende geben Sie das Netto ein, das Sie tatsächlich erhalten (bereits nach Plattform-Provision)."
       },
       "rideSummary": {
         "title": "Fahrt abgeschlossen",
-        "brut": "Brutto",
-        "commission": "{{platform}}-Provision",
         "net": "Netto für Sie",
         "continue": "Weiter"
       },
@@ -842,9 +832,7 @@
         "duration": "{{min}} Min.",
         "rides": "{{count}} Fahrten",
         "cancelled": "{{count}} storniert",
-        "brut": "Brutto",
-        "commission": "Provision",
-        "net": "Netto",
+        "net": "Heutiges Netto",
         "byPlatform": "Nach Plattform",
         "distance": "Gefahrene Distanz",
         "backHome": "Zurück zum Start",
@@ -940,16 +928,16 @@
           "heetch": "Zugewiesene Heetch-Fahrt",
           "cash": "Auf der Straße angehalten"
         },
-        "fareLabel": {
-          "uber": "Angezeigter Uber-Tarif",
-          "bolt": "Angezeigter Bolt-Tarif",
-          "heetch": "Angezeigter Heetch-Tarif",
+        "netLabel": {
+          "uber": "Netto, das Sie erhalten",
+          "bolt": "Netto, das Sie erhalten",
+          "heetch": "Netto, das Sie erhalten",
           "cash": "Eingenommener Betrag"
         },
-        "fareHint": {
-          "uber": "Aus der Uber-Driver-App am Fahrtende abgelesen.",
-          "bolt": "Aus der Bolt-Driver-App am Fahrtende abgelesen.",
-          "heetch": "Aus der Heetch-Driver-App am Fahrtende abgelesen.",
+        "netHint": {
+          "uber": "Aus \"Ihre Einnahmen\" in der Uber-Driver-App am Fahrtende abgelesen.",
+          "bolt": "Aus \"Ihre Einnahmen\" in der Bolt-Driver-App am Fahrtende abgelesen.",
+          "heetch": "Aus \"Ihre Einnahmen\" in der Heetch-Driver-App am Fahrtende abgelesen.",
           "cash": "Was der Kunde tatsächlich bezahlt hat."
         },
         "confirm": "Fahrt speichern"

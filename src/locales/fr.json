@@ -449,8 +449,7 @@
       "vsPrev": "vs période précédente",
       "peakLabel": "Pic d'activité",
       "bestPlatformLabel": "Plateforme dominante",
-      "platformShare": "{{percent}}% du brut",
-      "brutToNet": "Du brut au net",
+      "platformShare": "{{percent}}% du net",
       "platformMix": "Mix plateforme",
       "topDrivers": "Top chauffeurs",
       "topVehicles": "Top véhicules",
@@ -460,7 +459,6 @@
       "bestDayHint": "Pic le {{day}} · planifier 1 véhicule de plus.",
       "bestHour": "Meilleure tranche horaire",
       "bestHourHint": "Pic à {{hour}}h · adapter les fins de shifts.",
-      "commissionsLine": "Commissions plateformes retenues sur la période : {{amount}}.",
       "export": {
         "label": "Exporter",
         "toast": "Export {{format}} ({{period}}) — disponible à la sortie publique."
@@ -639,13 +637,10 @@
         "title": "Courses du shift",
         "platform": "Plateforme",
         "route": "Trajet",
-        "brut": "Brut",
-        "net": "Net"
+        "net": "Net chauffeur"
       },
       "totals": {
-        "brut": "Brut total",
-        "commission": "Commissions",
-        "net": "Net réel"
+        "net": "Net total"
       },
       "legalNote": "Conforme aux obligations ATAS (BE) · VTC / Préfecture (FR) · TTO (NL).",
       "print": "Imprimer",
@@ -759,10 +754,8 @@
       "history": {
         "eyebrow": "7 derniers jours",
         "title": "Historique",
-        "brut": "Brut",
-        "brutShort": "brut",
-        "commission": "Commission",
-        "net": "Net",
+        "ridesTotal": "Total courses",
+        "net": "Net total",
         "ridesCount": "{{count}} courses",
         "ridesShort": "courses"
       },
@@ -808,7 +801,6 @@
         "title": "Shift en cours",
         "runningFor": "Depuis {{time}}",
         "ridesToday": "Courses",
-        "brutToday": "Brut",
         "netToday": "Net",
         "startRide": "Démarrer une course",
         "endShift": "Terminer",
@@ -828,12 +820,10 @@
         "destinationPending": "Arrivée",
         "destinationDetectedAtEnd": "détectée à la fin de course",
         "gpsFixesLabel": "Points GPS",
-        "fareAtEndNote": "Cabs ne lit pas l'app Uber/Bolt/Heetch. Vous saisirez le tarif manuellement à la fin."
+        "fareAtEndNote": "À la fin, vous saisissez le net que vous recevez (déjà après commission plateforme)."
       },
       "rideSummary": {
         "title": "Course terminée",
-        "brut": "Brut",
-        "commission": "Commission {{platform}}",
         "net": "Net pour vous",
         "continue": "Continuer"
       },
@@ -842,9 +832,7 @@
         "duration": "{{min}} min",
         "rides": "{{count}} courses",
         "cancelled": "{{count}} annulée(s)",
-        "brut": "Brut",
-        "commission": "Commission",
-        "net": "Net",
+        "net": "Net du jour",
         "byPlatform": "Par plateforme",
         "distance": "Distance parcourue",
         "backHome": "Retour à l'accueil",
@@ -940,17 +928,17 @@
           "heetch": "Course Heetch assignée",
           "cash": "Hélée dans la rue"
         },
-        "fareLabel": {
-          "uber": "Tarif Uber affiché",
-          "bolt": "Tarif Bolt affiché",
-          "heetch": "Tarif Heetch affiché",
+        "netLabel": {
+          "uber": "Net que vous recevez",
+          "bolt": "Net que vous recevez",
+          "heetch": "Net que vous recevez",
           "cash": "Montant encaissé"
         },
-        "fareHint": {
-          "uber": "Lu sur l'app Uber Driver à la fin de course.",
-          "bolt": "Lu sur l'app Bolt Driver à la fin de course.",
-          "heetch": "Lu sur l'app Heetch Driver à la fin de course.",
-          "cash": "Montant que le client a réellement payé."
+        "netHint": {
+          "uber": "Lu dans \"Vos gains\" sur l'app Uber Driver à la fin de course.",
+          "bolt": "Lu dans \"Vos gains\" sur l'app Bolt Driver à la fin de course.",
+          "heetch": "Lu dans \"Vos gains\" sur l'app Heetch Driver à la fin de course.",
+          "cash": "Montant que le client vous a réellement payé."
         },
         "confirm": "Enregistrer la course"
       },

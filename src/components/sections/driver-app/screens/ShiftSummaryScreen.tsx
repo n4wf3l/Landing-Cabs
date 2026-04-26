@@ -14,12 +14,8 @@ export function ShiftSummaryScreen() {
   const cancelledCount = state.todayRides.length - completedRides.length
 
   const totals = completedRides.reduce(
-    (acc, r) => ({
-      brut: acc.brut + r.brut,
-      commission: acc.commission + r.commission,
-      net: acc.net + r.net,
-    }),
-    { brut: 0, commission: 0, net: 0 },
+    (acc, r) => ({ net: acc.net + r.net }),
+    { net: 0 },
   )
 
   const byPlatform = completedRides.reduce<
@@ -82,21 +78,13 @@ export function ShiftSummaryScreen() {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 rounded-2xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
-        <Stat
-          label={t('driverApp.sim.shiftSummary.brut')}
-          value={totals.brut}
-        />
-        <Stat
-          label={t('driverApp.sim.shiftSummary.commission')}
-          value={totals.commission}
-          tone="negative"
-        />
-        <Stat
-          label={t('driverApp.sim.shiftSummary.net')}
-          value={totals.net}
-          tone="primary"
-        />
+      <div className="rounded-2xl bg-white/[0.04] p-4 text-center phone-light:bg-zinc-900/[0.04]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+          {t('driverApp.sim.shiftSummary.net')}
+        </p>
+        <p className="mt-1 text-3xl font-extrabold tabular-nums text-primary">
+          <Money value={totals.net} />
+        </p>
       </div>
 
       {distanceKm !== null && (
@@ -168,32 +156,3 @@ export function ShiftSummaryScreen() {
   )
 }
 
-function Stat({
-  label,
-  value,
-  tone,
-}: {
-  label: string
-  value: number
-  tone?: 'primary' | 'negative'
-}) {
-  return (
-    <div>
-      <p className="text-[10px] uppercase tracking-wider text-zinc-500">
-        {label}
-      </p>
-      <p
-        className={
-          'mt-0.5 text-sm font-bold tabular-nums ' +
-          (tone === 'primary'
-            ? 'text-primary'
-            : tone === 'negative'
-              ? 'text-rose-300 phone-light:text-rose-700'
-              : 'text-zinc-100 phone-light:text-zinc-900')
-        }
-      >
-        <Money value={value} />
-      </p>
-    </div>
-  )
-}

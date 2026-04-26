@@ -32,42 +32,22 @@ export function RideSummaryScreen() {
         </p>
       </div>
 
-      <div className="mt-5 space-y-2 rounded-2xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
-        <Row
-          label={t('driverApp.sim.rideSummary.brut')}
-          value={<Money value={ride.brut} />}
-        />
-        <Divider />
-        <Row
-          label={t('driverApp.sim.rideSummary.commission', {
-            platform: t(`driverApp.sim.platforms.${ride.platform}`),
-          })}
-          value={
-            <span className="text-rose-300 phone-light:text-rose-700">
-              −<Money value={ride.commission} />
-            </span>
-          }
-        />
-        <Divider />
-        <Row
-          label={t('driverApp.sim.rideSummary.net')}
-          value={
-            <span className="text-base font-extrabold text-primary">
-              <Money value={ride.net} />
-            </span>
-          }
-          strong
-        />
-      </div>
-
-      <div className="mt-3 flex items-center justify-center gap-2">
-        <PlatformBadge
-          platform={ride.platform}
-          label={t(`driverApp.sim.platforms.${ride.platform}`)}
-        />
-        <span className="text-[10px] text-zinc-500 tabular-nums">
-          {ride.durationSec}s
-        </span>
+      <div className="mt-5 flex flex-col items-center gap-2 rounded-2xl bg-white/[0.04] px-4 py-5 text-center phone-light:bg-zinc-900/[0.04]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+          {t('driverApp.sim.rideSummary.net')}
+        </p>
+        <p className="text-3xl font-extrabold tabular-nums text-primary">
+          <Money value={ride.net} />
+        </p>
+        <div className="mt-1 flex items-center gap-2">
+          <PlatformBadge
+            platform={ride.platform}
+            label={t(`driverApp.sim.platforms.${ride.platform}`)}
+          />
+          <span className="text-[10px] text-zinc-500 tabular-nums">
+            {ride.durationSec}s
+          </span>
+        </div>
       </div>
 
       <button
@@ -82,40 +62,3 @@ export function RideSummaryScreen() {
   )
 }
 
-function Row({
-  label,
-  value,
-  strong,
-}: {
-  label: string
-  value: React.ReactNode
-  strong?: boolean
-}) {
-  return (
-    <div className="flex items-center justify-between text-[12px]">
-      <span
-        className={
-          strong
-            ? 'font-semibold text-zinc-200 phone-light:text-zinc-800'
-            : 'text-zinc-400 phone-light:text-zinc-600'
-        }
-      >
-        {label}
-      </span>
-      <span
-        className={
-          'tabular-nums ' +
-          (strong
-            ? 'font-bold text-zinc-100 phone-light:text-zinc-900'
-            : 'font-semibold text-zinc-200 phone-light:text-zinc-800')
-        }
-      >
-        {value}
-      </span>
-    </div>
-  )
-}
-
-function Divider() {
-  return <div className="h-px w-full bg-white/[0.06] phone-light:bg-zinc-900/[0.08]" />
-}

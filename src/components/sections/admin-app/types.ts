@@ -30,7 +30,6 @@ export interface CompletedShift {
   endedAt: string
   durationMinutes: number
   rides: number
-  brut: number
   net: number
   vsAvgPercent: number
 }

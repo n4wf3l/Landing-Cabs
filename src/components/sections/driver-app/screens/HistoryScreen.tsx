@@ -20,16 +20,11 @@ export function HistoryScreen() {
         title={t('driverApp.sim.history.title')}
       />
 
-      <div className="grid grid-cols-3 gap-2 rounded-xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
+      <div className="grid grid-cols-2 gap-2 rounded-xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
         <Stat
-          label={t('driverApp.sim.history.brut')}
-          value={HISTORY_TOTALS.brut}
-          subdued
-        />
-        <Stat
-          label={t('driverApp.sim.history.commission')}
-          value={HISTORY_TOTALS.commission}
-          tone="negative"
+          label={t('driverApp.sim.history.ridesTotal')}
+          value={HISTORY_TOTALS.rides}
+          plain
         />
         <Stat label={t('driverApp.sim.history.net')} value={HISTORY_TOTALS.net} />
       </div>
@@ -78,17 +73,9 @@ export function HistoryScreen() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="text-right">
-                    <p className="text-sm font-semibold tabular-nums text-zinc-100 phone-light:text-zinc-900">
-                      <Money value={day.net} />
-                    </p>
-                    {!isOff && (
-                      <p className="text-[10px] text-zinc-500 tabular-nums">
-                        <Money value={day.brut} />{' '}
-                        {t('driverApp.sim.history.brutShort')}
-                      </p>
-                    )}
-                  </div>
+                  <p className="text-sm font-semibold tabular-nums text-zinc-100 phone-light:text-zinc-900">
+                    <Money value={day.net} />
+                  </p>
                   {!isOff && (
                     <ChevronDown
                       className={cn(
@@ -147,13 +134,11 @@ export function HistoryScreen() {
 function Stat({
   label,
   value,
-  tone,
-  subdued,
+  plain,
 }: {
   label: string
   value: number
-  tone?: 'negative'
-  subdued?: boolean
+  plain?: boolean
 }) {
   return (
     <div>
@@ -163,12 +148,12 @@ function Stat({
       <p
         className={cn(
           'mt-0.5 text-sm font-bold tabular-nums',
-          tone === 'negative' && 'text-rose-300 phone-light:text-rose-700',
-          subdued && 'text-zinc-300 phone-light:text-zinc-800',
-          !tone && !subdued && 'text-emerald-300 phone-light:text-emerald-700',
+          plain
+            ? 'text-zinc-100 phone-light:text-zinc-900'
+            : 'text-emerald-300 phone-light:text-emerald-700',
         )}
       >
-        <Money value={value} />
+        {plain ? value : <Money value={value} />}
       </p>
     </div>
   )

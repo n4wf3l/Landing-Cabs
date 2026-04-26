@@ -449,8 +449,7 @@
       "vsPrev": "vs vorige periode",
       "peakLabel": "Piek",
       "bestPlatformLabel": "Hoofd-platform",
-      "platformShare": "{{percent}}% van bruto",
-      "brutToNet": "Van bruto naar netto",
+      "platformShare": "{{percent}}% van netto",
       "platformMix": "Platform-mix",
       "topDrivers": "Top chauffeurs",
       "topVehicles": "Top voertuigen",
@@ -460,7 +459,6 @@
       "bestDayHint": "Piek op {{day}} — plan een extra voertuig in.",
       "bestHour": "Beste tijd van de dag",
       "bestHourHint": "Piek om {{hour}}u — pas de shift-einden aan.",
-      "commissionsLine": "Platform-commissies voor de periode: {{amount}}.",
       "export": {
         "label": "Exporteren",
         "toast": "{{format}}-export ({{period}}) — beschikbaar bij publieke lancering."
@@ -639,13 +637,10 @@
         "title": "Ritten van de shift",
         "platform": "Platform",
         "route": "Traject",
-        "brut": "Bruto",
-        "net": "Netto"
+        "net": "Netto chauffeur"
       },
       "totals": {
-        "brut": "Bruto totaal",
-        "commission": "Commissies",
-        "net": "Echte netto"
+        "net": "Netto totaal"
       },
       "legalNote": "Conform de ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) verplichtingen.",
       "print": "Afdrukken",
@@ -759,10 +754,8 @@
       "history": {
         "eyebrow": "Laatste 7 dagen",
         "title": "Historiek",
-        "brut": "Bruto",
-        "brutShort": "bruto",
-        "commission": "Commissie",
-        "net": "Netto",
+        "ridesTotal": "Totaal ritten",
+        "net": "Netto totaal",
         "ridesCount": "{{count}} ritten",
         "ridesShort": "ritten"
       },
@@ -808,7 +801,6 @@
         "title": "Shift bezig",
         "runningFor": "Sinds {{time}}",
         "ridesToday": "Ritten",
-        "brutToday": "Bruto",
         "netToday": "Netto",
         "startRide": "Rit starten",
         "endShift": "Beëindigen",
@@ -828,12 +820,10 @@
         "destinationPending": "Aankomst",
         "destinationDetectedAtEnd": "wordt aan het einde gedetecteerd",
         "gpsFixesLabel": "GPS-punten",
-        "fareAtEndNote": "Cabs heeft geen koppeling met Uber/Bolt/Heetch. Je voert het tarief handmatig in aan het einde."
+        "fareAtEndNote": "Aan het einde voer je het netto in dat je echt ontvangt (al na platform-commissie)."
       },
       "rideSummary": {
         "title": "Rit voltooid",
-        "brut": "Bruto",
-        "commission": "{{platform}}-commissie",
         "net": "Netto voor jou",
         "continue": "Verder"
       },
@@ -842,9 +832,7 @@
         "duration": "{{min}} min",
         "rides": "{{count}} ritten",
         "cancelled": "{{count}} geannuleerd",
-        "brut": "Bruto",
-        "commission": "Commissie",
-        "net": "Netto",
+        "net": "Netto van vandaag",
         "byPlatform": "Per platform",
         "distance": "Afgelegde afstand",
         "backHome": "Terug naar start",
@@ -940,16 +928,16 @@
           "heetch": "Toegewezen Heetch-rit",
           "cash": "Aangehouden op straat"
         },
-        "fareLabel": {
-          "uber": "Uber-tarief weergegeven",
-          "bolt": "Bolt-tarief weergegeven",
-          "heetch": "Heetch-tarief weergegeven",
+        "netLabel": {
+          "uber": "Netto dat je ontvangt",
+          "bolt": "Netto dat je ontvangt",
+          "heetch": "Netto dat je ontvangt",
           "cash": "Geïnd bedrag"
         },
-        "fareHint": {
-          "uber": "Afgelezen op de Uber Driver-app aan het einde.",
-          "bolt": "Afgelezen op de Bolt Driver-app aan het einde.",
-          "heetch": "Afgelezen op de Heetch Driver-app aan het einde.",
+        "netHint": {
+          "uber": "Afgelezen in \"Jouw verdiensten\" op de Uber Driver-app aan het einde.",
+          "bolt": "Afgelezen in \"Jouw verdiensten\" op de Bolt Driver-app aan het einde.",
+          "heetch": "Afgelezen in \"Jouw verdiensten\" op de Heetch Driver-app aan het einde.",
           "cash": "Wat de klant je daadwerkelijk heeft betaald."
         },
         "confirm": "Rit opslaan"

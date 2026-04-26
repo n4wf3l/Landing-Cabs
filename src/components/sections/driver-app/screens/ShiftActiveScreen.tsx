@@ -10,11 +10,8 @@ export function ShiftActiveScreen() {
   const elapsed = useShiftClock(state.shiftStartedAt)
 
   const totals = state.todayRides.reduce(
-    (acc, r) => ({
-      brut: acc.brut + r.brut,
-      net: acc.net + r.net,
-    }),
-    { brut: 0, net: 0 },
+    (acc, r) => ({ net: acc.net + r.net }),
+    { net: 0 },
   )
 
   const completedCount = state.todayRides.filter((r) => !r.cancelled).length
@@ -49,7 +46,7 @@ export function ShiftActiveScreen() {
         </button>
       </header>
 
-      <div className="grid grid-cols-3 gap-2 rounded-2xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
+      <div className="grid grid-cols-2 gap-2 rounded-2xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
         <Stat
           label={t('driverApp.sim.shift.ridesToday')}
           value={
@@ -57,11 +54,6 @@ export function ShiftActiveScreen() {
               ? `${completedCount} · ${cancelledCount} ✕`
               : completedCount.toString()
           }
-        />
-        <Stat
-          label={t('driverApp.sim.shift.brutToday')}
-          money={totals.brut}
-          tone="muted"
         />
         <Stat
           label={t('driverApp.sim.shift.netToday')}

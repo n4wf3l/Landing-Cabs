@@ -28,20 +28,20 @@ export function RideEndPickerScreen() {
   const ride = state.currentRide
 
   const [selected, setSelected] = useState<Platform | null>(null)
-  const [fare, setFare] = useState<string>('')
+  const [net, setNet] = useState<string>('')
 
   if (!ride) return null
 
-  const fareAmount = Number(fare.replace(',', '.'))
-  const fareValid = Number.isFinite(fareAmount) && fareAmount > 0
-  const canConfirm = selected !== null && fareValid
+  const netAmount = Number(net.replace(',', '.'))
+  const netValid = Number.isFinite(netAmount) && netAmount > 0
+  const canConfirm = selected !== null && netValid
 
   const handleConfirm = () => {
     if (!canConfirm || !selected) return
     dispatch({
       type: 'COMPLETE_RIDE',
       platform: selected,
-      fareEntered: Number(fareAmount.toFixed(2)),
+      netEntered: Number(netAmount.toFixed(2)),
     })
   }
 
@@ -145,15 +145,16 @@ export function RideEndPickerScreen() {
       </div>
 
       {/*
-        Manual fare entry — required for every platform. Cabs has no API
-        connection to Uber/Bolt/Heetch, so the only way to know what the
-        ride was actually paid is the driver typing it from the platform
-        app or the cash amount they collected. Label adapts per platform.
+        Manual NET entry — required for every platform. Cabs has no API
+        connection to Uber/Bolt/Heetch, and we don't pretend to compute
+        commission. The driver enters what they actually receive, read
+        from the platform's "your earnings" line at end of ride. Cash =
+        the bill the customer paid.
       */}
       <AnimatePresence initial={false}>
         {selected !== null && (
           <motion.div
-            key="fare-input"
+            key="net-input"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -163,21 +164,21 @@ export function RideEndPickerScreen() {
             <div className="mt-3 rounded-xl border border-amber-400/25 bg-amber-400/[0.05] p-3 phone-light:border-amber-500/35 phone-light:bg-amber-400/[0.1]">
               <p className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300 phone-light:text-amber-700">
                 <Banknote className="h-3 w-3" />
-                {t(`driverApp.sim.ridePicker.fareLabel.${selected}`)}
+                {t(`driverApp.sim.ridePicker.netLabel.${selected}`)}
               </p>
               <div className="relative mt-2">
                 <input
                   type="text"
                   inputMode="decimal"
                   autoFocus
-                  value={fare}
+                  value={net}
                   size={6}
                   onChange={(e) =>
-                    setFare(e.target.value.replace(/[^\d.,]/g, ''))
+                    setNet(e.target.value.replace(/[^\d.,]/g, ''))
                   }
                   placeholder="0,00"
                   className="w-full rounded-lg border border-white/[0.1] bg-zinc-950/40 py-2 pl-3 pr-7 text-lg font-bold tabular-nums text-white outline-none ring-amber-400/40 transition-shadow focus:ring-2 phone-light:border-zinc-900/[0.12] phone-light:bg-white phone-light:text-zinc-900"
-                  aria-label={t(`driverApp.sim.ridePicker.fareLabel.${selected}`)}
+                  aria-label={t(`driverApp.sim.ridePicker.netLabel.${selected}`)}
                 />
                 <span
                   aria-hidden
@@ -187,7 +188,7 @@ export function RideEndPickerScreen() {
                 </span>
               </div>
               <p className="mt-1.5 text-[10px] leading-snug text-zinc-500">
-                {t(`driverApp.sim.ridePicker.fareHint.${selected}`)}
+                {t(`driverApp.sim.ridePicker.netHint.${selected}`)}
               </p>
             </div>
           </motion.div>

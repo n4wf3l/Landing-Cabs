@@ -32,7 +32,6 @@ export interface RideTemplate {
   pickup: string
   destination: string
   platform: Platform
-  brut: number
   durationSec: number
 }
 
@@ -49,15 +48,14 @@ export interface CompletedRide {
   pickup: string
   destination: string
   platform: Platform
-  brut: number
-  commission: number
+  // What the driver actually receives — already net of platform commission
+  // and booking fees. Cabs only stores this number; commission breakdown is
+  // a platform-side concern reconciled later via weekly payout exports.
   net: number
   durationSec: number
   completedAt: number
-  // When true, the ride was cancelled rather than completed. Platform is
-  // unknown at cancellation time (Cabs has no platform API), so brut/
-  // commission/net are forced to 0 and `platform` carries a placeholder
-  // that callers should ignore. UI should branch on `cancelled`.
+  // When true, the ride was aborted before pickup. `platform` carries a
+  // placeholder that callers should ignore; UI branches on `cancelled`.
   cancelled?: boolean
   cancelReason?: CancelReason
 }
@@ -66,10 +64,8 @@ export interface HistoryDay {
   dayKey: 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'
   dateLabel: string
   rides: number
-  brut: number
-  commission: number
   net: number
-  byPlatform: Record<Platform, { brut: number; net: number; rides: number }>
+  byPlatform: Record<Platform, { net: number; rides: number }>
 }
 
 export interface PlanningPerson {
@@ -128,7 +124,7 @@ export type PhoneSimAction =
       type: 'ARRIVE_AT_DESTINATION'
       arrivedDurationSec: number
     }
-  | { type: 'COMPLETE_RIDE'; platform: Platform; fareEntered: number }
+  | { type: 'COMPLETE_RIDE'; platform: Platform; netEntered: number }
   | { type: 'CANCEL_RIDE'; reason: CancelReason; durationSec: number }
   | {
       type: 'SUBMIT_LEAVE_REQUEST'
@@ -141,9 +137,3 @@ export type PhoneSimAction =
   | { type: 'DISMISS_SPLASH' }
   | { type: 'RESET' }
 
-export const COMMISSION_RATES: Record<Platform, number> = {
-  uber: 0.25,
-  bolt: 0.18,
-  heetch: 0.22,
-  cash: 0,
-}

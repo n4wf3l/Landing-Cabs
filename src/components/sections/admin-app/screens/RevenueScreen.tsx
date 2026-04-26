@@ -21,7 +21,6 @@ interface PeriodData {
   current: number[]
   previous: number[]
   totalNet: number
-  totalBrut: number
   totalPrev: number
 }
 
@@ -29,7 +28,6 @@ interface PlatformShare {
   key: 'uber' | 'bolt' | 'heetch' | 'cash'
   label: string
   amount: number
-  rate: number // commission %
   color: string
 }
 
@@ -101,8 +99,6 @@ const YEAR_CURRENT = [
 ]
 const YEAR_PREVIOUS = YEAR_CURRENT.map((v) => Math.round(v * 0.88))
 
-// COMMISSION_RATES kept here for future use; the rates are also embedded
-// per-platform in `platformShares()` below.
 function sum(arr: number[]) {
   return arr.reduce((a, b) => a + b, 0)
 }
@@ -115,7 +111,6 @@ function getPeriodData(period: Period): PeriodData {
         current: DAY_CURRENT,
         previous: DAY_PREVIOUS,
         totalNet: sum(DAY_CURRENT),
-        totalBrut: Math.round(sum(DAY_CURRENT) * 1.27),
         totalPrev: sum(DAY_PREVIOUS),
       }
     case 'week':
@@ -124,7 +119,6 @@ function getPeriodData(period: Period): PeriodData {
         current: WEEK_CURRENT,
         previous: WEEK_PREVIOUS,
         totalNet: sum(WEEK_CURRENT),
-        totalBrut: Math.round(sum(WEEK_CURRENT) * 1.27),
         totalPrev: sum(WEEK_PREVIOUS),
       }
     case 'month':
@@ -133,7 +127,6 @@ function getPeriodData(period: Period): PeriodData {
         current: MONTH_CURRENT,
         previous: MONTH_PREVIOUS,
         totalNet: sum(MONTH_CURRENT),
-        totalBrut: Math.round(sum(MONTH_CURRENT) * 1.27),
         totalPrev: sum(MONTH_PREVIOUS),
       }
     case 'year':
@@ -142,44 +135,19 @@ function getPeriodData(period: Period): PeriodData {
         current: YEAR_CURRENT,
         previous: YEAR_PREVIOUS,
         totalNet: sum(YEAR_CURRENT),
-        totalBrut: Math.round(sum(YEAR_CURRENT) * 1.27),
         totalPrev: sum(YEAR_PREVIOUS),
       }
   }
 }
 
-function platformShares(totalBrut: number): PlatformShare[] {
-  // Approximate distribution typical for a Brussels mixed-fleet:
-  // Uber 45%, Bolt 25%, Heetch 18%, Cash 12%
+function platformShares(totalNet: number): PlatformShare[] {
+  // Approximate net distribution typical for a Brussels mixed-fleet:
+  // Uber 45%, Bolt 25%, Heetch 18%, Cash 12% (already net of platform fees).
   return [
-    {
-      key: 'uber',
-      label: 'Uber',
-      amount: totalBrut * 0.45,
-      rate: 25,
-      color: PALETTE.uber,
-    },
-    {
-      key: 'bolt',
-      label: 'Bolt',
-      amount: totalBrut * 0.25,
-      rate: 18,
-      color: PALETTE.bolt,
-    },
-    {
-      key: 'heetch',
-      label: 'Heetch',
-      amount: totalBrut * 0.18,
-      rate: 22,
-      color: PALETTE.heetch,
-    },
-    {
-      key: 'cash',
-      label: 'Cash',
-      amount: totalBrut * 0.12,
-      rate: 0,
-      color: PALETTE.cash,
-    },
+    { key: 'uber', label: 'Uber', amount: totalNet * 0.45, color: PALETTE.uber },
+    { key: 'bolt', label: 'Bolt', amount: totalNet * 0.25, color: PALETTE.bolt },
+    { key: 'heetch', label: 'Heetch', amount: totalNet * 0.18, color: PALETTE.heetch },
+    { key: 'cash', label: 'Cash', amount: totalNet * 0.12, color: PALETTE.cash },
   ]
 }
 
@@ -208,24 +176,24 @@ const TOP_DRIVERS_BY_PERIOD: Record<Period, NameAmount[]> = {
 
 const TOP_VEHICLES_BY_PERIOD: Record<Period, NameAmount[]> = {
   day: [
-    { initials: 'TJJ', name: 'TJJ-888 · Ford Puma', net: 480 },
-    { initials: 'BGK', name: 'BGK-939 · Toyota Prius', net: 410 },
-    { initials: '8EJ', name: '8EJ-999 · BMW Série 3', net: 372 },
+    { initials: 'XJJ', name: 'T-XJJ-888 · Ford Puma', net: 480 },
+    { initials: 'XGK', name: 'T-XGK-939 · Toyota Prius', net: 410 },
+    { initials: 'XEJ', name: 'T-XEJ-999 · BMW Série 3', net: 372 },
   ],
   week: [
-    { initials: 'TJJ', name: 'TJJ-888 · Ford Puma', net: 3_280 },
-    { initials: 'BGK', name: 'BGK-939 · Toyota Prius', net: 2_920 },
-    { initials: '8EJ', name: '8EJ-999 · BMW Série 3', net: 2_610 },
+    { initials: 'XJJ', name: 'T-XJJ-888 · Ford Puma', net: 3_280 },
+    { initials: 'XGK', name: 'T-XGK-939 · Toyota Prius', net: 2_920 },
+    { initials: 'XEJ', name: 'T-XEJ-999 · BMW Série 3', net: 2_610 },
   ],
   month: [
-    { initials: 'TJJ', name: 'TJJ-888 · Ford Puma', net: 13_950 },
-    { initials: 'BGK', name: 'BGK-939 · Toyota Prius', net: 12_410 },
-    { initials: '8EJ', name: '8EJ-999 · BMW Série 3', net: 11_080 },
+    { initials: 'XJJ', name: 'T-XJJ-888 · Ford Puma', net: 13_950 },
+    { initials: 'XGK', name: 'T-XGK-939 · Toyota Prius', net: 12_410 },
+    { initials: 'XEJ', name: 'T-XEJ-999 · BMW Série 3', net: 11_080 },
   ],
   year: [
-    { initials: 'TJJ', name: 'TJJ-888 · Ford Puma', net: 162_500 },
-    { initials: 'BGK', name: 'BGK-939 · Toyota Prius', net: 144_800 },
-    { initials: '8EJ', name: '8EJ-999 · BMW Série 3', net: 129_400 },
+    { initials: 'XJJ', name: 'T-XJJ-888 · Ford Puma', net: 162_500 },
+    { initials: 'XGK', name: 'T-XGK-939 · Toyota Prius', net: 144_800 },
+    { initials: 'XEJ', name: 'T-XEJ-999 · BMW Série 3', net: 129_400 },
   ],
 }
 
@@ -270,12 +238,8 @@ export function RevenueScreen() {
   const [period, setPeriod] = useState<Period>('week')
   const data = useMemo(() => getPeriodData(period), [period])
   const platforms = useMemo(
-    () => platformShares(data.totalBrut),
-    [data.totalBrut],
-  )
-  const totalCommission = platforms.reduce(
-    (acc, p) => acc + (p.amount * p.rate) / 100,
-    0,
+    () => platformShares(data.totalNet),
+    [data.totalNet],
   )
   const deltaPct = data.totalPrev
     ? Math.round(((data.totalNet - data.totalPrev) / data.totalPrev) * 100)
@@ -370,37 +334,33 @@ export function RevenueScreen() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-2 lg:grid-cols-3">
-        <div className="rounded-md border border-border/40 bg-background/40 p-3 lg:col-span-2">
-          <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            {t('admin.revenue.brutToNet')}
-          </h3>
-          <Waterfall brut={data.totalBrut} platforms={platforms} net={data.totalNet} />
-        </div>
-
+      <section>
         <div className="rounded-md border border-border/40 bg-background/40 p-3">
           <h3 className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             {t('admin.revenue.platformMix')}
           </h3>
-          <div className="mt-2 flex items-center gap-3">
+          <div className="mt-2 flex items-center gap-4">
             <Donut
               segments={platforms.map((p) => ({
                 value: p.amount,
                 color: p.color,
               }))}
-              size={72}
+              size={88}
             />
-            <ul className="min-w-0 flex-1 space-y-0.5 text-[10px]">
+            <ul className="min-w-0 flex-1 space-y-1 text-[11px]">
               {platforms.map((p) => {
-                const pct = Math.round((p.amount / data.totalBrut) * 100)
+                const pct = Math.round((p.amount / data.totalNet) * 100)
                 return (
-                  <li key={p.key} className="flex items-center gap-1.5">
+                  <li key={p.key} className="flex items-center gap-2">
                     <span
                       className="h-2 w-2 rounded-full"
                       style={{ background: p.color }}
                     />
                     <span className="font-medium">{p.label}</span>
-                    <span className="ml-auto font-mono text-muted-foreground tabular-nums">
+                    <span className="font-mono tabular-nums text-muted-foreground">
+                      {fmtEUR(p.amount)}
+                    </span>
+                    <span className="ml-auto font-mono tabular-nums text-muted-foreground">
                       {pct}%
                     </span>
                   </li>
@@ -464,12 +424,6 @@ export function RevenueScreen() {
         <BestDayBars />
         <BestHourBars current={DAY_CURRENT} />
       </section>
-
-      <p className="-mt-1 mb-1 px-1 text-[10px] text-muted-foreground/80">
-        {t('admin.revenue.commissionsLine', {
-          amount: fmtEUR(totalCommission),
-        })}
-      </p>
     </div>
   )
 }
@@ -667,97 +621,6 @@ function RevenueLineChart({
           </text>
         ))}
       </svg>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────
-// Brut → Net waterfall
-// ─────────────────────────────────────────────────────────
-function Waterfall({
-  brut,
-  platforms,
-  net,
-}: {
-  brut: number
-  platforms: PlatformShare[]
-  net: number
-}) {
-  const max = brut * 1.05
-  return (
-    <div className="mt-2 space-y-1.5">
-      <BarRow label="Brut" amount={brut} max={max} color="hsl(217 91% 60%)" />
-      {platforms
-        .filter((p) => p.rate > 0)
-        .map((p) => {
-          const cut = (p.amount * p.rate) / 100
-          return (
-            <BarRow
-              key={p.key}
-              label={`− ${p.label} ${p.rate}%`}
-              amount={cut}
-              max={max}
-              color="hsl(0 84% 60% / 0.6)"
-              negative
-            />
-          )
-        })}
-      <BarRow
-        label="Net réel"
-        amount={net}
-        max={max}
-        color="hsl(160 84% 39%)"
-        bold
-      />
-    </div>
-  )
-}
-
-function BarRow({
-  label,
-  amount,
-  max,
-  color,
-  negative,
-  bold,
-}: {
-  label: string
-  amount: number
-  max: number
-  color: string
-  negative?: boolean
-  bold?: boolean
-}) {
-  const pct = (amount / max) * 100
-  return (
-    <div className="flex items-center gap-2 text-[10px]">
-      <span
-        className={cn(
-          'w-[110px] shrink-0 truncate',
-          bold ? 'font-bold' : 'text-muted-foreground',
-        )}
-      >
-        {label}
-      </span>
-      <div className="relative h-2 min-w-0 flex-1 rounded-full bg-zinc-800/40">
-        <motion.div
-          className="h-full rounded-full"
-          style={{ background: color }}
-          initial={{ width: 0 }}
-          whileInView={{ width: `${pct}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
-      <span
-        className={cn(
-          'w-[64px] shrink-0 text-right font-mono tabular-nums',
-          negative ? 'text-rose-400' : bold ? 'text-emerald-300' : '',
-        )}
-      >
-        {negative ? '−' : ''}
-        {fmtEUR(amount)}
-      </span>
     </div>
   )
 }

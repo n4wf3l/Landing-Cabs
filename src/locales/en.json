@@ -449,8 +449,7 @@
       "vsPrev": "vs previous period",
       "peakLabel": "Peak",
       "bestPlatformLabel": "Top platform",
-      "platformShare": "{{percent}}% of gross",
-      "brutToNet": "Gross to net",
+      "platformShare": "{{percent}}% of net",
       "platformMix": "Platform mix",
       "topDrivers": "Top drivers",
       "topVehicles": "Top vehicles",
@@ -460,7 +459,6 @@
       "bestDayHint": "Peak on {{day}} — schedule one more vehicle.",
       "bestHour": "Best time of day",
       "bestHourHint": "Peak at {{hour}}h — adjust end-of-shift times.",
-      "commissionsLine": "Platform commissions for the period: {{amount}}.",
       "export": {
         "label": "Export",
         "toast": "{{format}} export ({{period}}) — available at public launch."
@@ -639,13 +637,10 @@
         "title": "Shift rides",
         "platform": "Platform",
         "route": "Route",
-        "brut": "Gross",
-        "net": "Net"
+        "net": "Driver net"
       },
       "totals": {
-        "brut": "Gross total",
-        "commission": "Commissions",
-        "net": "Real net"
+        "net": "Net total"
       },
       "legalNote": "Compliant with ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) obligations.",
       "print": "Print",
@@ -759,10 +754,8 @@
       "history": {
         "eyebrow": "Last 7 days",
         "title": "History",
-        "brut": "Gross",
-        "brutShort": "gross",
-        "commission": "Commission",
-        "net": "Net",
+        "ridesTotal": "Total rides",
+        "net": "Net total",
         "ridesCount": "{{count}} rides",
         "ridesShort": "rides"
       },
@@ -808,7 +801,6 @@
         "title": "Shift active",
         "runningFor": "Running for {{time}}",
         "ridesToday": "Rides",
-        "brutToday": "Gross",
         "netToday": "Net",
         "startRide": "Start a ride",
         "endShift": "End",
@@ -828,12 +820,10 @@
         "destinationPending": "Destination",
         "destinationDetectedAtEnd": "detected when ride ends",
         "gpsFixesLabel": "GPS fixes",
-        "fareAtEndNote": "Cabs has no API into Uber/Bolt/Heetch. You'll enter the fare manually at the end."
+        "fareAtEndNote": "At the end you'll enter the net you actually receive (already after platform commission)."
       },
       "rideSummary": {
         "title": "Ride completed",
-        "brut": "Gross",
-        "commission": "{{platform}} commission",
         "net": "Net for you",
         "continue": "Continue"
       },
@@ -842,9 +832,7 @@
         "duration": "{{min}} min",
         "rides": "{{count}} rides",
         "cancelled": "{{count}} cancelled",
-        "brut": "Gross",
-        "commission": "Commission",
-        "net": "Net",
+        "net": "Today's net",
         "byPlatform": "By platform",
         "distance": "Distance driven",
         "backHome": "Back to home",
@@ -940,16 +928,16 @@
           "heetch": "Assigned Heetch ride",
           "cash": "Hailed off the street"
         },
-        "fareLabel": {
-          "uber": "Uber fare shown",
-          "bolt": "Bolt fare shown",
-          "heetch": "Heetch fare shown",
+        "netLabel": {
+          "uber": "Net you receive",
+          "bolt": "Net you receive",
+          "heetch": "Net you receive",
           "cash": "Amount collected"
         },
-        "fareHint": {
-          "uber": "Read from the Uber Driver app at end of ride.",
-          "bolt": "Read from the Bolt Driver app at end of ride.",
-          "heetch": "Read from the Heetch Driver app at end of ride.",
+        "netHint": {
+          "uber": "Read from \"Your earnings\" in the Uber Driver app at end of ride.",
+          "bolt": "Read from \"Your earnings\" in the Bolt Driver app at end of ride.",
+          "heetch": "Read from \"Your earnings\" in the Heetch Driver app at end of ride.",
           "cash": "What the customer actually paid you."
         },
         "confirm": "Save the ride"
