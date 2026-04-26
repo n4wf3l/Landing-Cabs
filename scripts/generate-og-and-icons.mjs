@@ -1,5 +1,5 @@
 // Generates the OG social-card (1200x630) and PNG favicons from
-// public/logocabs.png. Run with `node scripts/generate-og-and-icons.mjs`.
+// public/tlogo_black.png. Run with `node scripts/generate-og-and-icons.mjs`.
 // Outputs:
 //   public/og.png                 — 1200x630, used by og:image / twitter:image
 //   public/favicon-32.png         — 32x32 fallback for legacy browsers
@@ -12,7 +12,7 @@ import { dirname, resolve } from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const PUBLIC = resolve(__dirname, '..', 'public')
-const LOGO = resolve(PUBLIC, 'logocabs.png')
+const LOGO = resolve(PUBLIC, 'tlogo_black.png')
 
 // ── OG card ──────────────────────────────────────────────────────────────
 // 1200×630 dark zinc card with amber gradient accents. Mirrors the marketing
@@ -98,7 +98,7 @@ writeFileSync(resolve(PUBLIC, 'og.png'), ogBuffer)
 console.log(`[og] wrote public/og.png (${(ogBuffer.length / 1024).toFixed(1)} KB)`)
 
 // ── Favicon 32×32 ────────────────────────────────────────────────────────
-console.log('[fav] rendering 32×32 favicon from logocabs.png…')
+console.log('[fav] rendering 32×32 favicon from tlogo_black.png…')
 const fav32 = await sharp(LOGO)
   .resize(32, 32, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
   .png({ compressionLevel: 9 })
@@ -107,7 +107,7 @@ writeFileSync(resolve(PUBLIC, 'favicon-32.png'), fav32)
 console.log(`[fav] wrote public/favicon-32.png (${(fav32.length / 1024).toFixed(1)} KB)`)
 
 // ── Apple touch icon 180×180 ─────────────────────────────────────────────
-console.log('[apple] rendering 180×180 apple-touch-icon from logocabs.png…')
+console.log('[apple] rendering 180×180 apple-touch-icon from tlogo_black.png…')
 const apple = await sharp(LOGO)
   .resize(180, 180, { fit: 'contain', background: { r: 24, g: 24, b: 27, alpha: 1 } })
   .png({ compressionLevel: 9 })
