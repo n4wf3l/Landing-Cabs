@@ -14,7 +14,8 @@
     "changedToast": "Sprache auf Deutsch gestellt"
   },
   "nav": {
-    "product": "Produkt",
+    "admin": "Betreiber",
+    "app": "Fahrer",
     "team": "Team",
     "contact": "Kontakt",
     "openMenu": "Menü öffnen",
@@ -24,11 +25,62 @@
     "notifyCta": "Benachrichtigen"
   },
   "hero": {
-    "eyebrow": "Private Beta · Brüssel",
-    "comingSoon": "Öffentlicher Launch: September 2026",
-    "title": "Ihre Fahrten auf Uber, Bolt und Heetch, konsolidiert. Ihre Kommissionen, berechnet.",
-    "subtitle": "Cabs vereint Ihre Ride-Hailing-Plattformen und Ihre Bareinnahmen in einem einzigen Dashboard. Sie sehen den Bruttoumsatz, die Plattformkommissionen und den tatsächlichen Nettowert. Ohne Tabelle, ohne manuelle Berechnung.",
-    "trialNote": "Eine einzige E-Mail zum Launch. Kein Spam."
+    "eyebrow": "Private Beta · Brüssel · Launch September 2026",
+    "title": "Ihre Fahrer, Ihre Fahrzeuge, Ihre Einnahmen. Ein Tool, zwei Seiten.",
+    "subtitle": "Ein Dashboard für Sie. Eine App für Ihre Fahrer. Ohne Tabelle, ohne Handrechnerei.",
+    "scrollHint": "Produkt ansehen"
+  },
+  "ticker": {
+    "keyboardHint": "zum Navigieren",
+    "tabs": {
+      "revenue": "Einnahmen",
+      "planning": "Planung",
+      "fleet": "Flotte",
+      "tracking": "Karte",
+      "drivers": "Team",
+      "driverApp": "Fahrer-App"
+    },
+    "revenue": {
+      "title": "Konsolidierte Einnahmen",
+      "platform": "Uber",
+      "gross": "Brutto",
+      "commission": "Kommission",
+      "net": "Echtes Netto"
+    },
+    "planning": {
+      "title": "Planung · Diese Woche",
+      "weekDays": "M,D,M,D,F,S,S",
+      "day": "Tag",
+      "night": "Nacht",
+      "summary": "{{assigned}} zugewiesen · {{conflicts}} Konflikt"
+    },
+    "fleet": {
+      "title": "Flotte · {{count}} Fahrzeuge",
+      "inService": "Im Einsatz",
+      "maintenance": "Wartung",
+      "repair": "Reparatur",
+      "archived": "Archiviert"
+    },
+    "tracking": {
+      "title": "Echtzeit-Karte · Brüssel",
+      "available": "Verfügbar",
+      "inRide": "In Fahrt",
+      "live": "Live"
+    },
+    "drivers": {
+      "title": "Team · {{count}} Fahrer",
+      "active": "Aktiv",
+      "leave": "Im Urlaub",
+      "sick": "Krank",
+      "suspended": "Suspendiert"
+    },
+    "driverApp": {
+      "title": "Fahrer-App · iOS & Android",
+      "dayShift": "Tagschicht",
+      "rides": "Fahrten heute",
+      "netToday": "Netto heute",
+      "vsYesterday": "vs gestern"
+    }
   },
   "notify": {
     "cta": "Benachrichtigen",
@@ -80,47 +132,752 @@
     }
   },
   "showcase": {
+    "eyebrow": "01 · Betreiberseite",
     "title": "Ein Dashboard. Alles, was zählt.",
     "subtitle": "Die drei Bildschirme, die Ihre Betreiber täglich nutzen.",
-    "tabs": {
-      "dashboard": {
-        "label": "Dashboard",
-        "alt": "Vorschau des Cabs-Dashboards",
-        "caption": "Überblick : aktive Fahrer, Fahrzeuge unterwegs, Monatsumsatz."
+    "interactiveHint": "Klicken Sie in der Seitenleiste, um jeden Bildschirm zu erkunden."
+  },
+  "pains": {
+    "eyebrow": "Der heutige Alltag",
+    "title": "Erkennen Sie Ihren Sonntagabend wieder?",
+    "subtitle": "Wenn auch nur einer dieser Sätze Sie trifft, dann ist Cabs für Sie gemacht.",
+    "items": {
+      "excel": {
+        "title": "Excel mit 8 Tabs, das beim Kopieren bricht",
+        "description": "Ein Tab pro Fahrer, kaputte Formeln, niemand weiß, wer was geändert hat."
       },
-      "vehicles": {
-        "label": "Fahrzeuge",
-        "alt": "Vorschau der Fahrzeugverwaltung",
-        "caption": "Jedes Fahrzeug : Status, Wartung, Tag/Nacht-Fahrer, Spezifikationen."
+      "paper": {
+        "title": "Papier-Fahrtenblätter in jedem Auto",
+        "description": "Verlaufene Tinte, Korrekturen, unscharfes Foto um 23 Uhr. Am nächsten Tag alles neu tippen."
       },
-      "drivers": {
-        "label": "Fahrer",
-        "alt": "Vorschau der Fahrerverwaltung",
-        "caption": "Profile, Kontakt, Status, schnelle Aktionen. Alles an einem Ort."
+      "whatsapp": {
+        "title": "Ticket-Fotos chaotisch per WhatsApp",
+        "description": "12 Fahrer, 60 Fotos pro Woche, am Sonntagabend zu entziffern."
+      },
+      "clockin": {
+        "title": "Kein Nachweis der Schichtstartzeit",
+        "description": "Er sollte um 6 Uhr starten. Er sagt, er hat um 6 Uhr gestartet. Keinerlei Beweis."
+      },
+      "location": {
+        "title": "« Wo bist du? » alle 30 Minuten per Anruf",
+        "description": "Keine Geolokalisierung, keine Sicht darauf, wer auf Fahrt ist, wer pausiert, wer zuhause ist."
+      },
+      "reconciliation": {
+        "title": "Uber × Bolt × Heetch manuell abgleichen",
+        "description": "3 Monate später erfahren Sie, dass die Bolt-Provision geändert hat. Zu spät."
+      }
+    },
+    "bridge": "Cabs schaltet alle 6 ab.",
+    "bridgeCta": "Sehen Sie wie →"
+  },
+  "roi": {
+    "eyebrow": "Berechnen Sie Ihren ROI",
+    "title": "Wie viel Zeit spart Cabs Ihnen?",
+    "subtitle": "Bewegen Sie die Regler entsprechend Ihrer Flotte. Die Zahlen aktualisieren sich live.",
+    "header": "Simulation für Ihr Unternehmen",
+    "inputs": {
+      "vehicles": "Fahrzeuge",
+      "drivers": "Fahrer"
+    },
+    "metrics": {
+      "hoursWeek": "Eingesparte Stunden",
+      "hoursWeekHint": "Pro Woche, an Fahrzeug- und Fahreradmin",
+      "daysMonth": "Tage pro Monat",
+      "daysMonthHint": "Bei Arbeitstagen von 8 Std",
+      "eurMonth": "Wiedergewonnene Fehler",
+      "eurMonthHint": "Falsch berechnete Plattformprovisionen pro Monat",
+      "errorsMonth": "Erkannte Anomalien",
+      "errorsMonthHint": "Fehlende Tickets, Stundenabweichungen usw."
+    },
+    "disclaimer": "Konservative Schätzungen, basierend auf in der belgischen Taxibranche beobachteten Praktiken (0,5 Std/Woche pro Fahrzeug, 1,5 Std/Woche pro Fahrer, 18 €/Monat Provisionsfehler pro Fahrer). Variiert je nach Ihrer aktuellen Organisation."
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "vehicles": "Fahrzeuge",
+      "drivers": "Fahrer",
+      "shifts": "Schichten",
+      "tripsheets": "Fahrtenblätter",
+      "map": "Karte",
+      "revenue": "Kassenbericht",
+      "planning": "Planung",
+      "settings": "Einstellungen",
+      "logout": "Abmelden",
+      "collapse": "Seitenleiste einklappen",
+      "expand": "Seitenleiste ausklappen"
+    },
+    "topbar": {
+      "search": "Suchen",
+      "feedback": "Feedback",
+      "guide": "Anleitung"
+    },
+    "titles": {
+      "dashboard": "Dashboard",
+      "vehicles": "Fahrzeugverwaltung",
+      "drivers": "Fahrerverwaltung",
+      "shifts": "Schichten verfolgen",
+      "tripsheets": "Fahrtenblätter",
+      "map": "Live-Karte",
+      "revenue": "Kassenbericht",
+      "planning": "Wochenplan",
+      "settings": "Einstellungen"
+    },
+    "kpi": {
+      "activeDrivers": "Aktive Fahrer",
+      "vehiclesOnRoad": "Fahrzeuge unterwegs",
+      "revenue": "Umsatz",
+      "totalVehicles": "Gesamtflotte",
+      "inService": "Im Einsatz",
+      "maintenance": "Wartung",
+      "repair": "Reparatur",
+      "totalDrivers": "Gesamtfahrer",
+      "onLeave": "Im Urlaub",
+      "gross": "Brutto · 7 Tage",
+      "platformCommissions": "Plattform-Kommissionen",
+      "realNet": "Echtes Netto"
+    },
+    "trends": {
+      "thisWeek": "+2 diese Woche",
+      "fleetShare": "{{percent}}% der Flotte",
+      "monthGain": "+15% diesen Monat",
+      "vsGross": "{{percent}}% vom Brutto",
+      "afterCommission": "Nach Kommissionen"
+    },
+    "dashboard": {
+      "shiftStart": "Start · {{time}}",
+      "shiftsToday": "Schichten heute",
+      "hoursTotal": "{{count}} Std"
+    },
+    "vehicles": {
+      "filters": {
+        "all": "Alle",
+        "inService": "Im Einsatz",
+        "maintenance": "Wartung",
+        "repair": "Reparatur"
+      },
+      "buttons": {
+        "filters": "Filter",
+        "new": "Neues Fahrzeug"
+      },
+      "table": {
+        "plate": "Kennzeichen",
+        "model": "Modell",
+        "day": "Tag",
+        "night": "Nacht",
+        "status": "Status",
+        "transmission": "Getriebe",
+        "actions": "Aktionen"
+      },
+      "status": {
+        "good": "Guter Zustand",
+        "in_service": "Im Einsatz",
+        "maintenance": "In Wartung",
+        "repair": "In Reparatur",
+        "off": "Außer Betrieb"
+      }
+    },
+    "addVehicle": {
+      "title": "Neues Fahrzeug",
+      "subtitle": "Fügen Sie ein Fahrzeug zur Flotte hinzu, kompatibel mit der Back-Office-API.",
+      "save": "Speichern",
+      "sections": {
+        "identification": "Identifikation",
+        "mechanics": "Mechanik",
+        "state": "Zustand"
+      },
+      "fields": {
+        "licensePlate": "Kennzeichen",
+        "brand": "Marke",
+        "model": "Modell",
+        "transmission": "Getriebe",
+        "odometerKm": "Kilometerstand",
+        "state": "Zustand",
+        "condition": "Zustandsnotiz",
+        "conditionPlaceholder": "Z. B. Neulieferung.",
+        "available": "Verfügbar",
+        "activeInShift": "Aktiv in Schicht"
+      },
+      "transmission": {
+        "MANUAL": "Schaltgetriebe",
+        "AUTOMATIC": "Automatik"
+      },
+      "state": {
+        "IN_SERVICE": "Im Einsatz",
+        "GOOD_CONDITION": "Guter Zustand",
+        "MAINTENANCE": "In Wartung",
+        "REPAIR": "In Reparatur",
+        "OUT_OF_SERVICE": "Außer Betrieb"
+      },
+      "success": {
+        "title": "Fahrzeug hinzugefügt",
+        "subtitle": "{{plate}} · {{model}} steht jetzt oben in Ihrer Flotte."
+      }
+    },
+    "drivers": {
+      "table": {
+        "name": "Name",
+        "email": "E-Mail",
+        "phone": "Telefon",
+        "address": "Adresse",
+        "payments": "Zahlungen",
+        "status": "Status",
+        "actions": "Aktionen"
+      },
+      "status": {
+        "active": "Aktiv",
+        "leave": "Im Urlaub",
+        "sick": "Krank",
+        "inactive": "Inaktiv"
+      },
+      "payments": {
+        "enabled": "Aktiviert",
+        "disabled": "Deaktiviert"
+      },
+      "newDriver": "Neuer Fahrer",
+      "newBadge": "Neu",
+      "tableHint": "{{count}} Fahrer angezeigt"
+    },
+    "addDriver": {
+      "title": "Neuer Fahrer",
+      "subtitle": "Vollständiges Profil anlegen, kompatibel mit Ihrem Back-Office.",
+      "toggleJson": "JSON anzeigen",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "footerHint": "Lokal gespeichert für die Demo.",
+      "sections": {
+        "identity": "Identität",
+        "address": "Adresse",
+        "legal": "Rechtliches",
+        "bank": "Bankdaten",
+        "work": "Arbeit",
+        "payments": "Zahlungen"
+      },
+      "fields": {
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "dateOfBirth": "Geburtsdatum",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "street": "Straße",
+        "addressNumber": "Nummer",
+        "box": "Box",
+        "postalCode": "PLZ",
+        "city": "Stadt",
+        "nationality": "Nationalität",
+        "issuingCountry": "Ausstellungsland",
+        "nationalId": "Personalausweis",
+        "startDate": "Eintrittsdatum",
+        "iban": "IBAN",
+        "workFormula": "Vergütungsmodell",
+        "preferredShift": "Bevorzugte Schicht",
+        "workdays": "Arbeitstage",
+        "flexWorker": "Flexarbeiter (gelegentlicher Selbstständigenstatus)",
+        "extraInfo": "Notizen",
+        "extraInfoPlaceholder": "Z. B. Kennt das Zentrum und den Flughafen gut."
+      },
+      "workFormula": {
+        "FIFTY_FIFTY": "50 / 50",
+        "FLAT_RATE": "Pauschal",
+        "RENTAL": "Miete"
+      },
+      "shift": {
+        "DAY": "Tag",
+        "NIGHT": "Nacht",
+        "FLEXIBLE": "Flexibel"
+      },
+      "weekday": {
+        "MONDAY": "M",
+        "TUESDAY": "D",
+        "WEDNESDAY": "M",
+        "THURSDAY": "D",
+        "FRIDAY": "F",
+        "SATURDAY": "S",
+        "SUNDAY": "S"
+      },
+      "payment": {
+        "CASH": "Bar",
+        "CARD": "Karte",
+        "UBER_APP": "Uber-App",
+        "BOLT_CARD": "Bolt-Karte",
+        "HEETCH_APP": "Heetch-App",
+        "TAXIVERT": "TaxiVert"
+      },
+      "success": {
+        "title": "Fahrer hinzugefügt",
+        "subtitle": "{{name}} wurde angelegt und erscheint oben in Ihrer Liste."
+      }
+    },
+    "map": {
+      "live": "Live",
+      "summary": "{{available}} verfügbar · {{onRide}} in Fahrt · Brüssel",
+      "available": "Verfügbar",
+      "onRide": "In Fahrt",
+      "preview": "Mock-Vorschau",
+      "previewNotice": "Handcodierte Vorschau für die Demo. Die Produktivversion nutzt die Mapbox-API (interaktive 3D-Karte, Satellitenebene, Echtzeit-Navigation)."
+    },
+    "revenue": {
+      "title": "Kassenbericht",
+      "subtitle": "Wann das Geld reinkommt und wohin es geht.",
+      "byPlatform": "Aufteilung nach Plattform",
+      "deductedCommissions": "Einbehaltene Kommissionen",
+      "weekDays": "M,D,M,D,F,S,S",
+      "periods": {
+        "day": "Tag",
+        "week": "Woche",
+        "month": "Monat",
+        "year": "Jahr"
+      },
+      "netReal": "Echtes Netto · {{period}}",
+      "vsPrev": "vs Vorperiode",
+      "peakLabel": "Spitze",
+      "bestPlatformLabel": "Top-Plattform",
+      "platformShare": "{{percent}}% vom Brutto",
+      "brutToNet": "Vom Brutto zum Netto",
+      "platformMix": "Plattform-Mix",
+      "topDrivers": "Top-Fahrer",
+      "topVehicles": "Top-Fahrzeuge",
+      "cashflow": "Kommende Auszahlungen",
+      "cashflowTotal": "Eingang gesamt",
+      "bestDay": "Bester Wochentag",
+      "bestDayHint": "Spitze am {{day}} — ein Fahrzeug mehr einplanen.",
+      "bestHour": "Beste Tageszeit",
+      "bestHourHint": "Spitze um {{hour}} Uhr — Schichtenden anpassen.",
+      "commissionsLine": "Plattform-Provisionen im Zeitraum: {{amount}}.",
+      "export": {
+        "label": "Exportieren",
+        "toast": "{{format}}-Export ({{period}}) — beim öffentlichen Launch verfügbar."
+      }
+    },
+    "placeholder": {
+      "default": "Dieser Bereich wird beim öffentlichen Launch verfügbar sein. Er wird gerade mit unseren Beta-Betreibern fertiggestellt.",
+      "comingSoon": "September 2026"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "subtitle": "Konfiguration Ihrer Flotte und Ihres Unternehmens.",
+      "unsaved": "Nicht gespeicherte Änderungen",
+      "pendingValidation": "{{n}} in Validierung",
+      "actions": {
+        "save": "Speichern",
+        "cancel": "Abbrechen"
+      },
+      "company": {
+        "title": "Unternehmen",
+        "name": "Firmenname",
+        "vat": "USt-IdNr.",
+        "address": "Firmensitz",
+        "logo": "Logo",
+        "uploadLogo": "Logo hochladen"
+      },
+      "platforms": {
+        "title": "Plattformen & Provisionen",
+        "helper": "Bei Fahreranlage angezeigt",
+        "warning": "Eingegebene Prozente werden binnen 48 Stunden anhand der offiziellen Bedingungen jeder Plattform doppelt geprüft. Nur freigegebene Provisionen fließen in die Netto-Berechnung ein.",
+        "status": {
+          "approved": "Freigegeben",
+          "pending": "In Prüfung",
+          "disabled": "Deaktiviert",
+          "fixed": "Fix"
+        }
+      },
+      "costs": {
+        "title": "Betriebskosten",
+        "description": "Bestimmen Sie, wie laufende Kosten zwischen Unternehmen und Fahrer aufgeteilt werden.",
+        "lockedBadge": "Sept 2026",
+        "lockedToast": "Kostenaufteilung : beim öffentlichen Launch verfügbar.",
+        "carwash": "Autowäsche",
+        "fuel": "Kraftstoff",
+        "split50": "50/50",
+        "driverFull": "100% Fahrer"
+      },
+      "defaults": {
+        "title": "Standardeinstellungen",
+        "formula": "Standardformel",
+        "formulas": {
+          "FIFTY_FIFTY": "50/50",
+          "FLAT_RATE": "Pauschal",
+          "RENTAL": "Miete"
+        },
+        "dayShift": "Tagschicht",
+        "nightShift": "Nachtschicht"
+      },
+      "toast": {
+        "saved": "Einstellungen gespeichert. Auto-Validierung binnen 48 Stunden.",
+        "reset": "Änderungen verworfen."
+      }
+    },
+    "planning": {
+      "title": "Wochenplan",
+      "subtitle": "Fahrer-Fahrzeug-Zuweisung pro Tag und Schicht.",
+      "vehicle": "Fahrzeug",
+      "assigned": "{{n}}/{{total}} Slots zugewiesen",
+      "holes": "{{n}} zu besetzen",
+      "prev": "Vorige Woche",
+      "next": "Nächste Woche",
+      "todayCta": "Diese Woche",
+      "thisWeek": "Diese Woche",
+      "lastWeek": "Letzte Woche",
+      "nextWeek": "Nächste Woche",
+      "readonly": "Verlauf",
+      "locked": "Laufend",
+      "autoPlan": "Auto-planen",
+      "assigning": "Fahrer wählen",
+      "clear": "Leeren",
+      "cancel": "Abbrechen",
+      "shift": {
+        "day": "Tag",
+        "night": "Nacht"
+      },
+      "toast": {
+        "assigned": "{{driver}} zugewiesen · {{plate}} · {{day}} {{shift}}",
+        "cleared": "Slot geleert · {{plate}} · {{day}} {{shift}}",
+        "autoPlanned": "{{n}} Slots automatisch geplant",
+        "alreadyFull": "Die Woche ist bereits voll"
+      },
+      "days": {
+        "mon": "Mo",
+        "tue": "Di",
+        "wed": "Mi",
+        "thu": "Do",
+        "fri": "Fr",
+        "sat": "Sa",
+        "sun": "So"
+      }
+    },
+    "demoToast": {
+      "actionLocked": "„{{action}}\" — beim Launch verfügbar",
+      "subtitle": "Diese Aktion ist in der Demo deaktiviert. Öffentlicher Launch im September 2026.",
+      "actions": {
+        "view": "Details ansehen",
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "notifications": "Benachrichtigungen",
+        "profile": "Profil"
+      }
+    },
+    "demoStart": {
+      "eyebrow": "Cabs · Betreiberseite",
+      "title": "Die Kommandozentrale Ihrer Flotte",
+      "subtitle": "Alles, um Fahrer, Fahrzeuge und Einnahmen an einem Ort zu steuern.",
+      "cta": "Demo starten",
+      "note": "Interaktive Demo · Fiktive Daten · Klicken Sie in die Seitenleiste, um zu erkunden.",
+      "highlights": {
+        "fleet": "Flotte",
+        "drivers": "Fahrer",
+        "map": "Live-Karte",
+        "revenue": "Kassenbericht"
+      }
+    },
+    "reset": {
+      "cta": "Demo zurücksetzen",
+      "hint": "Setzt nur diesen Simulator zurück (Fahrer, Fahrzeuge, Bildschirm). Hat keinen Einfluss auf den Rest der Website."
+    },
+    "shifts": {
+      "kpi": {
+        "activeNow": "Laufende Schichten",
+        "liveTrend": "Live aktualisiert",
+        "hoursToday": "Stunden heute",
+        "hoursTrend": "{{count}} Schichten abgeschlossen",
+        "avgDuration": "Durchschnittliche Dauer",
+        "avgTrend": "Über die heutigen Schichten"
+      },
+      "heatmap": {
+        "title": "Aktivität nach Stunde",
+        "legend": "Dunkler = mehr Fahrer unterwegs"
+      },
+      "active": {
+        "title": "Gerade aktiv",
+        "startedAt": "Gestartet um {{time}}"
+      },
+      "completed": {
+        "title": "Heute abgeschlossen",
+        "rides": "{{count}} Fahrten",
+        "openTripSheet": "Fahrtenblatt von {{driver}} öffnen"
+      }
+    },
+    "tripsheet": {
+      "title": "Fahrtenblatt",
+      "subtitle": "Rechtliches Schichtdetail · ATAS-Prüfung",
+      "dayShift": "Tagschicht",
+      "nightShift": "Nachtschicht",
+      "km": {
+        "start": "Start-km",
+        "end": "End-km",
+        "distance": "Distanz",
+        "ocr": "OCR"
+      },
+      "photos": {
+        "title": "Inspektionsfotos",
+        "start": "Schichtbeginn",
+        "end": "Schichtende"
+      },
+      "sides": {
+        "front": "Vorne",
+        "back": "Hinten",
+        "left": "Links",
+        "right": "Rechts"
+      },
+      "rides": {
+        "title": "Fahrten der Schicht",
+        "platform": "Plattform",
+        "route": "Strecke",
+        "brut": "Brutto",
+        "net": "Netto"
+      },
+      "totals": {
+        "brut": "Brutto gesamt",
+        "commission": "Provisionen",
+        "net": "Echtes Netto"
+      },
+      "legalNote": "Konform mit den ATAS · STIB-MIVB-Vorgaben.",
+      "print": "Drucken",
+      "exportToast": "{{format}}-Export Fahrtenblatt {{plate}} — beim öffentlichen Launch verfügbar."
+    }
+  },
+  "driverApp": {
+    "eyebrow": "02 · Fahrerseite",
+    "title": "Die App, die Ihre Fahrer in der Tasche tragen",
+    "subtitle": "Cabs ist nicht nur ein Back-Office-Tool. Ihre Fahrer erhalten ihre eigene iOS- und Android-App, in Echtzeit mit dem Dashboard verbunden.",
+    "bullets": {
+      "startShift": {
+        "title": "Schicht mit einem Tap starten",
+        "description": "Der Fahrer öffnet die App, bestätigt seine Schicht, und alle Daten fließen automatisch in Ihr Dashboard."
+      },
+      "planning": {
+        "title": "Wochenplanung in der Tasche",
+        "description": "Jeder Fahrer sieht seine Tage, Fahrzeuge und kommende Schichten. Er erhält eine Push-Benachrichtigung, sobald sich etwas ändert."
+      },
+      "revenue": {
+        "title": "Einnahmen in Echtzeit",
+        "description": "Brutto des Tages, Netto nach Kommissionen, Vergleich mit gestern. Der Fahrer weiß, was er verdient, Fahrt für Fahrt."
+      },
+      "alerts": {
+        "title": "Betreibernachrichten",
+        "description": "Senden Sie eine Nachricht an das gesamte Team oder eine Untergruppe. Sie kommt als Push-Benachrichtigung an, nicht als SMS, die untergeht."
+      }
+    },
+    "platforms": {
+      "ios": "iOS 16+",
+      "android": "Android 10+",
+      "offline": "Offline-Modus"
+    },
+    "phone": {
+      "next": "Nächste",
+      "vehicle": "Fahrzeug",
+      "startShift": "Schicht starten"
+    },
+    "sim": {
+      "demoStart": {
+        "title": "Interaktive Demo",
+        "subtitle": "Erleben Sie die Fahrer-App in 30 Sekunden.",
+        "cta": "Demo starten",
+        "note": "Keine Installation. Alles wird in Ihrem Browser simuliert."
+      },
+      "nav": {
+        "home": "Start",
+        "planning": "Planung",
+        "history": "Verlauf",
+        "profile": "Profil"
+      },
+      "home": {
+        "greeting": "Hallo {{name}}",
+        "statusOff": "Außer Schicht",
+        "lastShift": "Letzte Schicht",
+        "lastShiftMeta": "{{date}} · {{rides}} Fahrten",
+        "startCardTitle": "Bereit zum Starten?",
+        "startCardSubtitle": "Ihr {{vehicle}} ist heute eingeteilt.",
+        "startCta": "Schicht starten",
+        "nextShift": "Nächste Schicht",
+        "nextShiftValue": "Do · 06:00 → 18:00"
+      },
+      "planning": {
+        "eyebrow": "Diese Woche",
+        "title": "Team-Plan",
+        "summary": "Sie: {{count}} Slots diese Woche",
+        "day": "Tag",
+        "night": "Nacht",
+        "off": "Frei",
+        "you": "Sie",
+        "unassigned": "Nicht zugewiesen",
+        "days": {
+          "mon": "Mo",
+          "tue": "Di",
+          "wed": "Mi",
+          "thu": "Do",
+          "fri": "Fr",
+          "sat": "Sa",
+          "sun": "So"
+        }
+      },
+      "history": {
+        "eyebrow": "Letzte 7 Tage",
+        "title": "Verlauf",
+        "brut": "Brutto",
+        "brutShort": "brutto",
+        "commission": "Provision",
+        "net": "Netto",
+        "ridesCount": "{{count}} Fahrten",
+        "ridesShort": "Fahrten"
+      },
+      "profile": {
+        "eyebrow": "Konto",
+        "title": "Fahrerprofil",
+        "vehicle": "Fahrzeug",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "documents": "Dokumente",
+        "documentsValue": "Alle gültig",
+        "preferences": "Einstellungen",
+        "language": "Sprache",
+        "theme": "Erscheinungsbild",
+        "light": "Hell",
+        "dark": "Dunkel"
+      },
+      "shift": {
+        "title": "Schicht aktiv",
+        "runningFor": "Seit {{time}}",
+        "ridesToday": "Fahrten",
+        "brutToday": "Brutto",
+        "netToday": "Netto",
+        "startRide": "Fahrt starten",
+        "endShift": "Beenden",
+        "ridesTitle": "Ihre Fahrten heute",
+        "noRidesYet": "Heute noch keine Fahrt."
+      },
+      "ride": {
+        "inProgress": "Fahrt läuft",
+        "from": "Abholung",
+        "to": "Ziel",
+        "fare": "Preis",
+        "duration": "Dauer",
+        "endRide": "Fahrt beenden"
+      },
+      "rideSummary": {
+        "title": "Fahrt abgeschlossen",
+        "brut": "Brutto",
+        "commission": "{{platform}}-Provision",
+        "net": "Netto für Sie",
+        "continue": "Weiter"
+      },
+      "shiftSummary": {
+        "title": "Schicht beendet",
+        "duration": "{{min}} Min.",
+        "rides": "{{count}} Fahrten",
+        "brut": "Brutto",
+        "commission": "Provision",
+        "net": "Netto",
+        "byPlatform": "Nach Plattform",
+        "backHome": "Zurück zum Start",
+        "restart": "Demo neu starten"
+      },
+      "shiftCapture": {
+        "title": {
+          "start": "Schichtbeginn-Inspektion",
+          "end": "Schichtende-Inspektion"
+        },
+        "progress": "{{current}}/{{total}}",
+        "allCaptured": "Alle Fotos aufgenommen",
+        "flashOn": "Blitz · Nacht",
+        "captureCta": "Aufnehmen",
+        "endNote": "Die Schicht endet nach der Inspektion.",
+        "steps": {
+          "front": "Vorne",
+          "back": "Hinten",
+          "left": "Fahrerseite",
+          "right": "Beifahrerseite",
+          "ticket": "Fahrtenblatt"
+        },
+        "hint": {
+          "front": "Die ganze Vorderseite des Fahrzeugs erfassen.",
+          "back": "Die ganze Rückseite des Fahrzeugs erfassen.",
+          "left": "Die Fahrerseite erfassen.",
+          "right": "Die Beifahrerseite erfassen.",
+          "ticket": "Das Blatt mit lesbarem Kilometerstand erfassen."
+        },
+        "ocr": {
+          "scanning": "OCR läuft",
+          "scanningHint": "Kilometerstand auf dem Blatt erkennen...",
+          "label": "Kilometerstand",
+          "unit": "km",
+          "detected": "Erkannt",
+          "editHint": "Anpassbar, falls OCR daneben liegt."
+        },
+        "confirm": {
+          "start": "Bestätigen und Schicht starten",
+          "end": "Bestätigen und Schicht beenden"
+        }
+      },
+      "ridePicker": {
+        "eyebrow": "Fahrt abgeschlossen",
+        "title": "Wie wurde sie gebucht?",
+        "subtitle": "Wählen Sie die Plattform der Fahrt aus.",
+        "platform": "Plattform",
+        "platformHint": {
+          "uber": "Zugewiesene Uber-Fahrt",
+          "bolt": "Zugewiesene Bolt-Fahrt",
+          "heetch": "Zugewiesene Heetch-Fahrt",
+          "cash": "Auf der Straße angehalten"
+        },
+        "cashLabel": "Eingenommener Betrag",
+        "cashHint": "Anpassbar, falls der Taxameter abweicht.",
+        "confirm": "Fahrt speichern"
+      },
+      "platforms": {
+        "uber": "Uber",
+        "bolt": "Bolt",
+        "heetch": "Heetch",
+        "cash": "Cash"
+      },
+      "reset": {
+        "cta": "Demo zurücksetzen",
+        "hint": "Löscht die simulierten Daten aus diesem Browser."
       }
     }
   },
   "team": {
     "eyebrow": "Das Team",
-    "title": "Drei Entwickler, ein konkretes Problem",
-    "subtitle": "Wir sind drei Webentwickler, die sich das Taxigeschäft genau angesehen haben. Nachdem wir Betreiber mit fünf Tools jonglieren sahen, beschlossen wir, ein einziges zu bauen, das zu ihnen passt.",
+    "title": "Drei Software-Ingenieure, ein konkretes Problem",
+    "subtitle": "Wir sind drei Software-Ingenieure, die sich das Taxigeschäft genau angesehen haben. Nachdem wir Betreiber mit fünf Tools jonglieren sahen, beschlossen wir, ein einziges zu bauen, das zu ihnen passt.",
     "members": {
       "kristian": {
         "name": "Kristian Vasiaj",
-        "role": "Mitgründer · Entwicklung"
+        "role": "Mitgründer · Backend & Mobile",
+        "location": "Brüssel, Belgien",
+        "expertise": "Backend · React Native · iOS & Android",
+        "bio": [
+          "Software-Ingenieur, spezialisiert auf Backend und Mobile. Kristian baut die API, die die Plattform antreibt, und die iOS/Android-Fahrer-App, die Ihre Fahrer täglich nutzen, um ihre Schichten zu starten und ihre Einnahmen in Echtzeit zu verfolgen.",
+          "Er trägt die Brücke zwischen dem Smartphone des Fahrers und dem Server und sorgt dafür, dass die Verbindung stabil bleibt, selbst wenn das Netzwerk schwächelt."
+        ]
       },
       "ismael": {
         "name": "Ismael Bouzrouti",
-        "role": "Mitgründer · Entwicklung"
+        "role": "Mitgründer · Backend & Architektur",
+        "location": "Brüssel, Belgien",
+        "expertise": "Java Spring Boot · TimescaleDB · RabbitMQ",
+        "bio": [
+          "Backend-Software-Ingenieur und technischer Architekt. Ismael entwirft die Struktur der Cabs-Dienste auf Java Spring Boot, TimescaleDB für Zeitreihen mit hohem Volumen (Millionen Fahrten) und RabbitMQ für die asynchrone Kommunikation zwischen Diensten.",
+          "Er trägt zusätzlich den Quality-Assurance-Hut. Kein Release wird ausgeliefert, ohne dass er es validiert hat: Tests, Monitoring, Performance, Edge Cases. Seine Philosophie ist einfach: Ein Bug in Produktion kostet zehnmal mehr als ein gut geschriebener Test."
+        ]
       },
       "nawfel": {
         "name": "Nawfel Ajari",
-        "role": "Mitgründer · Entwicklung"
+        "role": "Mitgründer · Frontend",
+        "location": "Brüssel, Belgien",
+        "expertise": "Frontend · React · Produktdesign",
+        "bio": [
+          "Frontend-Software-Ingenieur, spezialisiert auf React. Nawfel baut jede Web-Oberfläche, die Ihre Betreiber täglich nutzen: Echtzeit-Dashboard, Wochenplanung, Fahrer- und Fahrzeugverwaltung, Buchhaltungsexporte.",
+          "Seine Obsession: Alles muss in drei Sekunden lesbar sein. Ein Dispatcher, der keine Info im Dashboard findet, ist ein Dispatcher, der zu Excel zurückkehrt. Er verbringt außerdem Zeit mit Beta-Betreibern, um deren Feedback in Produktspezifikationen umzusetzen."
+        ]
       }
     },
     "socials": {
       "instagram": "Instagram",
       "linkedin": "LinkedIn"
+    },
+    "modal": {
+      "openLabel": "Biografie von {{name}} anzeigen",
+      "close": "Schließen",
+      "writeMe": "Schreiben Sie ihm"
     }
   },
   "finalCta": {
@@ -128,23 +885,85 @@
     "subtitle": "Eine E-Mail. Kein Spam. Sie sind die Ersten, die beim öffentlichen Launch testen."
   },
   "contact": {
-    "eyebrow": "Eine Frage ?",
-    "title": "Schreiben Sie uns",
-    "subtitle": "Für jede Frage zur Beta oder zum öffentlichen Launch. Wir antworten innerhalb von 48 Werkstunden.",
+    "eyebrow": "Direkt sprechen",
+    "title": "Schreiben Sie an die Gründer",
+    "subtitle": "Jede Frage zur Beta, zum öffentlichen Launch, zu Partnerschaften oder Presse. Wir antworten in weniger als 48 Werkstunden.",
+    "founders": {
+      "title": "Sie schreiben an die Gründer",
+      "description": "Kein ausgelagerter Support, kein Bot, kein KI-Chatbot. Ihre Nachrichten landen direkt bei Kristian, Ismael und Nawfel."
+    },
     "fields": {
       "name": { "label": "Vollständiger Name", "placeholder": "Sofia Rossi" },
-      "email": { "label": "E-Mail", "placeholder": "sofia@ihrunternehmen.de" },
+      "email": { "label": "Geschäftliche E-Mail", "placeholder": "sofia@ihrunternehmen.de" },
       "company": { "label": "Unternehmen (optional)", "placeholder": "Brussels Taxi SA" },
-      "message": { "label": "Nachricht", "placeholder": "Erzählen Sie uns von Ihrer Flotte, Ihren Bedürfnissen, was heute hakt." }
+      "message": { "label": "Ihre Nachricht", "placeholder": "Erzählen Sie uns von Ihrer Flotte, Ihren Bedürfnissen, was heute hakt." }
     },
-    "submit": "Senden",
+    "subjects": {
+      "label": "Anliegen",
+      "placeholder": "Thema wählen",
+      "beta": "Private Beta (Pilotbetreiber werden)",
+      "demo": "Persönliche Demo",
+      "pricing": "Preise und öffentlicher Launch",
+      "partnership": "Partnerschaft oder Integration",
+      "press": "Presse und Medien",
+      "other": "Sonstiges"
+    },
+    "consent": "Mit dem Absenden akzeptiere ich die <1>Datenschutzerklärung</1> und dass meine Daten ausschließlich zur Beantwortung meiner Anfrage verwendet werden.",
+    "noCommercialUse": "Keine kommerzielle Nutzung. Keine Weitergabe an Dritte.",
+    "submit": "Nachricht senden",
     "retry": "Erneut versuchen",
-    "successToast": "Nachricht erhalten. Antwort innerhalb von 48 Werkstunden.",
+    "successToast": "Nachricht erhalten. Persönliche Antwort innerhalb von 48 Werkstunden.",
     "errorToast": "Senden fehlgeschlagen. Bitte gleich erneut versuchen.",
     "errors": {
       "name": "Bitte geben Sie Ihren vollständigen Namen an",
       "email": "Ungültige E-Mail-Adresse",
-      "message": "Ihre Nachricht muss mindestens 10 Zeichen lang sein"
+      "message": "Ihre Nachricht muss mindestens 10 Zeichen lang sein",
+      "subject": "Bitte wählen Sie ein Thema",
+      "consent": "Sie müssen die Datenschutzerklärung akzeptieren"
+    },
+    "channels": {
+      "title": "Direkte Kanäle",
+      "email": { "label": "E-Mail", "value": "hello@joincabs.com" },
+      "linkedin": { "label": "LinkedIn", "value": "Cabs folgen" },
+      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
+      "whatsapp": { "label": "WhatsApp Business", "value": "Auf Anfrage" }
+    },
+    "responseTime": {
+      "title": "Antwortzeit",
+      "value": "Innerhalb von 48 Werkstunden",
+      "description": "Montag bis Freitag. Wir antworten auf Deutsch, Französisch, Niederländisch oder Englisch."
+    },
+    "location": {
+      "title": "Standort",
+      "value": "Brüssel, Belgien",
+      "description": "Lokales Team, kein ausgelagerter Support. Gesellschaft in Gründung in Belgien."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "subtitle": "Schnelle Antworten auf die Fragen, die wir vor dem öffentlichen Launch am häufigsten erhalten.",
+      "items": {
+        "when": {
+          "q": "Wann kann ich Cabs testen?",
+          "a": "Die private Beta läuft mit einer Handvoll Brüsseler Betreiber. Der öffentliche Launch ist für September 2026 geplant. Tragen Sie sich in die Benachrichtigungsliste ein, um am Launch-Tag informiert zu werden."
+        },
+        "minimum": {
+          "q": "Wie viele Fahrzeuge mindestens?",
+          "a": "Für die private Beta arbeiten wir mit Flotten ab 3 Fahrzeugen, um genug operatives Signal zu sammeln. Beim öffentlichen Launch wird Cabs für jede Flottengröße offen sein, vom selbstständigen Fahrer bis zum großen Betreiber."
+        },
+        "regions": {
+          "q": "Funktioniert Cabs in Wallonien und Flandern?",
+          "a": "Ja, Cabs deckt ganz Belgien ab. Regionale STP-Lizenzen (Brüssel, Wallonien, Flandern) und lokale Auflagen (ATAS, ONSS, gesetzliche Planung) werden berücksichtigt."
+        },
+        "pricing": {
+          "q": "Wie viel wird Cabs kosten?",
+          "a": "Endgültige Preise werden zum Launch veröffentlicht. Founding Operators (die ersten, die der Beta beitreten) erhalten einen erheblichen lebenslangen Rabatt als Dank für ihr Vertrauen."
+        }
+      }
+    },
+    "success": {
+      "title": "Nachricht gut erhalten!",
+      "subtitle": "Einer der drei Gründer schreibt Ihnen persönlich innerhalb von 48 Werkstunden. Bitte prüfen Sie auch Ihren Spam-Ordner.",
+      "sendAnother": "Weitere Nachricht senden"
     }
   },
   "legal": {
@@ -155,11 +974,11 @@
       "sections": {
         "scope": {
           "title": "Gegenstand",
-          "body": "Diese Bedingungen regeln die Nutzung der Showcase-Website cabs.brussels. Derzeit wird kein kostenpflichtiger Dienst angeboten. Die einzige verfügbare Aktion ist der Eintrag in die Benachrichtigungsliste für den Launch."
+          "body": "Diese Bedingungen regeln die Nutzung der Showcase-Website joincabs.com. Derzeit wird kein kostenpflichtiger Dienst angeboten. Die einzige verfügbare Aktion ist der Eintrag in die Benachrichtigungsliste für den Launch."
         },
         "waitlist": {
           "title": "Benachrichtigungsliste",
-          "body": "Durch Eingabe Ihrer E-Mail im Formular « Benachrichtigen » akzeptieren Sie, eine einzige E-Mail am Tag des öffentlichen Launches zu erhalten. Es werden keine weiteren Mitteilungen versendet. Sie können die Löschung Ihrer E-Mail jederzeit unter hello@cabs.brussels beantragen."
+          "body": "Durch Eingabe Ihrer E-Mail im Formular « Benachrichtigen » akzeptieren Sie, eine einzige E-Mail am Tag des öffentlichen Launches zu erhalten. Es werden keine weiteren Mitteilungen versendet. Sie können die Löschung Ihrer E-Mail jederzeit unter hello@joincabs.com beantragen."
         },
         "contact": {
           "title": "Kontakt",
@@ -182,7 +1001,7 @@
       "sections": {
         "controller": {
           "title": "Verantwortlicher",
-          "body": "Die Mitgründer (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) handeln gemeinschaftlich als Verantwortliche bis zur Gründung der Gesellschaft. Kontakt : hello@cabs.brussels."
+          "body": "Die Mitgründer (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) handeln gemeinschaftlich als Verantwortliche bis zur Gründung der Gesellschaft. Kontakt : hello@joincabs.com."
         },
         "data": {
           "title": "Erfasste Daten",
@@ -202,7 +1021,7 @@
         },
         "rights": {
           "title": "Ihre Rechte",
-          "body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Datenübertragbarkeit und Widerspruch. Um diese Rechte auszuüben, schreiben Sie an hello@cabs.brussels. Sie können auch Beschwerde bei der belgischen Datenschutzbehörde einlegen (www.dataprotectionauthority.be)."
+          "body": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Datenübertragbarkeit und Widerspruch. Um diese Rechte auszuüben, schreiben Sie an hello@joincabs.com. Sie können auch Beschwerde bei der belgischen Datenschutzbehörde einlegen (www.dataprotectionauthority.be)."
         },
         "hosting": {
           "title": "Hosting und Auftragsverarbeiter",
@@ -225,8 +1044,8 @@
       "legal": "Rechtliches"
     },
     "links": {
-      "features": "Funktionen",
-      "showcase": "Screenshots",
+      "admin": "Betreiberseite",
+      "app": "Fahrerseite",
       "team": "Team",
       "contact": "Kontakt",
       "terms": "AGB",

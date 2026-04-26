@@ -10,7 +10,12 @@ import { Toaster } from '@/components/ui/sonner'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <App />
         <Toaster />
       </BrowserRouter>

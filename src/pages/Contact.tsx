@@ -1,50 +1,116 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { motion, useReducedMotion } from 'framer-motion'
-import { CheckCircle2, Mail, Send, Sparkles } from 'lucide-react'
+import {
+  CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Send,
+  Shield,
+  Sparkles,
+} from 'lucide-react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { SEO } from '@/components/common/SEO'
 import { GlowEffect } from '@/components/common/GlowEffect'
-import { submitContact } from '@/lib/api/contact'
-import { BRAND } from '@/lib/constants'
+import {
+  TurnstileWidget,
+  type TurnstileWidgetHandle,
+} from '@/components/common/TurnstileWidget'
+import { InstagramIcon, LinkedinIcon } from '@/components/common/SocialIcons'
+import {
+  staggerContainer,
+  staggerItem,
+} from '@/components/common/ScrollReveal'
+import { submitContact, type ContactSubject } from '@/lib/api/contact'
+import { BRAND, FOUNDERS } from '@/lib/constants'
 import { track } from '@/lib/analytics'
+import { cn } from '@/lib/utils'
 
-const schema = z.object({
-  name: z.string().min(2, 'contact.errors.name').max(80),
-  email: z.string().email('contact.errors.email'),
-  company: z.string().max(100).optional(),
-  message: z.string().min(10, 'contact.errors.message').max(2000),
-})
+const SUBJECTS: ContactSubject[] = [
+  'beta',
+  'demo',
+  'pricing',
+  'partnership',
+  'press',
+  'other',
+]
+
+const FAQ_KEYS = ['when', 'minimum', 'regions', 'pricing'] as const
+
+const schema = z
+  .object({
+    name: z.string().min(2, 'contact.errors.name').max(80),
+    email: z.string().email('contact.errors.email'),
+    company: z.string().max(100).optional(),
+    subject: z.enum(['beta', 'demo', 'pricing', 'partnership', 'press', 'other']),
+    message: z.string().min(10, 'contact.errors.message').max(2000),
+    consent: z.boolean(),
+  })
+  .refine((d) => d.consent === true, {
+    path: ['consent'],
+    message: 'contact.errors.consent',
+  })
+
 type FormValues = z.infer<typeof schema>
 
 export default function Contact() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const reduce = useReducedMotion()
   const [done, setDone] = useState(false)
+  const turnstileRef = useRef<TurnstileWidgetHandle | null>(null)
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: '', email: '', company: '', message: '' },
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      subject: 'beta',
+      message: '',
+      consent: false,
+    },
   })
 
   const onSubmit = async (v: FormValues) => {
     try {
+      const turnstileToken = (await turnstileRef.current?.getToken()) ?? null
       await submitContact({
         name: v.name,
         email: v.email,
         company: v.company,
+        subject: v.subject,
         message: v.message,
+        locale: i18n.language,
+        turnstileToken,
       })
-      track('contact_submitted', {})
+      track('contact_submitted', { subject: v.subject })
       toast.success(t('contact.successToast'))
       setDone(true)
     } catch {
+      turnstileRef.current?.reset()
       toast.error(t('contact.errorToast'), {
         action: {
           label: t('contact.retry'),
@@ -87,9 +153,9 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="relative pb-24 pt-16 sm:pt-20">
+      <section className="relative pb-24 pt-14 sm:pt-20">
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl">
+          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.4fr_1fr]">
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,15 +164,18 @@ export default function Contact() {
               {done ? (
                 <SuccessCard onBack={() => setDone(false)} />
               ) : (
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-6 shadow-card backdrop-blur sm:p-10"
-                >
+                <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-6 shadow-card backdrop-blur sm:p-10">
                   <div
                     aria-hidden
                     className="absolute -inset-[1px] -z-10 rounded-2xl bg-gradient-brand opacity-[0.08] blur-md"
                   />
-                  <div className="grid gap-5">
+
+                  <FoundersInline />
+
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="mt-8 grid gap-5"
+                  >
                     <Field
                       label={t('contact.fields.name.label')}
                       error={err('name')}
@@ -143,6 +212,37 @@ export default function Contact() {
                     </div>
 
                     <Field
+                      label={t('contact.subjects.label')}
+                      error={err('subject')}
+                    >
+                      <Controller
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={(v) =>
+                              field.onChange(v as ContactSubject)
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t('contact.subjects.placeholder')}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {SUBJECTS.map((s) => (
+                                <SelectItem key={s} value={s}>
+                                  {t(`contact.subjects.${s}`)}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                    </Field>
+
+                    <Field
                       label={t('contact.fields.message.label')}
                       error={err('message')}
                     >
@@ -154,14 +254,49 @@ export default function Contact() {
                       />
                     </Field>
 
-                    <div className="flex flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                      <a
-                        href={`mailto:${BRAND.email}`}
-                        className="inline-flex items-center gap-2 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                      >
-                        <Mail className="h-4 w-4" />
-                        {BRAND.email}
-                      </a>
+                    <Controller
+                      control={form.control}
+                      name="consent"
+                      render={({ field }) => (
+                        <div className="space-y-1.5">
+                          <div className="flex items-start gap-3 rounded-lg border border-border/40 bg-background/30 p-3">
+                            <Checkbox
+                              id="contact-consent"
+                              checked={!!field.value}
+                              onCheckedChange={(v) => field.onChange(v === true)}
+                              className="mt-0.5"
+                            />
+                            <Label
+                              htmlFor="contact-consent"
+                              className="text-xs font-normal leading-relaxed text-muted-foreground"
+                            >
+                              <Trans
+                                i18nKey="contact.consent"
+                                components={{
+                                  1: (
+                                    <Link
+                                      to="/legal/privacy"
+                                      className="text-primary underline-offset-2 hover:underline"
+                                    />
+                                  ),
+                                }}
+                              />
+                            </Label>
+                          </div>
+                          {err('consent') && (
+                            <p className="text-xs text-destructive">
+                              {err('consent')}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    />
+
+                    <div className="flex flex-col-reverse items-stretch gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Shield className="h-3.5 w-3.5" />
+                        {t('contact.noCommercialUse')}
+                      </p>
                       <Button
                         type="submit"
                         size="lg"
@@ -174,13 +309,27 @@ export default function Contact() {
                           : t('contact.submit')}
                       </Button>
                     </div>
-                  </div>
-                </form>
+                    <TurnstileWidget ref={turnstileRef} />
+                  </form>
+                </div>
               )}
             </motion.div>
+
+            <motion.aside
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="space-y-4 lg:sticky lg:top-24 lg:self-start"
+            >
+              <ChannelsCard />
+              <ResponseTimeCard />
+              <LocationCard />
+            </motion.aside>
           </div>
         </div>
       </section>
+
+      <FAQSection />
     </>
   )
 }
@@ -198,6 +347,192 @@ function Field({ label, error, children }: FieldProps) {
       {children}
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
+  )
+}
+
+function FoundersInline() {
+  const { t } = useTranslation()
+  return (
+    <div className="flex items-start gap-4 rounded-xl border border-primary/20 bg-primary/[0.04] p-4">
+      <div className="flex shrink-0 -space-x-2">
+        {FOUNDERS.map((f, i) => (
+          <span
+            key={f.key}
+            className={cn(
+              'inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-brand text-xs font-bold text-primary-foreground ring-2 ring-card',
+              i === 0 && 'z-30',
+              i === 1 && 'z-20',
+              i === 2 && 'z-10',
+            )}
+          >
+            {f.initials}
+          </span>
+        ))}
+      </div>
+      <div className="flex-1">
+        <p className="text-sm font-semibold tracking-tight">
+          {t('contact.founders.title')}
+        </p>
+        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+          {t('contact.founders.description')}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+interface InfoCardProps {
+  title: string
+  children: React.ReactNode
+}
+
+function InfoCard({ title, children }: InfoCardProps) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card/40 p-5 backdrop-blur">
+      <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        {title}
+      </h3>
+      <div className="mt-4">{children}</div>
+    </div>
+  )
+}
+
+function ChannelsCard() {
+  const { t } = useTranslation()
+  const channels = [
+    {
+      key: 'email',
+      Icon: Mail,
+      href: `mailto:${BRAND.email}`,
+      external: false,
+    },
+    {
+      key: 'linkedin',
+      Icon: LinkedinIcon,
+      href: BRAND.linkedin,
+      external: true,
+    },
+    {
+      key: 'instagram',
+      Icon: InstagramIcon,
+      href: BRAND.instagram,
+      external: true,
+    },
+    {
+      key: 'whatsapp',
+      Icon: MessageCircle,
+      href: 'https://wa.me/3220000000',
+      external: true,
+    },
+  ] as const
+
+  return (
+    <InfoCard title={t('contact.channels.title')}>
+      <motion.ul
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+        className="space-y-1"
+      >
+        {channels.map(({ key, Icon, href, external }) => (
+          <motion.li key={key} variants={staggerItem}>
+            <a
+              href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noreferrer' : undefined}
+              className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent/60"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20 transition-colors group-hover:bg-primary/20">
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="flex flex-col leading-tight">
+                <span className="text-sm font-medium">
+                  {t(`contact.channels.${key}.label`)}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {t(`contact.channels.${key}.value`)}
+                </span>
+              </span>
+            </a>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </InfoCard>
+  )
+}
+
+function ResponseTimeCard() {
+  const { t } = useTranslation()
+  return (
+    <InfoCard title={t('contact.responseTime.title')}>
+      <div className="flex items-start gap-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+          <Clock className="h-4 w-4" />
+        </span>
+        <div className="flex-1">
+          <p className="text-sm font-semibold">
+            {t('contact.responseTime.value')}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            {t('contact.responseTime.description')}
+          </p>
+        </div>
+      </div>
+    </InfoCard>
+  )
+}
+
+function LocationCard() {
+  const { t } = useTranslation()
+  return (
+    <InfoCard title={t('contact.location.title')}>
+      <div className="flex items-start gap-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+          <MapPin className="h-4 w-4" />
+        </span>
+        <div className="flex-1">
+          <p className="text-sm font-semibold">
+            {t('contact.location.value')}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            {t('contact.location.description')}
+          </p>
+        </div>
+      </div>
+    </InfoCard>
+  )
+}
+
+function FAQSection() {
+  const { t } = useTranslation()
+  return (
+    <section className="border-t border-border/60 bg-background/40 py-20 sm:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('contact.faq.title')}
+          </h2>
+          <p className="mt-3 text-balance text-muted-foreground">
+            {t('contact.faq.subtitle')}
+          </p>
+        </div>
+        <div className="mx-auto mt-10 max-w-3xl rounded-xl border border-border/60 bg-card/40 px-6 backdrop-blur">
+          <Accordion type="single" collapsible>
+            {FAQ_KEYS.map((k) => (
+              <AccordionItem key={k} value={k}>
+                <AccordionTrigger>
+                  {t(`contact.faq.items.${k}.q`)}
+                </AccordionTrigger>
+                <AccordionContent>
+                  {t(`contact.faq.items.${k}.a`)}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
   )
 }
 

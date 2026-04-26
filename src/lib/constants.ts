@@ -1,16 +1,17 @@
 export const BRAND = {
   name: 'Cabs',
   tagline: 'La plateforme que les opérateurs de taxi méritent.',
-  email: 'hello@cabs.brussels',
+  email: import.meta.env.VITE_PUBLIC_EMAIL || 'hello@joincabs.com',
   city: 'Brussels',
-  url: 'https://cabs.brussels',
-  instagram: 'https://instagram.com/cabs.brussels',
-  linkedin: 'https://linkedin.com/company/cabs-brussels',
+  url: import.meta.env.VITE_SITE_URL || 'https://www.joincabs.com',
+  instagram: 'https://instagram.com/joincabs',
+  linkedin: 'https://linkedin.com/company/joincabs',
   launchDate: 'Septembre 2026',
 } as const
 
 export const NAV_ANCHORS = [
-  { href: '#product', key: 'nav.product' },
+  { href: '#admin', key: 'nav.admin' },
+  { href: '#app', key: 'nav.app' },
   { href: '#team', key: 'nav.team' },
 ] as const
 
@@ -23,23 +24,30 @@ export const LOCALES = [
 
 export type LocaleCode = (typeof LOCALES)[number]['code']
 
-export const FOUNDERS = [
+export interface Founder {
+  key: 'kristian' | 'ismael' | 'nawfel'
+  initials: string
+  linkedin: string
+  instagram?: string
+  photo?: string
+}
+
+export const FOUNDERS: readonly Founder[] = [
   {
     key: 'kristian',
     initials: 'KV',
-    instagram: 'https://instagram.com/kristian.vasiaj',
-    linkedin: 'https://linkedin.com/in/kristian-vasiaj',
+    linkedin: 'https://www.linkedin.com/in/kristian-vasiaj-705b46223/',
   },
   {
     key: 'ismael',
     initials: 'IB',
-    instagram: 'https://instagram.com/ismael.bouzrouti',
-    linkedin: 'https://linkedin.com/in/ismael-bouzrouti',
+    linkedin: 'https://www.linkedin.com/in/ismaelbouzrouti/',
   },
   {
     key: 'nawfel',
     initials: 'NA',
-    instagram: 'https://instagram.com/nawfel.ajari',
-    linkedin: 'https://linkedin.com/in/nawfel-ajari',
+    linkedin: 'https://www.linkedin.com/in/nawfel-ajari/',
+    instagram: 'https://www.instagram.com/na.innovations/',
+    photo: '/nawfel.jpg',
   },
 ] as const

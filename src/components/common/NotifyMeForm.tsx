@@ -1,10 +1,14 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { BellRing, CheckCircle2, Loader2, Mail } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import {
+  TurnstileWidget,
+  type TurnstileWidgetHandle,
+} from '@/components/common/TurnstileWidget'
 import { subscribeToWaitlist } from '@/lib/api/notify'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
@@ -26,6 +30,7 @@ export function NotifyMeForm({
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
   const [error, setError] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileWidgetHandle | null>(null)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -37,7 +42,12 @@ export function NotifyMeForm({
     }
     setStatus('loading')
     try {
-      const res = await subscribeToWaitlist({ email: value, locale: i18n.language })
+      const turnstileToken = (await turnstileRef.current?.getToken()) ?? null
+      const res = await subscribeToWaitlist({
+        email: value,
+        locale: i18n.language,
+        turnstileToken,
+      })
       track('waitlist_signup', { email: value, alreadySubscribed: !!res.alreadySubscribed })
       setStatus('success')
       toast.success(
@@ -46,6 +56,7 @@ export function NotifyMeForm({
           : t('notify.toast.success'),
       )
     } catch {
+      turnstileRef.current?.reset()
       setStatus('idle')
       setError(t('notify.errors.network'))
     }
@@ -144,6 +155,7 @@ export function NotifyMeForm({
             >
               {error ?? t('notify.privacyNote')}
             </p>
+            <TurnstileWidget ref={turnstileRef} mode="invisible" />
           </motion.form>
         )}
       </AnimatePresence>

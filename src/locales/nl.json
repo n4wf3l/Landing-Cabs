@@ -14,7 +14,8 @@
     "changedToast": "Taal ingesteld op Nederlands"
   },
   "nav": {
-    "product": "Product",
+    "admin": "Uitbater",
+    "app": "Chauffeur",
     "team": "Team",
     "contact": "Contact",
     "openMenu": "Menu openen",
@@ -24,11 +25,62 @@
     "notifyCta": "Houd mij op de hoogte"
   },
   "hero": {
-    "eyebrow": "Private bèta · Brussel",
-    "comingSoon": "Publieke lancering: september 2026",
-    "title": "Je Uber-, Bolt- en Heetch-ritten, samengebracht. Je commissies, berekend.",
-    "subtitle": "Cabs brengt je VTC-platformen en je cashinkomsten samen in één dashboard. Zie de bruto-omzet, de commissies van de platformen en je echte nettowaarde. Zonder spreadsheet, zonder handmatig rekenwerk.",
-    "trialNote": "Eén e-mail bij de lancering. Geen spam."
+    "eyebrow": "Private bèta · Brussel · Lancering september 2026",
+    "title": "Je chauffeurs, je voertuigen, je inkomsten. Eén tool, twee kanten.",
+    "subtitle": "Een dashboard voor jou. Een app voor je chauffeurs. Zonder spreadsheet, zonder handmatig rekenwerk.",
+    "scrollHint": "Het product bekijken"
+  },
+  "ticker": {
+    "keyboardHint": "om te navigeren",
+    "tabs": {
+      "revenue": "Inkomsten",
+      "planning": "Planning",
+      "fleet": "Vloot",
+      "tracking": "Kaart",
+      "drivers": "Team",
+      "driverApp": "Chauffeurs-app"
+    },
+    "revenue": {
+      "title": "Geconsolideerde inkomsten",
+      "platform": "Uber",
+      "gross": "Bruto",
+      "commission": "Commissie",
+      "net": "Echte netto"
+    },
+    "planning": {
+      "title": "Planning · Deze week",
+      "weekDays": "M,D,W,D,V,Z,Z",
+      "day": "Dag",
+      "night": "Nacht",
+      "summary": "{{assigned}} toegewezen · {{conflicts}} conflict"
+    },
+    "fleet": {
+      "title": "Vloot · {{count}} voertuigen",
+      "inService": "In dienst",
+      "maintenance": "Onderhoud",
+      "repair": "Reparatie",
+      "archived": "Gearchiveerd"
+    },
+    "tracking": {
+      "title": "Realtime kaart · Brussel",
+      "available": "Beschikbaar",
+      "inRide": "Op rit",
+      "live": "Live"
+    },
+    "drivers": {
+      "title": "Team · {{count}} chauffeurs",
+      "active": "Actief",
+      "leave": "Verlof",
+      "sick": "Ziek",
+      "suspended": "Geschorst"
+    },
+    "driverApp": {
+      "title": "Chauffeurs-app · iOS & Android",
+      "dayShift": "Dagshift",
+      "rides": "Ritten vandaag",
+      "netToday": "Netto vandaag",
+      "vsYesterday": "vs gisteren"
+    }
   },
   "notify": {
     "cta": "Houd mij op de hoogte",
@@ -80,47 +132,752 @@
     }
   },
   "showcase": {
+    "eyebrow": "01 · Uitbaterskant",
     "title": "Eén dashboard. Alles wat telt.",
     "subtitle": "De drie schermen die je operatoren elke dag gebruiken.",
-    "tabs": {
-      "dashboard": {
-        "label": "Dashboard",
-        "alt": "Voorvertoning van het Cabs-dashboard",
-        "caption": "Overzicht : actieve chauffeurs, voertuigen onderweg, maandomzet."
+    "interactiveHint": "Klik in de zijbalk om elk scherm te verkennen."
+  },
+  "pains": {
+    "eyebrow": "Hoe het vandaag gaat",
+    "title": "Herken je je zondagavond?",
+    "subtitle": "Als één van deze zinnen je raakt, dan is Cabs voor jou.",
+    "items": {
+      "excel": {
+        "title": "Excel met 8 tabs die crasht bij elke kopie",
+        "description": "Eén tab per chauffeur, formules die kapot gaan, niemand weet wie wat heeft aangepast."
       },
-      "vehicles": {
-        "label": "Voertuigen",
-        "alt": "Voorvertoning van voertuigbeheer",
-        "caption": "Elk voertuig : status, onderhoud, dag/nacht-chauffeur, specificaties."
+      "paper": {
+        "title": "Papieren ritbladen in elke auto",
+        "description": "Doorgelopen inkt, doorhalingen, wazige foto om 23u. Alles opnieuw typen de volgende dag."
       },
-      "drivers": {
-        "label": "Chauffeurs",
-        "alt": "Voorvertoning van chauffeursbeheer",
-        "caption": "Profielen, contact, status, snelle acties. Alles op één plek."
+      "whatsapp": {
+        "title": "Tickets-foto's lukraak via WhatsApp",
+        "description": "12 chauffeurs, 60 foto's per week, te ontcijferen op zondagavond."
+      },
+      "clockin": {
+        "title": "Geen bewijs dat de chauffeur is gestart",
+        "description": "Hij moest om 6u beginnen. Hij zegt dat hij om 6u begon. Geen enkel spoor."
+      },
+      "location": {
+        "title": "« Waar ben je? » om de 30 minuten bellen",
+        "description": "Geen geolocatie, geen zicht op wie op rit is, wie pauzeert, wie thuis is."
+      },
+      "reconciliation": {
+        "title": "Uber × Bolt × Heetch handmatig verzoenen",
+        "description": "Je ontdekt 3 maanden later dat de Bolt-commissie veranderd is. Te laat."
+      }
+    },
+    "bridge": "Cabs schakelt deze 6 uit.",
+    "bridgeCta": "Zie hoe →"
+  },
+  "roi": {
+    "eyebrow": "Bereken je ROI",
+    "title": "Hoeveel tijd bespaart Cabs je?",
+    "subtitle": "Schuif de regelaars naar je vloot. De cijfers werken live bij.",
+    "header": "Simulatie voor jouw bedrijf",
+    "inputs": {
+      "vehicles": "Voertuigen",
+      "drivers": "Chauffeurs"
+    },
+    "metrics": {
+      "hoursWeek": "Uren bespaard",
+      "hoursWeekHint": "Per week, op voertuig- en chauffeursadmin",
+      "daysMonth": "Dagen per maand",
+      "daysMonthHint": "Op basis van werkdagen van 8u",
+      "eurMonth": "Fouten teruggevorderd",
+      "eurMonthHint": "Verkeerd berekende platformcommissies per maand",
+      "errorsMonth": "Anomalieën opgespoord",
+      "errorsMonthHint": "Ontbrekende tickets, urenverschillen, enz."
+    },
+    "disclaimer": "Voorzichtige schattingen gebaseerd op praktijken in de Belgische taxisector (0,5u/wk per voertuig, 1,5u/wk per chauffeur, €18/maand aan commissiefouten per chauffeur). Verschilt naar gelang je huidige werking."
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "vehicles": "Voertuigen",
+      "drivers": "Chauffeurs",
+      "shifts": "Shifts",
+      "tripsheets": "Ritbladen",
+      "map": "Kaart",
+      "revenue": "Kasoverzicht",
+      "planning": "Planning",
+      "settings": "Instellingen",
+      "logout": "Uitloggen",
+      "collapse": "Zijbalk inklappen",
+      "expand": "Zijbalk uitklappen"
+    },
+    "topbar": {
+      "search": "Zoeken",
+      "feedback": "Feedback",
+      "guide": "Gids"
+    },
+    "titles": {
+      "dashboard": "Dashboard",
+      "vehicles": "Voertuigbeheer",
+      "drivers": "Chauffeursbeheer",
+      "shifts": "Shift-opvolging",
+      "tripsheets": "Ritbladen",
+      "map": "Realtime kaart",
+      "revenue": "Kasoverzicht",
+      "planning": "Weekplanning",
+      "settings": "Instellingen"
+    },
+    "kpi": {
+      "activeDrivers": "Actieve chauffeurs",
+      "vehiclesOnRoad": "Voertuigen onderweg",
+      "revenue": "Omzet",
+      "totalVehicles": "Totaal voertuigen",
+      "inService": "In dienst",
+      "maintenance": "Onderhoud",
+      "repair": "Reparatie",
+      "totalDrivers": "Totaal chauffeurs",
+      "onLeave": "Verlof",
+      "gross": "Bruto · 7 dagen",
+      "platformCommissions": "Platform-commissies",
+      "realNet": "Echte netto"
+    },
+    "trends": {
+      "thisWeek": "+2 deze week",
+      "fleetShare": "{{percent}}% van de vloot",
+      "monthGain": "+15% deze maand",
+      "vsGross": "{{percent}}% van bruto",
+      "afterCommission": "Na commissies"
+    },
+    "dashboard": {
+      "shiftStart": "Start · {{time}}",
+      "shiftsToday": "Shifts vandaag",
+      "hoursTotal": "{{count}} u"
+    },
+    "vehicles": {
+      "filters": {
+        "all": "Alle",
+        "inService": "In dienst",
+        "maintenance": "Onderhoud",
+        "repair": "Reparatie"
+      },
+      "buttons": {
+        "filters": "Filters",
+        "new": "Nieuw voertuig"
+      },
+      "table": {
+        "plate": "Nummerplaat",
+        "model": "Model",
+        "day": "Dag",
+        "night": "Nacht",
+        "status": "Status",
+        "transmission": "Transmissie",
+        "actions": "Acties"
+      },
+      "status": {
+        "good": "Goede staat",
+        "in_service": "In dienst",
+        "maintenance": "Onderhoud",
+        "repair": "Reparatie",
+        "off": "Buiten dienst"
+      }
+    },
+    "addVehicle": {
+      "title": "Nieuw voertuig",
+      "subtitle": "Voeg een voertuig toe aan je vloot, conform de back-office API.",
+      "save": "Opslaan",
+      "sections": {
+        "identification": "Identificatie",
+        "mechanics": "Mechanica",
+        "state": "Staat"
+      },
+      "fields": {
+        "licensePlate": "Nummerplaat",
+        "brand": "Merk",
+        "model": "Model",
+        "transmission": "Transmissie",
+        "odometerKm": "Kilometerstand",
+        "state": "Staat",
+        "condition": "Notitie staat",
+        "conditionPlaceholder": "Bv. Nieuwe levering.",
+        "available": "Beschikbaar",
+        "activeInShift": "Actief in shift"
+      },
+      "transmission": {
+        "MANUAL": "Handgeschakeld",
+        "AUTOMATIC": "Automaat"
+      },
+      "state": {
+        "IN_SERVICE": "In dienst",
+        "GOOD_CONDITION": "Goede staat",
+        "MAINTENANCE": "Onderhoud",
+        "REPAIR": "Reparatie",
+        "OUT_OF_SERVICE": "Buiten dienst"
+      },
+      "success": {
+        "title": "Voertuig toegevoegd",
+        "subtitle": "{{plate}} · {{model}} staat nu bovenaan je vloot."
+      }
+    },
+    "drivers": {
+      "table": {
+        "name": "Naam",
+        "email": "E-mail",
+        "phone": "Telefoon",
+        "address": "Adres",
+        "payments": "Betalingen",
+        "status": "Status",
+        "actions": "Acties"
+      },
+      "status": {
+        "active": "Bezig",
+        "leave": "Verlof",
+        "sick": "Ziek",
+        "inactive": "Inactief"
+      },
+      "payments": {
+        "enabled": "Geactiveerd",
+        "disabled": "Uitgeschakeld"
+      },
+      "newDriver": "Nieuwe chauffeur",
+      "newBadge": "Nieuw",
+      "tableHint": "{{count}} chauffeurs weergegeven"
+    },
+    "addDriver": {
+      "title": "Nieuwe chauffeur",
+      "subtitle": "Maak het volledige profiel aan, conform je back-office.",
+      "toggleJson": "JSON tonen",
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "footerHint": "Lokaal opgeslagen voor de demo.",
+      "sections": {
+        "identity": "Identiteit",
+        "address": "Adres",
+        "legal": "Juridisch",
+        "bank": "Bankgegevens",
+        "work": "Werk",
+        "payments": "Betalingen"
+      },
+      "fields": {
+        "firstName": "Voornaam",
+        "lastName": "Achternaam",
+        "dateOfBirth": "Geboortedatum",
+        "phone": "Telefoon",
+        "email": "E-mail",
+        "street": "Straat",
+        "addressNumber": "Nummer",
+        "box": "Bus",
+        "postalCode": "Postcode",
+        "city": "Stad",
+        "nationality": "Nationaliteit",
+        "issuingCountry": "Land van afgifte",
+        "nationalId": "Rijksregisternummer",
+        "startDate": "Indiensttreding",
+        "iban": "IBAN",
+        "workFormula": "Werkformule",
+        "preferredShift": "Voorkeursshift",
+        "workdays": "Werkdagen",
+        "flexWorker": "Flexwerker (occasioneel zelfstandig statuut)",
+        "extraInfo": "Notities",
+        "extraInfoPlaceholder": "Bv. Kent het centrum en de luchthaven goed."
+      },
+      "workFormula": {
+        "FIFTY_FIFTY": "50 / 50",
+        "FLAT_RATE": "Forfait",
+        "RENTAL": "Verhuur"
+      },
+      "shift": {
+        "DAY": "Dag",
+        "NIGHT": "Nacht",
+        "FLEXIBLE": "Flexibel"
+      },
+      "weekday": {
+        "MONDAY": "M",
+        "TUESDAY": "D",
+        "WEDNESDAY": "W",
+        "THURSDAY": "D",
+        "FRIDAY": "V",
+        "SATURDAY": "Z",
+        "SUNDAY": "Z"
+      },
+      "payment": {
+        "CASH": "Cash",
+        "CARD": "Kaart",
+        "UBER_APP": "Uber-app",
+        "BOLT_CARD": "Bolt-kaart",
+        "HEETCH_APP": "Heetch-app",
+        "TAXIVERT": "TaxiVert"
+      },
+      "success": {
+        "title": "Chauffeur toegevoegd",
+        "subtitle": "{{name}} is aangemaakt en staat bovenaan je lijst."
+      }
+    },
+    "map": {
+      "live": "Live",
+      "summary": "{{available}} beschikbaar · {{onRide}} op rit · Brussel",
+      "available": "Beschikbaar",
+      "onRide": "Op rit",
+      "preview": "Maquettevoorvertoning",
+      "previewNotice": "Met de hand gecodeerde voorvertoning voor de demo. De productieversie gebruikt de Mapbox-API (interactieve 3D-kaart, satellietlaag, realtime navigatie)."
+    },
+    "revenue": {
+      "title": "Kasoverzicht",
+      "subtitle": "Wanneer het geld binnenkomt, en waar het naartoe gaat.",
+      "byPlatform": "Verdeling per platform",
+      "deductedCommissions": "Ingehouden commissies",
+      "weekDays": "M,D,W,D,V,Z,Z",
+      "periods": {
+        "day": "Dag",
+        "week": "Week",
+        "month": "Maand",
+        "year": "Jaar"
+      },
+      "netReal": "Echte netto · {{period}}",
+      "vsPrev": "vs vorige periode",
+      "peakLabel": "Piek",
+      "bestPlatformLabel": "Hoofd-platform",
+      "platformShare": "{{percent}}% van bruto",
+      "brutToNet": "Van bruto naar netto",
+      "platformMix": "Platform-mix",
+      "topDrivers": "Top chauffeurs",
+      "topVehicles": "Top voertuigen",
+      "cashflow": "Komende uitbetalingen",
+      "cashflowTotal": "Totaal binnenkomend",
+      "bestDay": "Beste dag van de week",
+      "bestDayHint": "Piek op {{day}} — plan een extra voertuig in.",
+      "bestHour": "Beste tijd van de dag",
+      "bestHourHint": "Piek om {{hour}}u — pas de shift-einden aan.",
+      "commissionsLine": "Platform-commissies voor de periode: {{amount}}.",
+      "export": {
+        "label": "Exporteren",
+        "toast": "{{format}}-export ({{period}}) — beschikbaar bij publieke lancering."
+      }
+    },
+    "placeholder": {
+      "default": "Deze sectie wordt beschikbaar bij de publieke lancering. Ze wordt afgewerkt samen met onze private bèta-operatoren.",
+      "comingSoon": "September 2026"
+    },
+    "settings": {
+      "title": "Instellingen",
+      "subtitle": "Configuratie van je vloot en je bedrijf.",
+      "unsaved": "Niet-opgeslagen wijzigingen",
+      "pendingValidation": "{{n}} in validatie",
+      "actions": {
+        "save": "Opslaan",
+        "cancel": "Annuleren"
+      },
+      "company": {
+        "title": "Bedrijf",
+        "name": "Bedrijfsnaam",
+        "vat": "BTW-nummer",
+        "address": "Maatschappelijke zetel",
+        "logo": "Logo",
+        "uploadLogo": "Logo uploaden"
+      },
+      "platforms": {
+        "title": "Platforms & commissies",
+        "helper": "Zichtbaar bij chauffeur aanmaken",
+        "warning": "Ingegeven percentages worden binnen 48u dubbelgecheckt aan de hand van de officiële voorwaarden van elk platform. Alleen goedgekeurde commissies tellen voor de netto-berekening.",
+        "status": {
+          "approved": "Goedgekeurd",
+          "pending": "In validatie",
+          "disabled": "Uitgeschakeld",
+          "fixed": "Vast"
+        }
+      },
+      "costs": {
+        "title": "Bedrijfskosten",
+        "description": "Bepaal hoe terugkerende kosten verdeeld worden tussen bedrijf en chauffeur.",
+        "lockedBadge": "Sept 2026",
+        "lockedToast": "Kostenverdeling : beschikbaar bij publieke lancering.",
+        "carwash": "Wasstraat",
+        "fuel": "Brandstof",
+        "split50": "50/50",
+        "driverFull": "100% chauffeur"
+      },
+      "defaults": {
+        "title": "Standaardvoorkeuren",
+        "formula": "Standaardformule",
+        "formulas": {
+          "FIFTY_FIFTY": "50/50",
+          "FLAT_RATE": "Forfait",
+          "RENTAL": "Verhuur"
+        },
+        "dayShift": "Dagshift",
+        "nightShift": "Nachtshift"
+      },
+      "toast": {
+        "saved": "Instellingen opgeslagen. Auto-validatie binnen 48u.",
+        "reset": "Wijzigingen verworpen."
+      }
+    },
+    "planning": {
+      "title": "Weekplanning",
+      "subtitle": "Chauffeur-voertuig toewijzing per dag en shift.",
+      "vehicle": "Voertuig",
+      "assigned": "{{n}}/{{total}} blokken toegewezen",
+      "holes": "{{n}} in te vullen",
+      "prev": "Vorige week",
+      "next": "Volgende week",
+      "todayCta": "Deze week",
+      "thisWeek": "Deze week",
+      "lastWeek": "Vorige week",
+      "nextWeek": "Volgende week",
+      "readonly": "Historiek",
+      "locked": "Lopend",
+      "autoPlan": "Auto-plannen",
+      "assigning": "Kies een chauffeur",
+      "clear": "Leegmaken",
+      "cancel": "Annuleren",
+      "shift": {
+        "day": "Dag",
+        "night": "Nacht"
+      },
+      "toast": {
+        "assigned": "{{driver}} toegewezen · {{plate}} · {{day}} {{shift}}",
+        "cleared": "Blok geleegd · {{plate}} · {{day}} {{shift}}",
+        "autoPlanned": "{{n}} blokken automatisch gepland",
+        "alreadyFull": "De week is al volzet"
+      },
+      "days": {
+        "mon": "Ma",
+        "tue": "Di",
+        "wed": "Wo",
+        "thu": "Do",
+        "fri": "Vr",
+        "sat": "Za",
+        "sun": "Zo"
+      }
+    },
+    "demoToast": {
+      "actionLocked": "« {{action}} » : beschikbaar bij de lancering",
+      "subtitle": "Actie uitgeschakeld in de demo. Publieke lancering in september 2026.",
+      "actions": {
+        "view": "Details bekijken",
+        "edit": "Bewerken",
+        "delete": "Verwijderen",
+        "notifications": "Meldingen",
+        "profile": "Profiel"
+      }
+    },
+    "demoStart": {
+      "eyebrow": "Cabs · Uitbaterskant",
+      "title": "Het controlecentrum van je vloot",
+      "subtitle": "Alles om je chauffeurs, voertuigen en inkomsten op één plek te beheren.",
+      "cta": "Demo starten",
+      "note": "Interactieve demo · Fictieve data · Klik in de zijbalk om te verkennen.",
+      "highlights": {
+        "fleet": "Vloot",
+        "drivers": "Chauffeurs",
+        "map": "Live kaart",
+        "revenue": "Kasoverzicht"
+      }
+    },
+    "reset": {
+      "cta": "Demo resetten",
+      "hint": "Wist enkel deze simulator (chauffeurs, voertuigen, scherm). De rest van de site blijft onaangeroerd."
+    },
+    "shifts": {
+      "kpi": {
+        "activeNow": "Lopende shifts",
+        "liveTrend": "Live bijgewerkt",
+        "hoursToday": "Uren vandaag",
+        "hoursTrend": "{{count}} shifts afgerond",
+        "avgDuration": "Gemiddelde duur",
+        "avgTrend": "Over de shifts van vandaag"
+      },
+      "heatmap": {
+        "title": "Activiteit per uur",
+        "legend": "Donkerder = meer chauffeurs onderweg"
+      },
+      "active": {
+        "title": "Nu actief",
+        "startedAt": "Gestart om {{time}}"
+      },
+      "completed": {
+        "title": "Vandaag afgerond",
+        "rides": "{{count}} ritten",
+        "openTripSheet": "Ritblad van {{driver}} openen"
+      }
+    },
+    "tripsheet": {
+      "title": "Ritblad",
+      "subtitle": "Wettelijk shiftdetail · ATAS-controle",
+      "dayShift": "Dagshift",
+      "nightShift": "Nachtshift",
+      "km": {
+        "start": "Begin km",
+        "end": "Eind km",
+        "distance": "Afstand",
+        "ocr": "OCR"
+      },
+      "photos": {
+        "title": "Inspectiefoto's",
+        "start": "Shiftbegin",
+        "end": "Shifteinde"
+      },
+      "sides": {
+        "front": "Voor",
+        "back": "Achter",
+        "left": "Links",
+        "right": "Rechts"
+      },
+      "rides": {
+        "title": "Ritten van de shift",
+        "platform": "Platform",
+        "route": "Traject",
+        "brut": "Bruto",
+        "net": "Netto"
+      },
+      "totals": {
+        "brut": "Bruto totaal",
+        "commission": "Commissies",
+        "net": "Echte netto"
+      },
+      "legalNote": "Conform de ATAS · MIVB-STIB-verplichtingen.",
+      "print": "Afdrukken",
+      "exportToast": "{{format}}-export van ritblad {{plate}} — beschikbaar bij publieke lancering."
+    }
+  },
+  "driverApp": {
+    "eyebrow": "02 · Chauffeurszijde",
+    "title": "De app die je chauffeurs in hun broekzak hebben",
+    "subtitle": "Cabs is niet alleen een back-office-tool. Je chauffeurs krijgen hun eigen iOS- en Android-app, in realtime verbonden met het dashboard.",
+    "bullets": {
+      "startShift": {
+        "title": "Een shift starten met één tik",
+        "description": "De chauffeur opent de app, bevestigt zijn shift, en alle data stroomt automatisch naar je dashboard."
+      },
+      "planning": {
+        "title": "Weekplanning binnen handbereik",
+        "description": "Elke chauffeur ziet zijn dagen, voertuigen en aankomende shifts. Hij krijgt een push-melding zodra er iets verandert."
+      },
+      "revenue": {
+        "title": "Live inkomsten",
+        "description": "Bruto van de dag, netto na commissies, vergelijking met gisteren. De chauffeur weet wat hij verdient, rit voor rit."
+      },
+      "alerts": {
+        "title": "Operator-meldingen",
+        "description": "Stuur een bericht naar het hele team of een subset. Het komt aan als push-notificatie, niet als SMS verloren in de massa."
+      }
+    },
+    "platforms": {
+      "ios": "iOS 16+",
+      "android": "Android 10+",
+      "offline": "Offline-modus"
+    },
+    "phone": {
+      "next": "Volgende",
+      "vehicle": "Voertuig",
+      "startShift": "Shift starten"
+    },
+    "sim": {
+      "demoStart": {
+        "title": "Interactieve demo",
+        "subtitle": "Probeer de chauffeursapp in 30 seconden.",
+        "cta": "Demo starten",
+        "note": "Geen installatie. Alles wordt in je browser gesimuleerd."
+      },
+      "nav": {
+        "home": "Start",
+        "planning": "Planning",
+        "history": "Historiek",
+        "profile": "Profiel"
+      },
+      "home": {
+        "greeting": "Hallo {{name}}",
+        "statusOff": "Niet in shift",
+        "lastShift": "Laatste shift",
+        "lastShiftMeta": "{{date}} · {{rides}} ritten",
+        "startCardTitle": "Klaar om te starten?",
+        "startCardSubtitle": "Je {{vehicle}} staat klaar voor vandaag.",
+        "startCta": "Mijn shift starten",
+        "nextShift": "Volgende shift",
+        "nextShiftValue": "Do · 06:00 → 18:00"
+      },
+      "planning": {
+        "eyebrow": "Deze week",
+        "title": "Teamplanning",
+        "summary": "Jij: {{count}} blokken deze week",
+        "day": "Dag",
+        "night": "Nacht",
+        "off": "Vrij",
+        "you": "Jij",
+        "unassigned": "Niet toegewezen",
+        "days": {
+          "mon": "Ma",
+          "tue": "Di",
+          "wed": "Wo",
+          "thu": "Do",
+          "fri": "Vr",
+          "sat": "Za",
+          "sun": "Zo"
+        }
+      },
+      "history": {
+        "eyebrow": "Laatste 7 dagen",
+        "title": "Historiek",
+        "brut": "Bruto",
+        "brutShort": "bruto",
+        "commission": "Commissie",
+        "net": "Netto",
+        "ridesCount": "{{count}} ritten",
+        "ridesShort": "ritten"
+      },
+      "profile": {
+        "eyebrow": "Account",
+        "title": "Chauffeursprofiel",
+        "vehicle": "Voertuig",
+        "phone": "Telefoon",
+        "email": "E-mail",
+        "documents": "Documenten",
+        "documentsValue": "Allemaal geldig",
+        "preferences": "Voorkeuren",
+        "language": "Taal",
+        "theme": "Weergave",
+        "light": "Licht",
+        "dark": "Donker"
+      },
+      "shift": {
+        "title": "Shift bezig",
+        "runningFor": "Sinds {{time}}",
+        "ridesToday": "Ritten",
+        "brutToday": "Bruto",
+        "netToday": "Netto",
+        "startRide": "Rit starten",
+        "endShift": "Beëindigen",
+        "ridesTitle": "Jouw ritten van vandaag",
+        "noRidesYet": "Nog geen rit vandaag."
+      },
+      "ride": {
+        "inProgress": "Rit bezig",
+        "from": "Vertrek",
+        "to": "Bestemming",
+        "fare": "Tarief",
+        "duration": "Duur",
+        "endRide": "Rit beëindigen"
+      },
+      "rideSummary": {
+        "title": "Rit voltooid",
+        "brut": "Bruto",
+        "commission": "{{platform}}-commissie",
+        "net": "Netto voor jou",
+        "continue": "Verder"
+      },
+      "shiftSummary": {
+        "title": "Shift voltooid",
+        "duration": "{{min}} min",
+        "rides": "{{count}} ritten",
+        "brut": "Bruto",
+        "commission": "Commissie",
+        "net": "Netto",
+        "byPlatform": "Per platform",
+        "backHome": "Terug naar start",
+        "restart": "Demo herstarten"
+      },
+      "shiftCapture": {
+        "title": {
+          "start": "Inspectie shiftbegin",
+          "end": "Inspectie shifteinde"
+        },
+        "progress": "{{current}}/{{total}}",
+        "allCaptured": "Alle foto's genomen",
+        "flashOn": "Flash · Nacht",
+        "captureCta": "Vastleggen",
+        "endNote": "Shift eindigt na de inspectie.",
+        "steps": {
+          "front": "Voorkant",
+          "back": "Achterkant",
+          "left": "Bestuurderskant",
+          "right": "Passagierskant",
+          "ticket": "Ritblad"
+        },
+        "hint": {
+          "front": "Kadreer de volledige voorkant van het voertuig.",
+          "back": "Kadreer de volledige achterkant van het voertuig.",
+          "left": "Kadreer de bestuurderskant.",
+          "right": "Kadreer de passagierskant.",
+          "ticket": "Kadreer het blad met de kilometerstand zichtbaar."
+        },
+        "ocr": {
+          "scanning": "OCR bezig",
+          "scanningHint": "Kilometerstand op het blad detecteren...",
+          "label": "Kilometerstand",
+          "unit": "km",
+          "detected": "Gedetecteerd",
+          "editHint": "Aanpasbaar als de OCR zich vergiste."
+        },
+        "confirm": {
+          "start": "Bevestigen en shift starten",
+          "end": "Bevestigen en shift beëindigen"
+        }
+      },
+      "ridePicker": {
+        "eyebrow": "Rit voltooid",
+        "title": "Hoe is hij geboekt?",
+        "subtitle": "Selecteer het platform van de rit.",
+        "platform": "Platform",
+        "platformHint": {
+          "uber": "Toegewezen Uber-rit",
+          "bolt": "Toegewezen Bolt-rit",
+          "heetch": "Toegewezen Heetch-rit",
+          "cash": "Aangehouden op straat"
+        },
+        "cashLabel": "Geïnd bedrag",
+        "cashHint": "Aanpasbaar als de meter afwijkt.",
+        "confirm": "Rit opslaan"
+      },
+      "platforms": {
+        "uber": "Uber",
+        "bolt": "Bolt",
+        "heetch": "Heetch",
+        "cash": "Cash"
+      },
+      "reset": {
+        "cta": "Demo resetten",
+        "hint": "Wist de gesimuleerde gegevens uit deze browser."
       }
     }
   },
   "team": {
     "eyebrow": "Het team",
-    "title": "Drie ontwikkelaars, één concreet probleem",
-    "subtitle": "Wij zijn drie webontwikkelaars die het taxivak van dichtbij hebben bekeken. Nadat we operatoren met vijf tools hadden zien jongleren, besloten we er één te bouwen die bij hen past.",
+    "title": "Drie software engineers, één concreet probleem",
+    "subtitle": "Wij zijn drie software engineers die het taxivak van dichtbij hebben bekeken. Nadat we operatoren met vijf tools hadden zien jongleren, besloten we er één te bouwen die bij hen past.",
     "members": {
       "kristian": {
         "name": "Kristian Vasiaj",
-        "role": "Medeoprichter · Ontwikkeling"
+        "role": "Medeoprichter · Backend & Mobile",
+        "location": "Brussel, België",
+        "expertise": "Backend · React Native · iOS & Android",
+        "bio": [
+          "Software engineer gespecialiseerd in backend en mobile. Kristian bouwt de API die het platform aandrijft en de iOS/Android-chauffeursapp — die je chauffeurs dagelijks gebruiken om hun shifts te starten en hun inkomsten in realtime te volgen.",
+          "Hij draagt de brug tussen de telefoon van de chauffeur en de server, en zorgt dat de verbinding solide blijft, ook als het netwerk dat niet doet."
+        ]
       },
       "ismael": {
         "name": "Ismael Bouzrouti",
-        "role": "Medeoprichter · Ontwikkeling"
+        "role": "Medeoprichter · Backend & Architectuur",
+        "location": "Brussel, België",
+        "expertise": "Java Spring Boot · TimescaleDB · RabbitMQ",
+        "bio": [
+          "Backend software engineer en technisch architect. Ismael ontwerpt de structuur van de Cabs-diensten op Java Spring Boot, TimescaleDB voor tijdreeksen met hoog volume (miljoenen ritten) en RabbitMQ voor asynchrone communicatie tussen services.",
+          "Hij draagt ook de QA-pet. Geen enkele release vertrekt zonder zijn validatie: tests, monitoring, performance, edge cases. Zijn filosofie is simpel: een bug in productie kost tien keer meer dan een goed geschreven test."
+        ]
       },
       "nawfel": {
         "name": "Nawfel Ajari",
-        "role": "Medeoprichter · Ontwikkeling"
+        "role": "Medeoprichter · Frontend",
+        "location": "Brussel, België",
+        "expertise": "Frontend · React · Productdesign",
+        "bio": [
+          "Frontend software engineer, gespecialiseerd in React. Nawfel bouwt elke web-interface die je operatoren dagelijks gebruiken: realtime dashboard, weekplanning, chauffeurs- en voertuigbeheer, boekhoudkundige exports.",
+          "Zijn obsessie: alles moet leesbaar zijn in drie seconden. Een dispatcher die geen info terugvindt in het dashboard, is een dispatcher die terug naar Excel gaat. Hij brengt ook tijd door met bèta-operatoren om hun feedback om te zetten in productspecs."
+        ]
       }
     },
     "socials": {
       "instagram": "Instagram",
       "linkedin": "LinkedIn"
+    },
+    "modal": {
+      "openLabel": "Bio van {{name}} bekijken",
+      "close": "Sluiten",
+      "writeMe": "Schrijf hem"
     }
   },
   "finalCta": {
@@ -128,23 +885,85 @@
     "subtitle": "Eén e-mail. Geen spam. Je bent de eerste om te testen bij de publieke lancering."
   },
   "contact": {
-    "eyebrow": "Een vraag ?",
-    "title": "Schrijf ons",
-    "subtitle": "Voor elke vraag over de bèta of de publieke lancering. We antwoorden binnen 48 werkuren.",
+    "eyebrow": "Praat rechtstreeks",
+    "title": "Schrijf naar de oprichters",
+    "subtitle": "Een vraag over de bèta, de publieke lancering, een partnerschap of de pers. We antwoorden binnen 48 werkuren.",
+    "founders": {
+      "title": "Je schrijft naar de oprichters",
+      "description": "Geen externe support, geen bot, geen AI-chatbot. Je berichten komen rechtstreeks bij Kristian, Ismael en Nawfel terecht."
+    },
     "fields": {
       "name": { "label": "Volledige naam", "placeholder": "Sofia Rossi" },
-      "email": { "label": "E-mail", "placeholder": "sofia@jouwbedrijf.be" },
+      "email": { "label": "Werk-e-mail", "placeholder": "sofia@jouwbedrijf.be" },
       "company": { "label": "Bedrijf (optioneel)", "placeholder": "Brussels Taxi SA" },
-      "message": { "label": "Bericht", "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot." }
+      "message": { "label": "Je bericht", "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot." }
     },
-    "submit": "Verzenden",
+    "subjects": {
+      "label": "Onderwerp",
+      "placeholder": "Kies een onderwerp",
+      "beta": "Private bèta (pilootoperator worden)",
+      "demo": "Persoonlijke demo",
+      "pricing": "Tarieven en publieke lancering",
+      "partnership": "Partnerschap of integratie",
+      "press": "Pers en media",
+      "other": "Andere"
+    },
+    "consent": "Door te verzenden, aanvaard ik het <1>privacybeleid</1> en dat mijn gegevens enkel worden gebruikt om mijn vraag te beantwoorden.",
+    "noCommercialUse": "Geen commercieel gebruik. Geen delen aan derden.",
+    "submit": "Bericht verzenden",
     "retry": "Opnieuw proberen",
-    "successToast": "Bericht ontvangen. Antwoord binnen 48 werkuren.",
+    "successToast": "Bericht ontvangen. Persoonlijk antwoord binnen 48 werkuren.",
     "errorToast": "Verzenden mislukt. Probeer het zo dadelijk opnieuw.",
     "errors": {
       "name": "Geef je volledige naam op",
       "email": "Ongeldig e-mailadres",
-      "message": "Je bericht moet minstens 10 tekens bevatten"
+      "message": "Je bericht moet minstens 10 tekens bevatten",
+      "subject": "Kies een onderwerp",
+      "consent": "Je moet het privacybeleid aanvaarden"
+    },
+    "channels": {
+      "title": "Directe kanalen",
+      "email": { "label": "E-mail", "value": "hello@joincabs.com" },
+      "linkedin": { "label": "LinkedIn", "value": "Cabs volgen" },
+      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
+      "whatsapp": { "label": "WhatsApp Business", "value": "Op aanvraag" }
+    },
+    "responseTime": {
+      "title": "Antwoordtijd",
+      "value": "Binnen 48 werkuren",
+      "description": "Maandag tot vrijdag. We antwoorden in het Nederlands, Frans, Engels of Duits."
+    },
+    "location": {
+      "title": "Locatie",
+      "value": "Brussel, België",
+      "description": "Lokaal team, geen offshore support. Vennootschap in oprichting in België."
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "subtitle": "Snelle antwoorden op de vragen die we het vaakst krijgen voor de publieke lancering.",
+      "items": {
+        "when": {
+          "q": "Wanneer kan ik Cabs testen?",
+          "a": "De private bèta loopt met een handvol Brusselse operatoren. De publieke lancering is gepland voor september 2026. Schrijf je in op de meldingenlijst om verwittigd te worden op de dag zelf."
+        },
+        "minimum": {
+          "q": "Hoeveel voertuigen minimum?",
+          "a": "Voor de private bèta werken we met vloten van 3 voertuigen of meer om voldoende operationeel signaal te verzamelen. Bij de publieke lancering staat Cabs open voor elke vlootomvang, van zelfstandige chauffeur tot grote operator."
+        },
+        "regions": {
+          "q": "Werkt Cabs in Wallonië en Vlaanderen?",
+          "a": "Ja, Cabs werkt in heel België. Regionale STP-vergunningen (Brussel, Wallonië, Vlaanderen) en lokale verplichtingen (ATAS, RSZ, wettelijke planning) worden in rekening gebracht."
+        },
+        "pricing": {
+          "q": "Hoeveel zal Cabs kosten?",
+          "a": "Definitieve tarieven worden bij de lancering bekendgemaakt. Founding operators (de eersten die zich bij de bèta voegen) krijgen een aanzienlijke levenslange korting als dank voor hun vertrouwen."
+        }
+      }
+    },
+    "success": {
+      "title": "Bericht goed ontvangen!",
+      "subtitle": "Een van de drie oprichters schrijft je persoonlijk binnen 48 werkuren. Vergeet niet je spam te controleren.",
+      "sendAnother": "Nog een bericht sturen"
     }
   },
   "legal": {
@@ -155,11 +974,11 @@
       "sections": {
         "scope": {
           "title": "Voorwerp",
-          "body": "Deze voorwaarden regelen het gebruik van de showcase-website cabs.brussels. Er wordt momenteel geen betaalde dienst aangeboden. De enige beschikbare actie is de inschrijving op de lijst voor lanceringsmeldingen."
+          "body": "Deze voorwaarden regelen het gebruik van de showcase-website joincabs.com. Er wordt momenteel geen betaalde dienst aangeboden. De enige beschikbare actie is de inschrijving op de lijst voor lanceringsmeldingen."
         },
         "waitlist": {
           "title": "Notificatielijst",
-          "body": "Door je e-mail in te voeren in het formulier « Houd mij op de hoogte », ga je akkoord met het ontvangen van één enkele e-mail op de dag van de publieke lancering. Geen andere communicatie wordt verzonden. Je kunt op elk moment de verwijdering van je e-mail aanvragen via hello@cabs.brussels."
+          "body": "Door je e-mail in te voeren in het formulier « Houd mij op de hoogte », ga je akkoord met het ontvangen van één enkele e-mail op de dag van de publieke lancering. Geen andere communicatie wordt verzonden. Je kunt op elk moment de verwijdering van je e-mail aanvragen via hello@joincabs.com."
         },
         "contact": {
           "title": "Contact",
@@ -182,7 +1001,7 @@
       "sections": {
         "controller": {
           "title": "Verwerkingsverantwoordelijke",
-          "body": "De medeoprichters (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) treden gezamenlijk op als verwerkingsverantwoordelijken tot de oprichting van de vennootschap. Contact : hello@cabs.brussels."
+          "body": "De medeoprichters (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) treden gezamenlijk op als verwerkingsverantwoordelijken tot de oprichting van de vennootschap. Contact : hello@joincabs.com."
         },
         "data": {
           "title": "Verzamelde gegevens",
@@ -202,7 +1021,7 @@
         },
         "rights": {
           "title": "Je rechten",
-          "body": "Je hebt recht op inzage, rectificatie, wissing, overdraagbaarheid en bezwaar. Om deze rechten uit te oefenen, schrijf naar hello@cabs.brussels. Je kunt ook een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (www.gegevensbeschermingsautoriteit.be)."
+          "body": "Je hebt recht op inzage, rectificatie, wissing, overdraagbaarheid en bezwaar. Om deze rechten uit te oefenen, schrijf naar hello@joincabs.com. Je kunt ook een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (www.gegevensbeschermingsautoriteit.be)."
         },
         "hosting": {
           "title": "Hosting en verwerkers",
@@ -225,8 +1044,8 @@
       "legal": "Juridisch"
     },
     "links": {
-      "features": "Functies",
-      "showcase": "Screenshots",
+      "admin": "Uitbaterskant",
+      "app": "Chauffeurszijde",
       "team": "Team",
       "contact": "Contact",
       "terms": "Voorwaarden",

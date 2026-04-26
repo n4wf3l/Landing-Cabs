@@ -1,15 +1,30 @@
+import { useState, type KeyboardEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { MapPin, Sparkles } from 'lucide-react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { InstagramIcon, LinkedinIcon } from '@/components/common/SocialIcons'
 import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { FOUNDERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
+type FounderKey = (typeof FOUNDERS)[number]['key']
+
 export function Team() {
   const { t } = useTranslation()
+  const [openKey, setOpenKey] = useState<FounderKey | null>(null)
+
+  const activeFounder = FOUNDERS.find((f) => f.key === openKey) ?? null
+
   return (
-    <section id="team" className="py-24 sm:py-32">
+    <section id="team" className="scroll-mt-20 py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow={t('team.eyebrow')}
@@ -27,50 +42,206 @@ export function Team() {
           {FOUNDERS.map((founder) => {
             const name = t(`team.members.${founder.key}.name`)
             const role = t(`team.members.${founder.key}.role`)
+
+            const handleOpen = () => setOpenKey(founder.key)
+            const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleOpen()
+              }
+            }
+            const stopProp = (e: React.MouseEvent | React.KeyboardEvent) =>
+              e.stopPropagation()
+
             return (
-              <motion.li
-                key={founder.key}
-                variants={staggerItem}
-                whileHover={{ y: -4 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-                className={cn(
-                  'group relative flex flex-col items-center overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-8 text-center backdrop-blur transition-all',
-                  'hover:border-primary/40 hover:shadow-glow',
-                )}
-              >
-                <div
-                  aria-hidden
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-brand text-2xl font-bold text-primary-foreground shadow-glow"
+              <motion.li key={founder.key} variants={staggerItem}>
+                <motion.div
+                  role="button"
+                  tabIndex={0}
+                  aria-label={t('team.modal.openLabel', { name })}
+                  onClick={handleOpen}
+                  onKeyDown={handleKeyDown}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+                  className={cn(
+                    'group relative flex cursor-pointer flex-col items-center overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-8 text-center backdrop-blur transition-colors',
+                    'hover:border-primary/40 hover:shadow-glow',
+                    'focus-visible:border-primary/60 focus-visible:shadow-glow focus-visible:outline-none',
+                  )}
                 >
-                  {founder.initials}
-                </div>
-                <h3 className="mt-5 text-lg font-semibold">{name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{role}</p>
-                <div className="mt-5 flex items-center gap-2">
-                  <a
-                    href={founder.instagram}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${name} ${t('team.socials.instagram')}`}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  {founder.photo ? (
+                    <img
+                      src={founder.photo}
+                      alt={name}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-20 w-20 rounded-full object-cover shadow-glow ring-2 ring-primary/40"
+                    />
+                  ) : (
+                    <div
+                      aria-hidden
+                      className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-brand text-2xl font-bold text-primary-foreground shadow-glow"
+                    >
+                      {founder.initials}
+                    </div>
+                  )}
+                  <h3 className="mt-5 text-lg font-semibold">{name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{role}</p>
+
+                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-widest text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                    <Sparkles className="h-2.5 w-2.5" />
+                    {t('team.modal.openLabel', { name }).split(' ').slice(0, 2).join(' ')}
+                  </span>
+
+                  <div
+                    className="mt-5 flex items-center gap-2"
+                    onClick={stopProp}
+                    onKeyDown={stopProp}
                   >
-                    <InstagramIcon className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={founder.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${name} ${t('team.socials.linkedin')}`}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-                  >
-                    <LinkedinIcon className="h-4 w-4" />
-                  </a>
-                </div>
+                    {founder.instagram && (
+                      <a
+                        href={founder.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${name} ${t('team.socials.instagram')}`}
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                      >
+                        <InstagramIcon className="h-4 w-4" />
+                      </a>
+                    )}
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${name} ${t('team.socials.linkedin')}`}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                    >
+                      <LinkedinIcon className="h-4 w-4" />
+                    </a>
+                  </div>
+                </motion.div>
               </motion.li>
             )
           })}
         </motion.ul>
       </div>
+
+      <Dialog
+        open={openKey !== null}
+        onOpenChange={(open) => !open && setOpenKey(null)}
+      >
+        {activeFounder && (
+          <FounderDialogContent
+            founderKey={activeFounder.key}
+            initials={activeFounder.initials}
+            instagram={activeFounder.instagram}
+            linkedin={activeFounder.linkedin}
+            photo={activeFounder.photo}
+          />
+        )}
+      </Dialog>
     </section>
+  )
+}
+
+interface FounderDialogContentProps {
+  founderKey: string
+  initials: string
+  instagram?: string
+  linkedin: string
+  photo?: string
+}
+
+function FounderDialogContent({
+  founderKey,
+  initials,
+  instagram,
+  linkedin,
+  photo,
+}: FounderDialogContentProps) {
+  const { t } = useTranslation()
+  const name = t(`team.members.${founderKey}.name`)
+  const role = t(`team.members.${founderKey}.role`)
+  const location = t(`team.members.${founderKey}.location`)
+  const expertise = t(`team.members.${founderKey}.expertise`)
+  const bio = t(`team.members.${founderKey}.bio`, {
+    returnObjects: true,
+  }) as string[]
+
+  return (
+    <DialogContent className="max-w-md overflow-hidden border-border/60 bg-card/95 p-6 backdrop-blur-xl sm:p-7">
+      <div
+        aria-hidden
+        className="absolute -inset-[1px] -z-10 rounded-lg bg-gradient-brand opacity-[0.12] blur-md"
+      />
+
+      <DialogHeader className="flex-row items-center gap-4 space-y-0 text-left">
+        {photo ? (
+          <img
+            src={photo}
+            alt={name}
+            loading="lazy"
+            decoding="async"
+            className="h-14 w-14 shrink-0 rounded-full object-cover shadow-glow ring-2 ring-primary/40"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-brand text-lg font-bold text-primary-foreground shadow-glow"
+          >
+            {initials}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <DialogTitle className="text-lg font-bold tracking-tight">
+            {name}
+          </DialogTitle>
+          <DialogDescription className="text-xs text-primary">
+            {role}
+          </DialogDescription>
+        </div>
+      </DialogHeader>
+
+      <div className="mt-4 flex flex-wrap items-center gap-1.5 text-xs">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/40 px-2.5 py-1 text-muted-foreground">
+          <MapPin className="h-3 w-3" />
+          {location}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 font-medium text-primary">
+          <Sparkles className="h-3 w-3" />
+          {expertise}
+        </span>
+      </div>
+
+      <div className="mt-4 space-y-2.5 text-sm leading-relaxed text-muted-foreground">
+        {bio.map((paragraph, i) => (
+          <p key={i}>{paragraph}</p>
+        ))}
+      </div>
+
+      <div className="mt-5 flex items-center justify-end gap-2 border-t border-border/60 pt-4">
+        {instagram && (
+          <a
+            href={instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${name} ${t('team.socials.instagram')}`}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+          >
+            <InstagramIcon className="h-4 w-4" />
+          </a>
+        )}
+        <a
+          href={linkedin}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${name} ${t('team.socials.linkedin')}`}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+        >
+          <LinkedinIcon className="h-4 w-4" />
+        </a>
+      </div>
+    </DialogContent>
   )
 }

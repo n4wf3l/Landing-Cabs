@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Check, Globe, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -76,7 +77,9 @@ function LanguageModal({ open, current, onClose, onSelect }: LanguageModalProps)
     }
   }, [open, onClose])
 
-  return (
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -222,6 +225,7 @@ function LanguageModal({ open, current, onClose, onSelect }: LanguageModalProps)
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }

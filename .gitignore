@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Environment files (contains secrets — never commit)
+.env
+.env.local
+.env.*.local
+server/.env
+server/node_modules
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +29,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code local project memory
+.claude/

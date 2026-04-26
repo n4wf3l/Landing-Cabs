@@ -60,18 +60,18 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="#features"
+                  href="#admin"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t('footer.links.features')}
+                  {t('footer.links.admin')}
                 </a>
               </li>
               <li>
                 <a
-                  href="#product"
+                  href="#app"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t('footer.links.showcase')}
+                  {t('footer.links.app')}
                 </a>
               </li>
             </ul>

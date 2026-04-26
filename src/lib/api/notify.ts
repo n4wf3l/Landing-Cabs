@@ -3,6 +3,7 @@ import { api } from '../api'
 export interface NotifyPayload {
   email: string
   locale?: string
+  turnstileToken?: string | null
 }
 
 export interface NotifyResponse {

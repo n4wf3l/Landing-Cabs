@@ -32,7 +32,11 @@ export default function App() {
             <Route path="/legal/terms" element={<LegalTerms />} />
             <Route path="/legal/privacy" element={<LegalPrivacy />} />
             <Route path="/pricing" element={<Navigate to="/" replace />} />
-            <Route path="/features" element={<Navigate to="/#features" replace />} />
+            <Route path="/features" element={<Navigate to="/#admin" replace />} />
+            <Route path="/product" element={<Navigate to="/#admin" replace />} />
+            <Route path="/admin" element={<Navigate to="/#admin" replace />} />
+            <Route path="/app" element={<Navigate to="/#app" replace />} />
+            <Route path="/driver-app" element={<Navigate to="/#app" replace />} />
             <Route path="/about" element={<Navigate to="/#team" replace />} />
             <Route path="/signup" element={<Navigate to="/" replace />} />
             <Route path="/signup/success" element={<Navigate to="/" replace />} />

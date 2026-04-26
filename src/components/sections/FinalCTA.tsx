@@ -6,7 +6,7 @@ import { NotifyMeForm } from '@/components/common/NotifyMeForm'
 export function FinalCTA() {
   const { t } = useTranslation()
   return (
-    <section id="notify" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="notify" className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32">
       <GlowEffect color="primary" className="opacity-70" />
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
