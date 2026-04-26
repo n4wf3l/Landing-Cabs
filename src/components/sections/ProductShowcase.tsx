@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Monitor, Smartphone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { AdminShell } from './admin-app/AdminShell'
@@ -16,6 +17,8 @@ export function ProductShowcase() {
           title={t('showcase.title')}
           subtitle={t('showcase.subtitle')}
         />
+
+        <MobileNotice />
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -58,6 +61,33 @@ export function ProductShowcase() {
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function MobileNotice() {
+  const { t } = useTranslation()
+  return (
+    <div
+      role="note"
+      aria-live="polite"
+      className="mx-auto mt-8 flex max-w-sm items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/[0.06] p-3 lg:hidden"
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-400/15 text-amber-300 ring-1 ring-amber-400/30">
+        <Monitor className="h-4 w-4" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-amber-300">
+          {t('showcase.mobileNotice.title')}
+        </p>
+        <p className="mt-1 text-xs leading-relaxed text-amber-100/85">
+          {t('showcase.mobileNotice.body')}
+        </p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-medium text-amber-300/80">
+          <Smartphone className="h-3 w-3" />
+          {t('showcase.mobileNotice.fallback')}
+        </p>
+      </div>
+    </div>
   )
 }
 

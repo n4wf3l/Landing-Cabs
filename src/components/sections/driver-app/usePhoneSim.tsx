@@ -38,6 +38,8 @@ const INITIAL_STATE: PhoneSimState = {
   todayRides: [],
   lastCompletedRide: null,
   ridePoolIndex: 0,
+  locationGranted: false,
+  locationDenied: false,
 }
 
 function loadInitial(): PhoneSimState {
@@ -152,6 +154,12 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
         lastCompletedRide: completed,
       }
     }
+    case 'GRANT_LOCATION':
+      return { ...state, locationGranted: true, locationDenied: false }
+    case 'DENY_LOCATION':
+      return { ...state, locationGranted: false, locationDenied: true }
+    case 'RETRY_LOCATION':
+      return { ...state, locationGranted: false, locationDenied: false }
     case 'CONTINUE_AFTER_RIDE':
       return { ...state, screen: 'shift-active' }
     case 'RESET':

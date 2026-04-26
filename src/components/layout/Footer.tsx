@@ -31,25 +31,53 @@ export function Footer() {
                 <span className="truncate">{BRAND.email}</span>
               </a>
             </div>
-            <div className="flex gap-2 pt-2">
-              <a
-                href={BRAND.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-              >
-                <InstagramIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={BRAND.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-              >
-                <LinkedinIcon className="h-4 w-4" />
-              </a>
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              {BRAND.socialsLive ? (
+                <>
+                  <a
+                    href={BRAND.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  >
+                    <InstagramIcon className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={BRAND.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/40 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  >
+                    <LinkedinIcon className="h-4 w-4" />
+                  </a>
+                </>
+              ) : (
+                <>
+                  <span
+                    aria-label={`Instagram — ${t('contact.channels.comingSoonShort')}`}
+                    title={t('contact.channels.comingSoon')}
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-full border border-border/40 bg-background/20 text-muted-foreground/60"
+                  >
+                    <InstagramIcon className="h-4 w-4" />
+                  </span>
+                  <span
+                    aria-label={`LinkedIn — ${t('contact.channels.comingSoonShort')}`}
+                    title={t('contact.channels.comingSoon')}
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-full border border-border/40 bg-background/20 text-muted-foreground/60"
+                  >
+                    <LinkedinIcon className="h-4 w-4" />
+                  </span>
+                  <span
+                    title={t('contact.channels.comingSoon')}
+                    className="inline-flex items-center gap-1 rounded-full border border-border/40 bg-background/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground"
+                  >
+                    <span className="inline-block h-1 w-1 rounded-full bg-primary/60" />
+                    {t('contact.channels.comingSoonShort')}
+                  </span>
+                </>
+              )}
             </div>
           </div>
 
@@ -96,6 +124,14 @@ export function Footer() {
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {t('footer.links.contact')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact#faq"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {t('footer.links.faq')}
                 </Link>
               </li>
             </ul>

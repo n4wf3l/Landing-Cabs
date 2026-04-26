@@ -25,7 +25,7 @@
     "notifyCta": "Houd mij op de hoogte"
   },
   "hero": {
-    "eyebrow": "Private bèta · Brussel · Lancering september 2026",
+    "eyebrow": "Private bèta · België · Frankrijk · Nederland — lancering september 2026",
     "title": "Je chauffeurs, je voertuigen, je inkomsten. Eén tool, twee kanten.",
     "subtitle": "Een dashboard voor jou. Een app voor je chauffeurs. Zonder spreadsheet, zonder handmatig rekenwerk.",
     "scrollHint": "Het product bekijken"
@@ -62,7 +62,7 @@
       "archived": "Gearchiveerd"
     },
     "tracking": {
-      "title": "Realtime kaart · Brussel",
+      "title": "Realtime kaart",
       "available": "Beschikbaar",
       "inRide": "Op rit",
       "live": "Live"
@@ -135,7 +135,12 @@
     "eyebrow": "01 · Uitbaterskant",
     "title": "Eén dashboard. Alles wat telt.",
     "subtitle": "De drie schermen die je operatoren elke dag gebruiken.",
-    "interactiveHint": "Klik in de zijbalk om elk scherm te verkennen."
+    "interactiveHint": "Klik in de zijbalk om elk scherm te verkennen.",
+    "mobileNotice": {
+      "title": "Beter op een groot scherm",
+      "body": "De dashboard-simulator is dicht bezet (zijbalk, tabellen, grafieken) en is ontworpen voor desktop.",
+      "fallback": "Je kunt hem hier verkennen, maar de optimale ervaring is op 1024 px of meer."
+    }
   },
   "pains": {
     "eyebrow": "Hoe het vandaag gaat",
@@ -174,7 +179,7 @@
     "eyebrow": "Bereken je ROI",
     "title": "Hoeveel tijd bespaart Cabs je?",
     "subtitle": "Schuif de regelaars naar je vloot. De cijfers werken live bij.",
-    "header": "Simulatie voor jouw bedrijf",
+    "header": "Schatting voor jouw bedrijf",
     "inputs": {
       "vehicles": "Voertuigen",
       "drivers": "Chauffeurs"
@@ -189,7 +194,19 @@
       "errorsMonth": "Anomalieën opgespoord",
       "errorsMonthHint": "Ontbrekende tickets, urenverschillen, enz."
     },
-    "disclaimer": "Voorzichtige schattingen gebaseerd op praktijken in de Belgische taxisector (0,5u/wk per voertuig, 1,5u/wk per chauffeur, €18/maand aan commissiefouten per chauffeur). Verschilt naar gelang je huidige werking."
+    "disclaimer": "Voorzichtige schattingen gebaseerd op praktijken in de Belgische taxisector (0,5u/wk per voertuig, 1,5u/wk per chauffeur, €18/maand aan commissiefouten per chauffeur). Verschilt naar gelang je huidige werking.",
+    "methodology": {
+      "toggle": "Methodologie en bronnen",
+      "intro": "Multiplicatoren aangepast aan de Belgische context van operatoren die chauffeurs beheren op Uber, Bolt en Heetch. Publieke bronnen:",
+      "kfw": "KMO's besteden tot 8,7 % van hun werktijd aan bureaucratie.",
+      "sage": "kleine ondernemers verliezen het equivalent van een maand werk per jaar aan papierwerk.",
+      "nyag": "schikking van 328 M$ Uber/Lyft voor systematische fouten in uitbetalingen (≈ 91 $/maand/chauffeur over 100 000+ chauffeurs).",
+      "gtl": "≈ 19 700 actieve taxi/VVB-chauffeurs in België.",
+      "frVtc": "71 300 actieve VTC-chauffeurs in Frankrijk in 2024 (+27 % vs 2023).",
+      "nlTaxi": "14 400 taxibedrijven in Nederland in 2024, waarvan 11 400 zelfstandigen (+29 % in 5 jaar).",
+      "note": "Onze multiplicatoren (0,5 u/voertuig, 1,5 u/chauffeur, 18 €/chauffeur) blijven onder de publiek gedocumenteerde afwijkingen. Worden verfijnd tijdens de besloten bèta."
+    },
+    "expansion": "België, Frankrijk en Nederland vanaf september. Duitsland volgt snel."
   },
   "admin": {
     "sidebar": {
@@ -409,7 +426,7 @@
     },
     "map": {
       "live": "Live",
-      "summary": "{{available}} beschikbaar · {{onRide}} op rit · Brussel",
+      "summary": "{{available}} beschikbaar · {{onRide}} op rit · Antwerpen",
       "available": "Beschikbaar",
       "onRide": "Op rit",
       "preview": "Maquettevoorvertoning",
@@ -570,7 +587,7 @@
     },
     "reset": {
       "cta": "Demo resetten",
-      "hint": "Wist enkel deze simulator (chauffeurs, voertuigen, scherm). De rest van de site blijft onaangeroerd."
+      "hint": "Wist enkel deze demo (chauffeurs, voertuigen, scherm). De rest van de site blijft onaangeroerd."
     },
     "shifts": {
       "kpi": {
@@ -629,7 +646,7 @@
         "commission": "Commissies",
         "net": "Echte netto"
       },
-      "legalNote": "Conform de ATAS · MIVB-STIB-verplichtingen.",
+      "legalNote": "Conform de ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) verplichtingen.",
       "print": "Afdrukken",
       "exportToast": "{{format}}-export van ritblad {{plate}} — beschikbaar bij publieke lancering."
     }
@@ -671,7 +688,26 @@
         "title": "Interactieve demo",
         "subtitle": "Probeer de chauffeursapp in 30 seconden.",
         "cta": "Demo starten",
-        "note": "Geen installatie. Alles wordt in je browser gesimuleerd."
+        "note": "Geen installatie. Zo zal Cabs er in september uitzien."
+      },
+      "location": {
+        "title": "« Cabs » wil je locatie gebruiken",
+        "body": "Cabs heeft je locatie nodig om ritten toe te wijzen, je shift te volgen en trajecten te valideren.",
+        "precise": "Precieze locatie aan",
+        "allowOnce": "Eén keer toestaan",
+        "allowWhileUsing": "Toestaan tijdens gebruik van de app",
+        "deny": "Niet toestaan"
+      },
+      "locationBlocked": {
+        "title": "Locatie vereist",
+        "body": "Zonder toegang tot je locatie kan de app geen ritten toewijzen of een shift starten.",
+        "reasonRides": "Realtime ritverdeling Uber, Bolt, Heetch",
+        "reasonShift": "Shift-opvolging en echte netto-berekening",
+        "reasonAtas": "Ritvalidatie: ATAS (BE) / VTC (FR) / TTO (NL) — wettelijke vereiste",
+        "antiSpoofTitle": "Anti-spoofing-detectie",
+        "antiSpoofBody": "Elke app die de GPS-locatie vervalst (mock location, spoofing) wordt automatisch gemarkeerd. Het account wordt geschorst en de uitbater verwittigd.",
+        "retry": "Locatie inschakelen",
+        "note": "Cabs bewaart je locatie niet buiten je shift."
       },
       "nav": {
         "home": "Start",
@@ -688,7 +724,7 @@
         "startCardSubtitle": "Je {{vehicle}} staat klaar voor vandaag.",
         "startCta": "Mijn shift starten",
         "nextShift": "Volgende shift",
-        "nextShiftValue": "Do · 06:00 → 18:00"
+        "nextShiftValue": "Morgen · 06:00 → 18:00"
       },
       "planning": {
         "eyebrow": "Deze week",
@@ -830,14 +866,15 @@
       },
       "reset": {
         "cta": "Demo resetten",
-        "hint": "Wist de gesimuleerde gegevens uit deze browser."
+        "hint": "Wist de demo-gegevens uit deze browser."
       }
     }
   },
   "team": {
     "eyebrow": "Het team",
     "title": "Drie software engineers, één concreet probleem",
-    "subtitle": "Wij zijn drie software engineers die het taxivak van dichtbij hebben bekeken. Nadat we operatoren met vijf tools hadden zien jongleren, besloten we er één te bouwen die bij hen past.",
+    "subtitle": "Drie software engineers in Brussel die Cabs bouwen voor vloten in België, Frankrijk en Nederland. Nadat we operatoren met vijf tools hadden zien jongleren, besloten we er één te bouwen die bij hen past.",
+    "languages": "Drietalig FR · NL · EN",
     "members": {
       "kristian": {
         "name": "Kristian Vasiaj",
@@ -855,7 +892,7 @@
         "location": "Brussel, België",
         "expertise": "Java Spring Boot · TimescaleDB · RabbitMQ",
         "bio": [
-          "Backend software engineer en technisch architect. Ismael ontwerpt de structuur van de Cabs-diensten op Java Spring Boot, TimescaleDB voor tijdreeksen met hoog volume (miljoenen ritten) en RabbitMQ voor asynchrone communicatie tussen services.",
+          "Backend software engineer en technisch architect. Ismael ontwerpt de structuur van de Cabs-diensten op Java Spring Boot, TimescaleDB voor de GPS-stromen en realtime voertuigtelemetrie, en RabbitMQ voor asynchrone communicatie tussen services.",
           "Hij draagt ook de QA-pet. Geen enkele release vertrekt zonder zijn validatie: tests, monitoring, performance, edge cases. Zijn filosofie is simpel: een bug in productie kost tien keer meer dan een goed geschreven test."
         ]
       },
@@ -895,7 +932,7 @@
     "fields": {
       "name": { "label": "Volledige naam", "placeholder": "Sofia Rossi" },
       "email": { "label": "Werk-e-mail", "placeholder": "sofia@jouwbedrijf.be" },
-      "company": { "label": "Bedrijf (optioneel)", "placeholder": "Brussels Taxi SA" },
+      "company": { "label": "Bedrijf (optioneel)", "placeholder": "Antwerp Taxi BV" },
       "message": { "label": "Je bericht", "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot." }
     },
     "subjects": {
@@ -923,7 +960,9 @@
     },
     "channels": {
       "title": "Directe kanalen",
-      "email": { "label": "E-mail", "value": "hello@joincabs.com" },
+      "comingSoon": "Binnenkort · Enkele weken vóór de publieke lancering",
+      "comingSoonShort": "Binnenkort",
+      "email": { "label": "E-mail", "value": "contact@joincabs.com" },
       "linkedin": { "label": "LinkedIn", "value": "Cabs volgen" },
       "instagram": { "label": "Instagram", "value": "@joincabs.com" },
       "whatsapp": { "label": "WhatsApp Business", "value": "Op aanvraag" }
@@ -944,7 +983,11 @@
       "items": {
         "when": {
           "q": "Wanneer kan ik Cabs testen?",
-          "a": "De private bèta loopt met een handvol Brusselse operatoren. De publieke lancering is gepland voor september 2026. Schrijf je in op de meldingenlijst om verwittigd te worden op de dag zelf."
+          "a": "De private bèta loopt met een handvol Antwerpse operatoren. De publieke lancering is gepland voor september 2026. Schrijf je in op de meldingenlijst om verwittigd te worden op de dag zelf."
+        },
+        "timing": {
+          "q": "Waarom september 2026 en niet eerder?",
+          "a": "We nemen de tijd om met kwaliteit te coderen, met als doel nul bugs bij de lancering. De besloten bèta loopt met een handvol Antwerpse operatoren om elke functie in realistische omstandigheden te valideren. Het doel is een product dat vanaf dag één klaar is voor het internationale, niet een MVP die we achteraf oplappen."
         },
         "minimum": {
           "q": "Hoeveel voertuigen minimum?",
@@ -953,6 +996,30 @@
         "regions": {
           "q": "Werkt Cabs in Wallonië en Vlaanderen?",
           "a": "Ja, Cabs werkt in heel België. Regionale STP-vergunningen (Brussel, Wallonië, Vlaanderen) en lokale verplichtingen (ATAS, RSZ, wettelijke planning) worden in rekening gebracht."
+        },
+        "integrations": {
+          "q": "Hoe haalt Cabs mijn Uber-, Bolt- en Heetch-ritten op?",
+          "a": "Je configureert eerst je platforms en hun commissies in het dashboard. Aan het einde van elke rit geeft de chauffeur gewoon aan welke app hij gebruikt heeft. Cabs berekent automatisch de commissies en de echte netto. Geen directe toegang tot je Uber-, Bolt- of Heetch-accounts vereist, dus geen risico aan platformzijde."
+        },
+        "drivers": {
+          "q": "Zijn mijn chauffeurs verplicht de app te gebruiken?",
+          "a": "Nee, jij beslist wat je opzet. De app is niet verplicht. Maar opdat het dashboard en de berekeningen volledig zijn, is het delen van werkgegevens (shifturen, ritten, gebruikt platform) wel nodig. Geen persoonlijke gegevens buiten het werk worden verzameld."
+        },
+        "migration": {
+          "q": "Hoelang duurt het om van Excel naar Cabs over te schakelen?",
+          "a": "Je Excel-bestanden worden geconverteerd naar CSV via onze AI-pijplijn, en daarna door ons team in het platform geïmporteerd. De migratie duurt meestal 24 tot 48 uur. Je start op Cabs met je geschiedenis al ter plaatse."
+        },
+        "accounting": {
+          "q": "Kan mijn boekhouder de exports gemakkelijk ophalen?",
+          "a": "Ja. Elk gegevenstype (inkomsten per platform, per chauffeur, per voertuig, periode, btw, commissies) komt met aparte CSV- en PDF-exports, compatibel met de belangrijkste Belgische boekhoudtools: Yuki, Octopus, BOB, Winbooks."
+        },
+        "hosting": {
+          "q": "Waar worden mijn data en die van mijn chauffeurs opgeslagen?",
+          "a": "In een beveiligde database, met end-to-end hashing op elk gevoelig veld en encryptie zowel tijdens overdracht als in rust. Volledige GDPR-conformiteit: recht op inzage, wijziging en verwijdering wordt gerespecteerd."
+        },
+        "portability": {
+          "q": "Als ik Cabs verlaat, krijg ik mijn data terug?",
+          "a": "Ja, zonder voorwaarden. Je kunt op elk moment al je data (chauffeurs, voertuigen, ritten, inkomsten, boekhouding) exporteren in CSV en PDF. Geen chantage bij opzegging, je data is van jou."
         },
         "pricing": {
           "q": "Hoeveel zal Cabs kosten?",
@@ -970,7 +1037,7 @@
     "terms": {
       "title": "Gebruiksvoorwaarden",
       "lastUpdate": "Laatste update : april 2026",
-      "intro": "Cabs bevindt zich momenteel in private bèta met Brusselse taxibedrijven. De exploiterende vennootschap is in oprichting in België. De volledige gegevens (rechtsvorm, KBO-nummer, maatschappelijke zetel, btw) worden bij de publieke lancering in september 2026 bekendgemaakt.",
+      "intro": "Cabs bevindt zich momenteel in private bèta met Antwerpse taxibedrijven. De exploiterende vennootschap is in oprichting in België. De volledige gegevens (rechtsvorm, KBO-nummer, maatschappelijke zetel, btw) worden bij de publieke lancering in september 2026 bekendgemaakt.",
       "sections": {
         "scope": {
           "title": "Voorwerp",
@@ -978,7 +1045,7 @@
         },
         "waitlist": {
           "title": "Notificatielijst",
-          "body": "Door je e-mail in te voeren in het formulier « Houd mij op de hoogte », ga je akkoord met het ontvangen van één enkele e-mail op de dag van de publieke lancering. Geen andere communicatie wordt verzonden. Je kunt op elk moment de verwijdering van je e-mail aanvragen via hello@joincabs.com."
+          "body": "Door je e-mail in te voeren in het formulier « Houd mij op de hoogte », ga je akkoord met het ontvangen van één enkele e-mail op de dag van de publieke lancering. Geen andere communicatie wordt verzonden. Je kunt op elk moment de verwijdering van je e-mail aanvragen via contact@joincabs.com."
         },
         "contact": {
           "title": "Contact",
@@ -1001,7 +1068,7 @@
       "sections": {
         "controller": {
           "title": "Verwerkingsverantwoordelijke",
-          "body": "De medeoprichters (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) treden gezamenlijk op als verwerkingsverantwoordelijken tot de oprichting van de vennootschap. Contact : hello@joincabs.com."
+          "body": "De medeoprichters (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) treden gezamenlijk op als verwerkingsverantwoordelijken tot de oprichting van de vennootschap. Contact : contact@joincabs.com."
         },
         "data": {
           "title": "Verzamelde gegevens",
@@ -1021,7 +1088,7 @@
         },
         "rights": {
           "title": "Je rechten",
-          "body": "Je hebt recht op inzage, rectificatie, wissing, overdraagbaarheid en bezwaar. Om deze rechten uit te oefenen, schrijf naar hello@joincabs.com. Je kunt ook een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (www.gegevensbeschermingsautoriteit.be)."
+          "body": "Je hebt recht op inzage, rectificatie, wissing, overdraagbaarheid en bezwaar. Om deze rechten uit te oefenen, schrijf naar contact@joincabs.com. Je kunt ook een klacht indienen bij de Belgische Gegevensbeschermingsautoriteit (www.gegevensbeschermingsautoriteit.be)."
         },
         "hosting": {
           "title": "Hosting en verwerkers",
@@ -1036,7 +1103,7 @@
   },
   "footer": {
     "tagline": "Het platform dat taxi-operatoren verdienen.",
-    "madeIn": "Gemaakt in Brussel",
+    "madeIn": "Gemaakt in Antwerpen",
     "status": "Private bèta · Publieke lancering september 2026",
     "columns": {
       "product": "Product",
@@ -1048,6 +1115,7 @@
       "app": "Chauffeurszijde",
       "team": "Team",
       "contact": "Contact",
+      "faq": "FAQ",
       "terms": "Voorwaarden",
       "privacy": "Privacy"
     },

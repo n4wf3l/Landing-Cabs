@@ -14,6 +14,8 @@ import { RideActiveScreen } from './screens/RideActiveScreen'
 import { RideEndPickerScreen } from './screens/RideEndPickerScreen'
 import { RideSummaryScreen } from './screens/RideSummaryScreen'
 import { ShiftSummaryScreen } from './screens/ShiftSummaryScreen'
+import { LocationBlockedScreen } from './LocationBlockedScreen'
+import { LocationPermissionPrompt } from './LocationPermissionPrompt'
 import { phoneI18n } from './phoneI18n'
 import { usePhoneSim } from './usePhoneSim'
 import type { Screen } from './types'
@@ -89,6 +91,12 @@ export function PhoneShell({ reduce }: { reduce: boolean }) {
               <ScreenContainer screen={state.screen} reduce={!!reduce} />
             </div>
             {showNav && <BottomNav />}
+            <AnimatePresence>
+              <LocationBlockedScreen key="location-blocked" />
+            </AnimatePresence>
+            <AnimatePresence>
+              <LocationPermissionPrompt key="location-prompt" />
+            </AnimatePresence>
           </div>
         </div>
       </motion.div>

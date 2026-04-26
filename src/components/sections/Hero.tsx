@@ -5,6 +5,7 @@ import { AnimatedGridBackground } from '@/components/common/AnimatedGridBackgrou
 import { GlowEffect } from '@/components/common/GlowEffect'
 import { NotifyMeForm } from '@/components/common/NotifyMeForm'
 import { ProductTicker } from '@/components/common/ProductTicker'
+import { useFirstVisit } from '@/hooks/useFirstVisit'
 
 function scrollToAdmin() {
   const el = document.getElementById('admin')
@@ -14,6 +15,11 @@ function scrollToAdmin() {
 export function Hero() {
   const { t } = useTranslation()
   const reduce = useReducedMotion()
+  const [isFirstVisit] = useFirstVisit()
+  // On a first visit, defer the entrance animation until the splash is
+  // dismissed (markSeen flips isFirstVisit to false). On normal visits,
+  // animate immediately on mount.
+  const introReady = !isFirstVisit
 
   return (
     <section className="relative flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden py-12 sm:py-16">
@@ -25,7 +31,7 @@ export function Hero() {
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.span
               initial={reduce ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
               transition={{ duration: 0.4 }}
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
             >
@@ -35,7 +41,7 @@ export function Hero() {
 
             <motion.h1
               initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.55, delay: 0.08 }}
               className="mt-5 text-balance text-4xl font-extrabold leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-[3.75rem] xl:text-6xl"
             >
@@ -44,7 +50,7 @@ export function Hero() {
 
             <motion.p
               initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.55, delay: 0.16 }}
               className="mt-5 max-w-md text-balance text-base text-muted-foreground sm:text-lg"
             >
@@ -53,7 +59,7 @@ export function Hero() {
 
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.55, delay: 0.24 }}
               className="mt-8 w-full"
             >
@@ -63,7 +69,11 @@ export function Hero() {
 
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={
+              introReady
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: 16, scale: 0.96 }
+            }
             transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="flex justify-center lg:justify-end"
           >
@@ -76,7 +86,7 @@ export function Hero() {
           onClick={scrollToAdmin}
           aria-label={t('hero.scrollHint')}
           initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: introReady ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
         >

@@ -1,7 +1,7 @@
 import { useState, type KeyboardEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { MapPin, Sparkles } from 'lucide-react'
+import { Languages, MapPin, Sparkles } from 'lucide-react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { InstagramIcon, LinkedinIcon } from '@/components/common/SocialIcons'
 import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
@@ -211,6 +211,10 @@ function FounderDialogContent({
         <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 font-medium text-primary">
           <Sparkles className="h-3 w-3" />
           {expertise}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/40 px-2.5 py-1 text-muted-foreground">
+          <Languages className="h-3 w-3" />
+          {t('team.languages')}
         </span>
       </div>
 

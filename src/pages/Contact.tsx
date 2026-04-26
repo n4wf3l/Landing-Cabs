@@ -58,7 +58,19 @@ const SUBJECTS: ContactSubject[] = [
   'other',
 ]
 
-const FAQ_KEYS = ['when', 'minimum', 'regions', 'pricing'] as const
+const FAQ_KEYS = [
+  'when',
+  'timing',
+  'minimum',
+  'regions',
+  'integrations',
+  'drivers',
+  'migration',
+  'accounting',
+  'hosting',
+  'portability',
+  'pricing',
+] as const
 
 const schema = z
   .object({
@@ -359,13 +371,25 @@ function FoundersInline() {
           <span
             key={f.key}
             className={cn(
-              'inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-brand text-xs font-bold text-primary-foreground ring-2 ring-card',
+              'inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full ring-2 ring-card',
+              !f.photo &&
+                'bg-gradient-brand text-xs font-bold text-primary-foreground',
               i === 0 && 'z-30',
               i === 1 && 'z-20',
               i === 2 && 'z-10',
             )}
           >
-            {f.initials}
+            {f.photo ? (
+              <img
+                src={f.photo}
+                alt={f.initials}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              f.initials
+            )}
           </span>
         ))}
       </div>
@@ -405,24 +429,28 @@ function ChannelsCard() {
       Icon: Mail,
       href: `mailto:${BRAND.email}`,
       external: false,
+      pending: false,
     },
     {
       key: 'linkedin',
       Icon: LinkedinIcon,
       href: BRAND.linkedin,
       external: true,
+      pending: !BRAND.socialsLive,
     },
     {
       key: 'instagram',
       Icon: InstagramIcon,
       href: BRAND.instagram,
       external: true,
+      pending: !BRAND.socialsLive,
     },
     {
       key: 'whatsapp',
       Icon: MessageCircle,
       href: 'https://wa.me/3220000000',
       external: true,
+      pending: false,
     },
   ] as const
 
@@ -435,28 +463,69 @@ function ChannelsCard() {
         variants={staggerContainer}
         className="space-y-1"
       >
-        {channels.map(({ key, Icon, href, external }) => (
-          <motion.li key={key} variants={staggerItem}>
-            <a
-              href={href}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noreferrer' : undefined}
-              className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent/60"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20 transition-colors group-hover:bg-primary/20">
+        {channels.map(({ key, Icon, href, external, pending }) => {
+          const label = t(`contact.channels.${key}.label`)
+          const value = pending
+            ? t('contact.channels.comingSoon')
+            : t(`contact.channels.${key}.value`)
+
+          const inner = (
+            <>
+              <span
+                className={cn(
+                  'flex h-9 w-9 items-center justify-center rounded-lg ring-1 transition-colors',
+                  pending
+                    ? 'bg-muted/40 text-muted-foreground/70 ring-border/40'
+                    : 'bg-primary/10 text-primary ring-primary/20 group-hover:bg-primary/20',
+                )}
+              >
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="flex flex-col leading-tight">
-                <span className="text-sm font-medium">
-                  {t(`contact.channels.${key}.label`)}
+              <span className="flex min-w-0 flex-1 flex-col leading-tight">
+                <span className="flex items-center gap-2 text-sm font-medium">
+                  <span>{label}</span>
+                  {pending && (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                      <Sparkles className="h-2.5 w-2.5" />
+                      {t('contact.channels.comingSoonShort')}
+                    </span>
+                  )}
                 </span>
-                <span className="text-xs text-muted-foreground">
-                  {t(`contact.channels.${key}.value`)}
+                <span
+                  className={cn(
+                    'truncate text-xs',
+                    pending ? 'text-muted-foreground/70' : 'text-muted-foreground',
+                  )}
+                >
+                  {value}
                 </span>
               </span>
-            </a>
-          </motion.li>
-        ))}
+            </>
+          )
+
+          return (
+            <motion.li key={key} variants={staggerItem}>
+              {pending ? (
+                <span
+                  aria-disabled="true"
+                  title={t('contact.channels.comingSoon')}
+                  className="flex cursor-not-allowed items-center gap-3 rounded-lg p-2 opacity-80"
+                >
+                  {inner}
+                </span>
+              ) : (
+                <a
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noreferrer' : undefined}
+                  className="group flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent/60"
+                >
+                  {inner}
+                </a>
+              )}
+            </motion.li>
+          )
+        })}
       </motion.ul>
     </InfoCard>
   )
@@ -507,7 +576,10 @@ function LocationCard() {
 function FAQSection() {
   const { t } = useTranslation()
   return (
-    <section className="border-t border-border/60 bg-background/40 py-20 sm:py-24">
+    <section
+      id="faq"
+      className="scroll-mt-24 border-t border-border/60 bg-background/40 py-20 sm:py-24"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl">

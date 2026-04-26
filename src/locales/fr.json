@@ -25,7 +25,7 @@
     "notifyCta": "Être prévenu"
   },
   "hero": {
-    "eyebrow": "Bêta privée · Bruxelles · Sortie septembre 2026",
+    "eyebrow": "Bêta privée · Belgique · France · Pays-Bas — sortie septembre 2026",
     "title": "Vos chauffeurs, vos véhicules, vos revenus. Un outil, deux faces.",
     "subtitle": "Un tableau de bord pour vous. Une app pour vos chauffeurs. Sans tableur, sans calcul manuel.",
     "scrollHint": "Voir le produit"
@@ -62,7 +62,7 @@
       "archived": "Archivé"
     },
     "tracking": {
-      "title": "Carte temps réel · Bruxelles",
+      "title": "Carte temps réel",
       "available": "Disponibles",
       "inRide": "En course",
       "live": "Live"
@@ -135,7 +135,12 @@
     "eyebrow": "01 · Côté patron",
     "title": "Un tableau de bord. Tout ce qui compte.",
     "subtitle": "Les trois écrans que vos opérateurs utilisent chaque jour.",
-    "interactiveHint": "Cliquez dans la barre latérale pour explorer les écrans."
+    "interactiveHint": "Cliquez dans la barre latérale pour explorer les écrans.",
+    "mobileNotice": {
+      "title": "Mieux sur grand écran",
+      "body": "Le simulateur dashboard est dense (sidebar, tableaux, graphiques) et a été conçu pour le desktop.",
+      "fallback": "Vous pouvez l'explorer ici, mais l'expérience optimale est sur 1024 px et plus."
+    }
   },
   "pains": {
     "eyebrow": "Le quotidien aujourd'hui",
@@ -174,7 +179,7 @@
     "eyebrow": "Calculez votre ROI",
     "title": "Combien de temps Cabs vous fait gagner ?",
     "subtitle": "Bougez les curseurs selon votre flotte. Le calcul se met à jour en direct.",
-    "header": "Simulation pour votre société",
+    "header": "Estimation pour votre société",
     "inputs": {
       "vehicles": "Véhicules",
       "drivers": "Chauffeurs"
@@ -189,7 +194,19 @@
       "errorsMonth": "Anomalies détectées",
       "errorsMonthHint": "Tickets manquants, écarts d'heures, etc."
     },
-    "disclaimer": "Estimations conservatrices basées sur les pratiques observées dans le secteur taxi belge (0,5h/sem par véhicule, 1,5h/sem par chauffeur, 18€/mois d'erreurs commission par chauffeur). Variables selon votre organisation actuelle."
+    "disclaimer": "Estimations conservatrices basées sur les pratiques observées dans le secteur taxi belge (0,5h/sem par véhicule, 1,5h/sem par chauffeur, 18€/mois d'erreurs commission par chauffeur). Variables selon votre organisation actuelle.",
+    "methodology": {
+      "toggle": "Méthodologie et sources",
+      "intro": "Multiplicateurs adaptés au contexte belge des opérateurs gérant des chauffeurs sur Uber, Bolt et Heetch. Sources publiques :",
+      "kfw": "les PME consacrent jusqu'à 8,7 % de leur temps de travail à la bureaucratie.",
+      "sage": "les patrons de petites entreprises perdent l'équivalent d'un mois de travail par an en paperasse.",
+      "nyag": "328 M$ de règlement Uber/Lyft pour erreurs systématiques sur les paiements (≈ 91 $/mois/chauffeur sur 100 000+ chauffeurs).",
+      "gtl": "≈ 19 700 chauffeurs taxi/LVC actifs en Belgique.",
+      "frVtc": "71 300 chauffeurs VTC actifs en France en 2024 (+27 % vs 2023).",
+      "nlTaxi": "14 400 entreprises de taxi aux Pays-Bas en 2024, dont 11 400 indépendants (+29 % en 5 ans).",
+      "note": "Nos multiplicateurs (0,5 h/véhicule, 1,5 h/chauffeur, 18 €/chauffeur) restent en deçà des écarts publics documentés. Affinés au fil de la bêta privée."
+    },
+    "expansion": "Belgique, France et Pays-Bas dès septembre. L'Allemagne dans la foulée."
   },
   "admin": {
     "sidebar": {
@@ -409,7 +426,7 @@
     },
     "map": {
       "live": "Live",
-      "summary": "{{available}} disponibles · {{onRide}} en course · Bruxelles",
+      "summary": "{{available}} disponibles · {{onRide}} en course · Anvers",
       "available": "Disponible",
       "onRide": "En course",
       "preview": "Aperçu maquetté",
@@ -570,7 +587,7 @@
     },
     "reset": {
       "cta": "Réinitialiser la démo",
-      "hint": "Vide ce simulateur (chauffeurs, véhicules, écran). Aucun impact sur le reste du site."
+      "hint": "Vide cette démo (chauffeurs, véhicules, écran). Aucun impact sur le reste du site."
     },
     "shifts": {
       "kpi": {
@@ -629,7 +646,7 @@
         "commission": "Commissions",
         "net": "Net réel"
       },
-      "legalNote": "Document conforme aux obligations ATAS · STIB-MIVB.",
+      "legalNote": "Conforme aux obligations ATAS (BE) · VTC / Préfecture (FR) · TTO (NL).",
       "print": "Imprimer",
       "exportToast": "Export {{format}} de la feuille de route {{plate}} — disponible à la sortie publique."
     }
@@ -671,7 +688,26 @@
         "title": "Démo interactive",
         "subtitle": "Vivez l'app chauffeur en 30 secondes.",
         "cta": "Lancer la démo",
-        "note": "Aucune installation. Tout est simulé dans votre navigateur."
+        "note": "Aucune installation. Voilà à quoi ressemblera Cabs en septembre."
+      },
+      "location": {
+        "title": "« Cabs » souhaite utiliser votre position",
+        "body": "Cabs a besoin de votre position pour assigner les courses, suivre votre shift et valider les trajets.",
+        "precise": "Position précise activée",
+        "allowOnce": "Autoriser une fois",
+        "allowWhileUsing": "Autoriser pendant l'utilisation de l'app",
+        "deny": "Refuser"
+      },
+      "locationBlocked": {
+        "title": "Localisation requise",
+        "body": "Sans accès à votre position, l'app ne peut pas vous assigner de courses ni démarrer un shift.",
+        "reasonRides": "Affectation des courses Uber, Bolt, Heetch en temps réel",
+        "reasonShift": "Suivi de shift et calcul du net réel",
+        "reasonAtas": "Validation du trajet : ATAS (BE) / VTC (FR) / TTO (NL) — obligation légale",
+        "antiSpoofTitle": "Détection anti-falsification",
+        "antiSpoofBody": "Toute app modifiant la position GPS (mock location, spoofing) est automatiquement détectée. Le compte est suspendu et le patron alerté.",
+        "retry": "Activer la localisation",
+        "note": "Cabs ne stocke pas votre position en dehors de votre shift."
       },
       "nav": {
         "home": "Accueil",
@@ -688,7 +724,7 @@
         "startCardSubtitle": "Votre {{vehicle}} est assignée pour aujourd'hui.",
         "startCta": "Démarrer mon shift",
         "nextShift": "Prochain shift",
-        "nextShiftValue": "Jeudi · 06:00 → 18:00"
+        "nextShiftValue": "Demain · 06:00 → 18:00"
       },
       "planning": {
         "eyebrow": "Cette semaine",
@@ -830,14 +866,15 @@
       },
       "reset": {
         "cta": "Réinitialiser la démo",
-        "hint": "Efface les données simulées de ce navigateur."
+        "hint": "Efface les données de la démo de ce navigateur."
       }
     }
   },
   "team": {
     "eyebrow": "L'équipe",
     "title": "Trois ingénieurs software, un problème concret",
-    "subtitle": "Nous sommes trois ingénieurs software qui se sont intéressés de près au métier de taxi. Après avoir vu les opérateurs jongler entre cinq outils, on a décidé d'en construire un seul, pensé pour eux.",
+    "subtitle": "Trois ingénieurs software basés à Bruxelles qui construisent Cabs pour les flottes de Belgique, France et Pays-Bas. Après avoir vu les opérateurs jongler entre cinq outils, on a décidé d'en construire un seul, pensé pour eux.",
+    "languages": "Trilingue FR · NL · EN",
     "members": {
       "kristian": {
         "name": "Kristian Vasiaj",
@@ -855,7 +892,7 @@
         "location": "Bruxelles, Belgique",
         "expertise": "Java Spring Boot · TimescaleDB · RabbitMQ",
         "bio": [
-          "Ingénieur software backend et architecte technique. Ismael conçoit la structure des services Cabs sur Java Spring Boot, TimescaleDB pour les données temporelles à fort volume (millions de courses) et RabbitMQ pour la communication asynchrone entre services.",
+          "Ingénieur software backend et architecte technique. Ismael conçoit la structure des services Cabs sur Java Spring Boot, TimescaleDB pour les flux GPS et la télémétrie temps réel des véhicules, et RabbitMQ pour la communication asynchrone entre services.",
           "Il porte aussi la casquette Quality Assurance. Aucune release ne sort sans être passée par sa validation : tests, monitoring, performance, scénarios edge cases. Sa philosophie est simple : un bug en production coûte dix fois plus cher qu'un test bien écrit."
         ]
       },
@@ -895,7 +932,7 @@
     "fields": {
       "name": { "label": "Nom complet", "placeholder": "Sofia Rossi" },
       "email": { "label": "Email professionnel", "placeholder": "sofia@votresociete.be" },
-      "company": { "label": "Société (optionnel)", "placeholder": "Brussels Taxi SA" },
+      "company": { "label": "Société (optionnel)", "placeholder": "Antwerp Taxi BV" },
       "message": { "label": "Votre message", "placeholder": "Parlez-nous de votre flotte, de vos besoins, de ce qui vous bloque aujourd'hui." }
     },
     "subjects": {
@@ -923,7 +960,9 @@
     },
     "channels": {
       "title": "Canaux directs",
-      "email": { "label": "Email", "value": "hello@joincabs.com" },
+      "comingSoon": "À venir · Quelques semaines avant la sortie publique",
+      "comingSoonShort": "À venir",
+      "email": { "label": "Email", "value": "contact@joincabs.com" },
       "linkedin": { "label": "LinkedIn", "value": "Suivre Cabs" },
       "instagram": { "label": "Instagram", "value": "@joincabs.com" },
       "whatsapp": { "label": "WhatsApp Business", "value": "Sur demande" }
@@ -944,7 +983,11 @@
       "items": {
         "when": {
           "q": "Quand puis-je tester Cabs ?",
-          "a": "La bêta privée est en cours avec une poignée d'opérateurs bruxellois. La sortie publique est prévue pour septembre 2026. Inscrivez-vous à la liste de notification pour être prévenu le jour J."
+          "a": "La bêta privée est en cours avec une poignée d'opérateurs anversois. La sortie publique est prévue pour septembre 2026. Inscrivez-vous à la liste de notification pour être prévenu le jour J."
+        },
+        "timing": {
+          "q": "Pourquoi septembre 2026 et pas plus tôt ?",
+          "a": "Nous prenons le temps de coder en qualité, avec un objectif zéro bug à la sortie. La bêta privée tourne avec quelques opérateurs anversois pour valider chaque fonctionnalité en conditions réelles. L'ambition est un produit prêt pour l'international dès le lancement, pas un MVP qu'on rafistole après coup."
         },
         "minimum": {
           "q": "Combien de véhicules au minimum ?",
@@ -953,6 +996,30 @@
         "regions": {
           "q": "Cabs fonctionne en Wallonie et en Flandre ?",
           "a": "Oui, Cabs gère la Belgique entière. Les agréments STP par région (Bruxelles, Wallonie, Flandre) et les contraintes locales (ATAS, ONSS, planning légal) sont pris en compte."
+        },
+        "integrations": {
+          "q": "Comment Cabs récupère mes courses Uber, Bolt et Heetch ?",
+          "a": "Vous configurez d'abord vos plateformes et leurs commissions dans le dashboard. À la fin de chaque course, le chauffeur indique simplement quelle app il a utilisée. Cabs calcule automatiquement les commissions et le net réel. Aucun accès direct à vos comptes Uber, Bolt ou Heetch n'est requis, donc aucun risque côté plateformes."
+        },
+        "drivers": {
+          "q": "Mes chauffeurs sont obligés d'utiliser l'app ?",
+          "a": "Non, c'est vous qui décidez ce que vous mettez en place. L'app n'est pas imposée. En revanche, pour que le dashboard et les calculs soient complets, le partage des données de travail (heures de shift, courses, plateforme utilisée) est nécessaire. Aucune donnée personnelle hors travail n'est collectée."
+        },
+        "migration": {
+          "q": "Combien de temps pour passer d'Excel à Cabs ?",
+          "a": "Vos fichiers Excel sont convertis en CSV via notre pipeline IA, puis importés dans la plateforme par notre équipe. La migration prend généralement 24 à 48 heures. Vous démarrez sur Cabs avec votre historique déjà en place."
+        },
+        "accounting": {
+          "q": "Mon comptable peut récupérer les exports facilement ?",
+          "a": "Oui. Chaque donnée (revenus par plateforme, par chauffeur, par véhicule, période, TVA, commissions) dispose d'exports dédiés en CSV et PDF, compatibles avec les principaux logiciels comptables belges : Yuki, Octopus, BOB, Winbooks."
+        },
+        "hosting": {
+          "q": "Mes données et celles de mes chauffeurs sont stockées où ?",
+          "a": "Dans une base de données sécurisée, avec hashage de bout en bout sur chaque donnée sensible et chiffrement en transit comme au repos. Conformité RGPD complète : droit d'accès, de modification et de suppression respectés."
+        },
+        "portability": {
+          "q": "Si j'arrête Cabs, je récupère mes données ?",
+          "a": "Oui, sans condition. Vous pouvez exporter à tout moment l'intégralité de vos données (chauffeurs, véhicules, courses, revenus, comptabilité) en CSV et PDF. Pas de chantage à la résiliation, vos données vous appartiennent."
         },
         "pricing": {
           "q": "Combien Cabs va coûter ?",
@@ -970,7 +1037,7 @@
     "terms": {
       "title": "Conditions d'utilisation",
       "lastUpdate": "Dernière mise à jour : avril 2026",
-      "intro": "Cabs est actuellement en bêta privée avec des opérateurs de taxi bruxellois. La société exploitante est en cours d'incorporation en Belgique. Les coordonnées complètes (forme juridique, numéro BCE, siège social, TVA) seront publiées à la sortie publique de la plateforme, prévue en septembre 2026.",
+      "intro": "Cabs est actuellement en bêta privée avec des opérateurs de taxi anversois. La société exploitante est en cours d'incorporation en Belgique. Les coordonnées complètes (forme juridique, numéro BCE, siège social, TVA) seront publiées à la sortie publique de la plateforme, prévue en septembre 2026.",
       "sections": {
         "scope": {
           "title": "Objet",
@@ -978,7 +1045,7 @@
         },
         "waitlist": {
           "title": "Liste de notification",
-          "body": "En saisissant votre email dans le formulaire « Être prévenu », vous acceptez de recevoir un unique email le jour de la sortie publique. Aucune autre communication ne vous sera envoyée. Vous pouvez demander la suppression de votre email à tout moment par simple demande à hello@joincabs.com."
+          "body": "En saisissant votre email dans le formulaire « Être prévenu », vous acceptez de recevoir un unique email le jour de la sortie publique. Aucune autre communication ne vous sera envoyée. Vous pouvez demander la suppression de votre email à tout moment par simple demande à contact@joincabs.com."
         },
         "contact": {
           "title": "Contact",
@@ -1001,7 +1068,7 @@
       "sections": {
         "controller": {
           "title": "Responsable de traitement",
-          "body": "Les co-fondateurs (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) agissent conjointement comme responsables de traitement jusqu'à l'incorporation de la société. Contact : hello@joincabs.com."
+          "body": "Les co-fondateurs (Kristian Vasiaj, Ismael Bouzrouti, Nawfel Ajari) agissent conjointement comme responsables de traitement jusqu'à l'incorporation de la société. Contact : contact@joincabs.com."
         },
         "data": {
           "title": "Données collectées",
@@ -1021,7 +1088,7 @@
         },
         "rights": {
           "title": "Vos droits",
-          "body": "Vous disposez d'un droit d'accès, de rectification, d'effacement, de portabilité et d'opposition. Pour exercer ces droits, écrivez à hello@joincabs.com. Vous pouvez également introduire une réclamation auprès de l'Autorité de protection des données belge (www.autoriteprotectiondonnees.be)."
+          "body": "Vous disposez d'un droit d'accès, de rectification, d'effacement, de portabilité et d'opposition. Pour exercer ces droits, écrivez à contact@joincabs.com. Vous pouvez également introduire une réclamation auprès de l'Autorité de protection des données belge (www.autoriteprotectiondonnees.be)."
         },
         "hosting": {
           "title": "Hébergement et sous-traitants",
@@ -1036,7 +1103,7 @@
   },
   "footer": {
     "tagline": "La plateforme que les opérateurs de taxi méritent.",
-    "madeIn": "Conçu à Bruxelles",
+    "madeIn": "Conçu à Anvers",
     "status": "Bêta privée · Sortie publique septembre 2026",
     "columns": {
       "product": "Produit",
@@ -1048,6 +1115,7 @@
       "app": "Côté chauffeur",
       "team": "Équipe",
       "contact": "Contact",
+      "faq": "FAQ",
       "terms": "Conditions",
       "privacy": "Confidentialité"
     },

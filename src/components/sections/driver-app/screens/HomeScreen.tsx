@@ -14,7 +14,7 @@ export function HomeScreen() {
       <header className="flex items-center justify-between pt-1">
         <div>
           <p className="text-[11px] text-zinc-400 phone-light:text-zinc-600">
-            {t('driverApp.sim.home.greeting', { name: 'Sofia' })}
+            {t('driverApp.sim.home.greeting', { name: 'Ahmed' })}
           </p>
           <p className="mt-0.5 text-xs text-zinc-500">
             {t('driverApp.sim.home.statusOff')}

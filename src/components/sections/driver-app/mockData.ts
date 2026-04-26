@@ -6,14 +6,14 @@ import type {
 } from './types'
 
 export const DRIVER = {
-  name: 'Sofia R.',
-  fullName: 'Sofia Rossi',
-  initials: 'SR',
-  vehicle: 'Clio · FB-123-CD',
-  vehicleModel: 'Renault Clio',
-  vehiclePlate: 'FB-123-CD',
-  phone: '+32 4XX XX XX XX',
-  email: 'sofia.r@cabs.brussels',
+  name: 'Ahmed H.',
+  fullName: 'Ahmed Haddad',
+  initials: 'AH',
+  vehicle: 'Ford Puma · TJJ-888',
+  vehicleModel: 'Ford Puma',
+  vehiclePlate: 'TJJ-888',
+  phone: '+32 498 12 34 56',
+  email: 'ahmed.h@cabs.brussels',
 }
 
 export const RIDE_POOL: RideTemplate[] = [
@@ -83,77 +83,82 @@ export const RIDE_POOL: RideTemplate[] = [
   },
 ]
 
-const SOFIA: PlanningPerson = {
+// Drivers and plates aligned with the admin simulator's fleet (mockData.ts in
+// admin-app). Ahmed is "you" — top driver in the admin's revenue screens,
+// runs TJJ-888 Ford Puma, regular night relay is Layla Vermeulen.
+const AHMED: PlanningPerson = {
   name: DRIVER.fullName,
   initials: DRIVER.initials,
   isYou: true,
 }
-const MARC: PlanningPerson = { name: 'Marc D.', initials: 'MD' }
-const LINA: PlanningPerson = { name: 'Lina S.', initials: 'LS' }
-const TARIK: PlanningPerson = { name: 'Tarik B.', initials: 'TB' }
-const YOUNES: PlanningPerson = { name: 'Younes K.', initials: 'YK' }
-const KARIM: PlanningPerson = { name: 'Karim H.', initials: 'KH' }
+const LAYLA: PlanningPerson = { name: 'Layla Vermeulen', initials: 'LV' }
+const MOHAMED: PlanningPerson = { name: 'Mohamed Benali', initials: 'MB' }
+const HASSAN: PlanningPerson = { name: 'Hassan Marrakchi', initials: 'HM' }
+const OMAR: PlanningPerson = { name: 'Omar Mouss', initials: 'OM' }
 
-const PLATE_CLIO = DRIVER.vehiclePlate // FB-123-CD
-const PLATE_POLO = 'FB-789-EF'
-const PLATE_OCTAVIA = 'BM-456-XY'
+const PLATE_PUMA = DRIVER.vehiclePlate // TJJ-888, Ahmed's vehicle (Ford Puma)
+const PLATE_SKODA = 'AC-7714' // Khadija's vehicle in the admin sim
+const PLATE_BMW = '8EJ-999' // Youssef's vehicle in the admin sim
 
 export const PLANNING: PlanningDay[] = [
   {
     dayKey: 'mon',
-    day: { driver: SOFIA, plate: PLATE_CLIO },
-    night: { driver: MARC, plate: PLATE_CLIO },
+    day: { driver: AHMED, plate: PLATE_PUMA },
+    night: { driver: LAYLA, plate: PLATE_PUMA },
   },
   {
     dayKey: 'tue',
-    day: { driver: SOFIA, plate: PLATE_CLIO },
-    night: { driver: MARC, plate: PLATE_CLIO },
+    day: { driver: AHMED, plate: PLATE_PUMA },
+    night: { driver: LAYLA, plate: PLATE_PUMA },
   },
   {
     dayKey: 'wed',
-    day: { driver: LINA, plate: PLATE_POLO },
-    night: { driver: MARC, plate: PLATE_CLIO },
+    day: { driver: MOHAMED, plate: PLATE_PUMA },
+    night: { driver: LAYLA, plate: PLATE_PUMA },
   },
   {
     dayKey: 'thu',
-    day: { driver: SOFIA, plate: PLATE_CLIO },
-    night: { driver: TARIK, plate: PLATE_CLIO },
+    day: { driver: AHMED, plate: PLATE_PUMA },
+    night: { driver: LAYLA, plate: PLATE_PUMA },
   },
   {
     dayKey: 'fri',
-    day: { driver: LINA, plate: PLATE_POLO },
-    night: { driver: SOFIA, plate: PLATE_CLIO },
+    day: { driver: MOHAMED, plate: PLATE_PUMA },
+    night: { driver: AHMED, plate: PLATE_PUMA },
   },
   {
     dayKey: 'sat',
-    day: { driver: null, plate: PLATE_OCTAVIA },
-    night: { driver: SOFIA, plate: PLATE_CLIO },
+    day: { driver: null, plate: PLATE_SKODA },
+    night: { driver: AHMED, plate: PLATE_PUMA },
   },
   {
     dayKey: 'sun',
-    day: { driver: YOUNES, plate: PLATE_OCTAVIA },
-    night: { driver: KARIM, plate: PLATE_POLO },
+    day: { driver: HASSAN, plate: PLATE_SKODA },
+    night: { driver: OMAR, plate: PLATE_BMW },
   },
 ]
 
+// Last 7 days, ending yesterday (Sat 25/04). Today = Sun 26/04 in 2026 calendar.
+// dayKey ↔ dateLabel mappings match April 2026 (Mon=20, Sun=26).
+// Sun + Wed are off days, mirroring the planning above.
 export const HISTORY: HistoryDay[] = [
   {
     dayKey: 'sun',
-    dateLabel: '20/04',
-    rides: 19,
-    brut: 348,
-    commission: 76,
-    net: 272,
+    dateLabel: '19/04',
+    rides: 0,
+    brut: 0,
+    commission: 0,
+    net: 0,
     byPlatform: {
-      uber: { brut: 162, net: 122, rides: 9 },
-      bolt: { brut: 96, net: 79, rides: 5 },
-      heetch: { brut: 50, net: 39, rides: 3 },
-      cash: { brut: 40, net: 40, rides: 2 },
+      uber: { brut: 0, net: 0, rides: 0 },
+      bolt: { brut: 0, net: 0, rides: 0 },
+      heetch: { brut: 0, net: 0, rides: 0 },
+      cash: { brut: 0, net: 0, rides: 0 },
     },
   },
   {
     dayKey: 'mon',
-    dateLabel: '21/04',
+    dateLabel: '20/04',
     rides: 23,
     brut: 412,
     commission: 92,
@@ -167,7 +172,7 @@ export const HISTORY: HistoryDay[] = [
   },
   {
     dayKey: 'tue',
-    dateLabel: '22/04',
+    dateLabel: '21/04',
     rides: 21,
     brut: 386,
     commission: 84,
@@ -181,7 +186,7 @@ export const HISTORY: HistoryDay[] = [
   },
   {
     dayKey: 'wed',
-    dateLabel: '23/04',
+    dateLabel: '22/04',
     rides: 0,
     brut: 0,
     commission: 0,
@@ -195,7 +200,7 @@ export const HISTORY: HistoryDay[] = [
   },
   {
     dayKey: 'thu',
-    dateLabel: '24/04',
+    dateLabel: '23/04',
     rides: 24,
     brut: 426,
     commission: 96,
@@ -209,7 +214,7 @@ export const HISTORY: HistoryDay[] = [
   },
   {
     dayKey: 'fri',
-    dateLabel: '25/04',
+    dateLabel: '24/04',
     rides: 28,
     brut: 498,
     commission: 112,
@@ -223,7 +228,7 @@ export const HISTORY: HistoryDay[] = [
   },
   {
     dayKey: 'sat',
-    dateLabel: '26/04',
+    dateLabel: '25/04',
     rides: 26,
     brut: 462,
     commission: 104,

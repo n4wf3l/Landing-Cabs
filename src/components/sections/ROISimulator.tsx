@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calculator, Clock, Coins, FileWarning, Sparkles } from 'lucide-react'
+import { Calculator, ChevronRight, Clock, Coins, FileWarning, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { cn } from '@/lib/utils'
@@ -17,6 +17,39 @@ const MIN_VEHICLES = 1
 const MAX_VEHICLES = 50
 const MIN_DRIVERS = 1
 const MAX_DRIVERS = 100
+
+const SOURCES = [
+  {
+    key: 'kfw',
+    label: 'KfW Research (2024)',
+    url: 'https://www.kfw.de/About-KfW/Newsroom/Latest-News/Pressemitteilungen-Details_847424.html',
+  },
+  {
+    key: 'sage',
+    label: 'Sage UK (2025)',
+    url: 'https://www.sage.com/en-gb/company/digital-newsroom/2025/05/09/the-hidden-admin-burden-on-small-businesses/',
+  },
+  {
+    key: 'nyag',
+    label: 'NY Attorney General (2023)',
+    url: 'https://ag.ny.gov/press-release/2023/attorney-general-james-secures-328-million-uber-and-lyft-taking-earnings-drivers',
+  },
+  {
+    key: 'gtl',
+    label: 'GTL-Taxi Belgique (2024)',
+    url: 'https://www.gtl-taxi.be/6_49_0_0_0_FR_Quelques_chiffres_(situation_ao%C3%BBt_2023)',
+  },
+  {
+    key: 'frVtc',
+    label: 'SDES / DGE France (2024)',
+    url: 'https://www.statistiques.developpement-durable.gouv.fr/les-chauffeurs-des-plateformes-de-vtc-en-2024-premiers-resultats',
+  },
+  {
+    key: 'nlTaxi',
+    label: 'KVK / CBS Pays-Bas (2024)',
+    url: 'https://www.kvk.nl/pers/data-dinsdag-toename-aantal-taxibedrijven-weer-in-hogere-versnelling/',
+  },
+] as const
 
 interface Metric {
   Icon: typeof Clock
@@ -139,13 +172,45 @@ export function ROISimulator() {
               ))}
             </div>
 
-            {/* Footer disclaimer */}
+            {/* Footer disclaimer + methodology */}
             <div className="border-t border-border/40 bg-card/40 px-6 py-3">
               <p className="text-[10px] leading-relaxed text-muted-foreground/80">
                 {t('roi.disclaimer')}
               </p>
+              <details className="group mt-3">
+                <summary className="inline-flex cursor-pointer select-none items-center gap-1.5 rounded-md border border-border/50 bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground/85 transition-all hover:border-primary/40 hover:bg-background/90 hover:text-foreground [&::-webkit-details-marker]:hidden">
+                  <ChevronRight className="h-3.5 w-3.5 transition-transform group-open:rotate-90" />
+                  {t('roi.methodology.toggle')}
+                </summary>
+                <div className="mt-3 space-y-2 text-[11px] leading-relaxed text-muted-foreground">
+                  <p>{t('roi.methodology.intro')}</p>
+                  <ul className="ml-4 list-disc space-y-1.5 marker:text-muted-foreground/40">
+                    {SOURCES.map(({ key, label, url }) => (
+                      <li key={key}>
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-foreground/90 underline decoration-dotted underline-offset-2 hover:text-primary"
+                        >
+                          {label}
+                        </a>
+                        {' : '}
+                        {t(`roi.methodology.${key}`)}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="pt-1 italic text-muted-foreground/80">
+                    {t('roi.methodology.note')}
+                  </p>
+                </div>
+              </details>
             </div>
           </div>
+
+          <p className="mt-6 text-center text-xs font-medium tracking-wide text-muted-foreground">
+            {t('roi.expansion')}
+          </p>
         </motion.div>
       </div>
     </section>

@@ -1,11 +1,14 @@
 export const BRAND = {
   name: 'Cabs',
   tagline: 'La plateforme que les opérateurs de taxi méritent.',
-  email: import.meta.env.VITE_PUBLIC_EMAIL || 'hello@joincabs.com',
-  city: 'Brussels',
+  email: import.meta.env.VITE_PUBLIC_EMAIL || 'contact@joincabs.com',
+  city: 'Antwerp',
   url: import.meta.env.VITE_SITE_URL || 'https://www.joincabs.com',
+  // Social handles are reserved but the accounts go live a few weeks before
+  // the September 2026 public launch. UI copy treats them as "à venir".
   instagram: 'https://instagram.com/joincabs',
   linkedin: 'https://linkedin.com/company/joincabs',
+  socialsLive: false,
   launchDate: 'Septembre 2026',
 } as const
 

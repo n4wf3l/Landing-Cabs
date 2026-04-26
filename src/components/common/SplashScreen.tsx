@@ -1,31 +1,38 @@
 import { useCallback, useEffect, useState } from 'react'
-import {
-  AnimatePresence,
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { ArrowRight, Moon, Sun, X } from 'lucide-react'
+import { Moon, Sun, X } from 'lucide-react'
 import { LOCALES, type LocaleCode } from '@/lib/constants'
 import { useFirstVisit } from '@/hooks/useFirstVisit'
 import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 
-const EASE_APPLE = [0.22, 1, 0.36, 1] as const
-const EASE_VERCEL = [0.16, 1, 0.3, 1] as const
+const EASE = [0.22, 1, 0.36, 1] as const
 
-const TAGLINES: Record<LocaleCode, string> = {
-  fr: 'Gestion de flotte simplifiée',
-  en: 'Fleet management, simplified',
-  nl: 'Vlootbeheer, vereenvoudigd',
-  de: 'Flottenverwaltung, vereinfacht',
+const TAGLINES: Record<LocaleCode, string[]> = {
+  fr: [
+    'Gestion de flotte simplifiée',
+    'Uber, Bolt, Heetch dans un seul outil',
+    'Brut, net, commissions automatiques',
+  ],
+  en: [
+    'Fleet management, simplified',
+    'Uber, Bolt, Heetch in one tool',
+    'Gross, net, commissions automated',
+  ],
+  nl: [
+    'Vlootbeheer, vereenvoudigd',
+    'Uber, Bolt, Heetch in één tool',
+    'Bruto, netto, commissies automatisch',
+  ],
+  de: [
+    'Flottenverwaltung, vereinfacht',
+    'Uber, Bolt, Heetch in einem Tool',
+    'Brutto, Netto, Provisionen automatisiert',
+  ],
 }
 
-const CYCLE_ORDER: LocaleCode[] = ['fr', 'en', 'nl', 'de']
+const TAGLINE_INTERVAL_MS = 2800
 
 export function SplashScreen() {
   const [isFirst, markSeen] = useFirstVisit()
@@ -33,25 +40,8 @@ export function SplashScreen() {
   const { i18n } = useTranslation()
   const reduce = useReducedMotion()
   const { theme, setTheme } = useTheme()
-  const [taglineIdx, setTaglineIdx] = useState(0)
-
-  const mouseX = useMotionValue(-1000)
-  const mouseY = useMotionValue(-1000)
-  const spotX = useSpring(mouseX, { stiffness: 90, damping: 22, mass: 0.4 })
-  const spotY = useSpring(mouseY, { stiffness: 90, damping: 22, mass: 0.4 })
-  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${spotX}px ${spotY}px, hsl(var(--primary) / 0.14), transparent 65%)`
-
   const isDark = theme === 'dark'
-
-  useEffect(() => {
-    if (!visible || reduce) return
-    const handler = (e: MouseEvent) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-    window.addEventListener('pointermove', handler)
-    return () => window.removeEventListener('pointermove', handler)
-  }, [visible, reduce, mouseX, mouseY])
+  const [taglineIdx, setTaglineIdx] = useState(0)
 
   useEffect(() => {
     if (!visible) return
@@ -62,17 +52,11 @@ export function SplashScreen() {
     }
   }, [visible])
 
-  useEffect(() => {
-    if (!visible || reduce) return
-    const id = window.setInterval(() => {
-      setTaglineIdx((i) => (i + 1) % CYCLE_ORDER.length)
-    }, 1800)
-    return () => window.clearInterval(id)
-  }, [visible, reduce])
-
   const dismiss = useCallback(() => {
+    // Mark seen immediately so consumers (Hero, etc.) can start their
+    // entrance animations while the splash fades out, not after.
+    markSeen()
     setVisible(false)
-    window.setTimeout(markSeen, 600)
   }, [markSeen])
 
   useEffect(() => {
@@ -92,7 +76,23 @@ export function SplashScreen() {
     [i18n, dismiss],
   )
 
-  const currentTagline = TAGLINES[CYCLE_ORDER[taglineIdx] ?? 'fr']
+  const detected = (i18n.resolvedLanguage as LocaleCode) || 'fr'
+  const taglines = TAGLINES[detected] ?? TAGLINES.fr
+  const tagline = taglines[taglineIdx % taglines.length]
+
+  useEffect(() => {
+    if (!visible || reduce || taglines.length <= 1) return
+    const id = window.setInterval(() => {
+      setTaglineIdx((i) => (i + 1) % taglines.length)
+    }, TAGLINE_INTERVAL_MS)
+    return () => window.clearInterval(id)
+  }, [visible, reduce, taglines.length])
+
+  const fadeUp = (delay: number) => ({
+    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 8 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: reduce ? 0.01 : 0.5, delay: reduce ? 0 : delay, ease: EASE },
+  })
 
   return (
     <AnimatePresence>
@@ -105,136 +105,82 @@ export function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: reduce ? 0 : 0.55, ease: EASE_APPLE },
+            transition: { duration: reduce ? 0 : 0.4, ease: EASE },
           }}
           className={cn(
             'fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden px-6 py-10',
-            isDark
-              ? 'bg-gradient-to-br from-zinc-950 via-[#0d1526] to-[#0a1028]'
-              : 'bg-gradient-to-br from-slate-50 via-white to-blue-50/70',
+            isDark ? 'bg-zinc-950' : 'bg-white',
           )}
         >
-          <MeshGradient reduce={!!reduce} isDark={isDark} />
+          <BackgroundGlow reduce={!!reduce} isDark={isDark} />
 
-          {!reduce && (
+          <div className="relative z-10 flex w-full max-w-md flex-col items-center">
+            {/* Logo + wordmark — logo NEVER moves */}
+            <div className="flex items-center gap-3">
+              <img
+                src={
+                  isDark
+                    ? `${import.meta.env.BASE_URL}tlogo_white.png`
+                    : `${import.meta.env.BASE_URL}tlogo_black.png`
+                }
+                alt=""
+                width={48}
+                height={48}
+                className="h-12 w-auto"
+              />
+              <motion.span
+                initial={reduce ? { opacity: 0 } : { opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.1, ease: EASE }}
+                className={cn(
+                  'text-3xl font-bold tracking-tight',
+                  isDark ? 'text-white' : 'text-zinc-900',
+                )}
+              >
+                Cabs
+              </motion.span>
+            </div>
+
             <motion.div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ background: spotlight }}
-            />
-          )}
-
-          <GridOverlay isDark={isDark} />
-
-          <div className="relative z-10 flex w-full max-w-5xl flex-col items-center">
-            <motion.img
-              layoutId="brand-logo"
-              src={isDark ? `${import.meta.env.BASE_URL}tlogo_white.png` : `${import.meta.env.BASE_URL}tlogo_black.png`}
-              alt=""
-              width={80}
-              height={80}
-              initial={reduce ? { opacity: 0 } : { scale: 0.4, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={
-                reduce
-                  ? { duration: 0.01 }
-                  : {
-                      type: 'spring',
-                      stiffness: 260,
-                      damping: 20,
-                      delay: 0,
-                    }
-              }
-              className="relative h-20 w-auto drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]"
-            />
-
-            <h1
-              aria-label="CABS"
-              className="mt-6 flex select-none items-baseline leading-[0.85] tracking-[-0.055em] text-primary"
-              style={{ perspective: 1200 }}
+              {...fadeUp(0.2)}
+              className="relative mt-5 h-7 w-full max-w-[420px] overflow-hidden"
             >
-              {'CABS'.split('').map((letter, i) => (
-                <motion.span
-                  key={`${letter}-${i}`}
-                  initial={
-                    reduce
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: 80, rotateX: -95 }
-                  }
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={
-                    reduce
-                      ? { duration: 0.01 }
-                      : {
-                          delay: 0.15 + i * 0.06,
-                          type: 'spring',
-                          stiffness: 220,
-                          damping: 16,
-                        }
-                  }
-                  style={{
-                    display: 'inline-block',
-                    transformOrigin: '50% 100%',
-                    transformStyle: 'preserve-3d',
-                    fontSize: 'clamp(5rem, 14vw, 10rem)',
-                    fontWeight: 800,
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </h1>
-
-            <div className="relative mt-8 h-10 w-full max-w-[640px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.p
-                  key={taglineIdx}
+                  key={tagline}
                   initial={
                     reduce
                       ? { opacity: 0 }
-                      : { opacity: 0, y: 20, filter: 'blur(10px)' }
+                      : { opacity: 0, y: 10, filter: 'blur(6px)' }
                   }
                   animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                   exit={
                     reduce
                       ? { opacity: 0 }
-                      : { opacity: 0, y: -20, filter: 'blur(10px)' }
+                      : { opacity: 0, y: -10, filter: 'blur(6px)' }
                   }
-                  transition={{
-                    duration: reduce ? 0.01 : 0.55,
-                    ease: EASE_VERCEL,
-                  }}
+                  transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE }}
                   className={cn(
-                    'absolute inset-0 text-center text-xl font-medium tracking-tight sm:text-2xl',
-                    isDark ? 'text-zinc-300' : 'text-zinc-700',
+                    'absolute inset-0 text-center text-base font-medium',
+                    isDark ? 'text-zinc-400' : 'text-zinc-600',
                   )}
                 >
-                  {currentTagline}
+                  {tagline}
                 </motion.p>
               </AnimatePresence>
-            </div>
+            </motion.div>
 
             <motion.span
               aria-hidden
-              initial={{ scaleX: 0, opacity: 0 }}
+              initial={reduce ? { opacity: 0 } : { scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
-              transition={{
-                delay: reduce ? 0 : 0.7,
-                duration: reduce ? 0.01 : 0.5,
-                ease: EASE_APPLE,
-              }}
-              className="mt-10 block h-px w-24 origin-center bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+              transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.35, ease: EASE }}
+              className="mt-8 block h-px w-16 origin-center bg-gradient-to-r from-transparent via-primary/60 to-transparent"
             />
 
             <motion.div
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: reduce ? 0 : 0.85,
-                duration: reduce ? 0.01 : 0.4,
-                ease: EASE_VERCEL,
-              }}
-              className="mt-6 flex flex-col items-center gap-3"
+              {...fadeUp(0.45)}
+              className="mt-8 flex flex-col items-center gap-2.5"
             >
               <p
                 className={cn(
@@ -242,16 +188,16 @@ export function SplashScreen() {
                   isDark ? 'text-zinc-500' : 'text-zinc-500',
                 )}
               >
-                Thème · Theme · Thema
+                Thème · Theme
               </p>
               <div
                 role="group"
                 aria-label="Theme"
                 className={cn(
-                  'inline-flex rounded-full border p-1 shadow-sm backdrop-blur-xl',
+                  'inline-flex rounded-full border p-1',
                   isDark
                     ? 'border-white/10 bg-white/[0.04]'
-                    : 'border-black/[0.06] bg-white/70',
+                    : 'border-black/10 bg-white',
                 )}
               >
                 {(['light', 'dark'] as const).map((mode) => {
@@ -279,7 +225,7 @@ export function SplashScreen() {
                         <motion.span
                           layoutId="splash-theme-pill"
                           aria-hidden
-                          className="absolute inset-0 rounded-full bg-primary shadow-glow"
+                          className="absolute inset-0 rounded-full bg-primary"
                           transition={
                             reduce
                               ? { duration: 0 }
@@ -299,36 +245,52 @@ export function SplashScreen() {
             </motion.div>
 
             <motion.div
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: reduce ? 0 : 1.05,
-                duration: reduce ? 0.01 : 0.4,
-                ease: EASE_VERCEL,
-              }}
-              className="mt-8 flex w-full flex-col items-center"
+              {...fadeUp(0.6)}
+              className="mt-8 flex w-full flex-col items-center gap-3"
             >
               <p
                 className={cn(
-                  'mb-5 text-[10px] font-semibold uppercase tracking-[0.28em]',
+                  'text-[10px] font-semibold uppercase tracking-[0.28em]',
                   isDark ? 'text-zinc-500' : 'text-zinc-500',
                 )}
               >
                 Langue · Language · Taal · Sprache
               </p>
-              <div
-                className="grid w-full max-w-[620px] grid-cols-2 gap-3 sm:grid-cols-4"
-                style={{ perspective: 900 }}
-              >
+              <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
                 {LOCALES.map((locale, i) => (
-                  <LanguageCard
+                  <motion.button
                     key={locale.code}
-                    locale={locale}
-                    delay={reduce ? 0 : 1.2 + i * 0.05}
-                    onSelect={() => pickLanguage(locale.code)}
-                    reduce={!!reduce}
-                    isDark={isDark}
-                  />
+                    type="button"
+                    onClick={() => pickLanguage(locale.code)}
+                    aria-label={locale.label}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: reduce ? 0.01 : 0.4,
+                      delay: reduce ? 0 : 0.75 + i * 0.06,
+                      ease: EASE,
+                    }}
+                    whileHover={reduce ? undefined : { y: -2 }}
+                    whileTap={reduce ? undefined : { scale: 0.97 }}
+                    className={cn(
+                      'group flex flex-col items-center gap-1 rounded-lg border px-3 py-3 shadow-lg shadow-primary/10 transition-all duration-300 focus-visible:border-primary/60 focus-visible:outline-none',
+                      isDark
+                        ? 'border-white/15 bg-white/[0.05] hover:border-primary/50 hover:bg-white/[0.09] hover:shadow-xl hover:shadow-primary/30'
+                        : 'border-black/10 bg-white hover:border-primary/50 hover:bg-slate-50 hover:shadow-xl hover:shadow-primary/25',
+                    )}
+                  >
+                    <span className="text-sm font-semibold tracking-tight">
+                      {locale.label}
+                    </span>
+                    <span
+                      className={cn(
+                        'text-[10px] font-medium uppercase tracking-[0.2em] transition-colors group-hover:text-primary',
+                        isDark ? 'text-zinc-500' : 'text-zinc-500',
+                      )}
+                    >
+                      {locale.code}
+                    </span>
+                  </motion.button>
                 ))}
               </div>
             </motion.div>
@@ -340,7 +302,7 @@ export function SplashScreen() {
             aria-label="Skip"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: reduce ? 0 : 1.5, duration: 0.3 }}
+            transition={{ delay: reduce ? 0 : 1.1, duration: 0.3 }}
             className={cn(
               'absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs transition-colors sm:right-6 sm:top-6',
               isDark
@@ -351,192 +313,43 @@ export function SplashScreen() {
             Skip
             <X className="h-3.5 w-3.5" />
           </motion.button>
-
-          <RoutePath reduce={!!reduce} />
         </motion.div>
       )}
     </AnimatePresence>
   )
 }
 
-function MeshGradient({ reduce, isDark }: { reduce: boolean; isDark: boolean }) {
+function BackgroundGlow({ reduce, isDark }: { reduce: boolean; isDark: boolean }) {
   if (reduce) {
     return (
       <div
         aria-hidden
         className={cn(
           'pointer-events-none absolute inset-0',
-          isDark ? 'bg-primary/[0.07]' : 'bg-primary/[0.04]',
+          isDark
+            ? 'bg-[radial-gradient(ellipse_55%_40%_at_50%_30%,hsl(var(--primary)/0.08),transparent_70%)]'
+            : 'bg-[radial-gradient(ellipse_55%_40%_at_50%_30%,hsl(var(--primary)/0.05),transparent_70%)]',
         )}
       />
     )
   }
   return (
-    <>
-      <motion.div
-        aria-hidden
-        animate={{ x: [0, 120, -60, 0], y: [0, -90, 70, 0] }}
-        transition={{ duration: 19, repeat: Infinity, ease: 'linear' }}
-        className={cn(
-          'pointer-events-none absolute left-[20%] top-[18%] h-[620px] w-[620px] rounded-full blur-[130px]',
-          isDark ? 'bg-blue-500/25' : 'bg-blue-400/35',
-        )}
-      />
-      <motion.div
-        aria-hidden
-        animate={{ x: [0, -130, 70, 0], y: [0, 90, -70, 0] }}
-        transition={{ duration: 23, repeat: Infinity, ease: 'linear' }}
-        className={cn(
-          'pointer-events-none absolute bottom-[10%] right-[14%] h-[520px] w-[520px] rounded-full blur-[130px]',
-          isDark ? 'bg-indigo-500/20' : 'bg-indigo-300/40',
-        )}
-      />
-      <motion.div
-        aria-hidden
-        animate={{ x: [0, 70, -150, 0], y: [0, -50, 110, 0] }}
-        transition={{ duration: 27, repeat: Infinity, ease: 'linear' }}
-        className={cn(
-          'pointer-events-none absolute right-[28%] top-[52%] h-[420px] w-[420px] rounded-full blur-[120px]',
-          isDark ? 'bg-sky-400/10' : 'bg-sky-300/25',
-        )}
-      />
-    </>
-  )
-}
-
-function GridOverlay({ isDark }: { isDark: boolean }) {
-  const color = isDark ? 'rgba(148,163,184,0.06)' : 'rgba(15,23,42,0.04)'
-  return (
-    <div
+    <motion.div
       aria-hidden
-      className="pointer-events-none absolute inset-0"
-      style={{
-        maskImage:
-          'radial-gradient(ellipse 80% 55% at 50% 45%, black 35%, transparent 80%)',
-        WebkitMaskImage:
-          'radial-gradient(ellipse 80% 55% at 50% 45%, black 35%, transparent 80%)',
-        backgroundImage: `linear-gradient(to right, ${color} 1px, transparent 1px), linear-gradient(to bottom, ${color} 1px, transparent 1px)`,
-        backgroundSize: '60px 60px',
+      animate={{
+        x: [-30, 30, -30],
+        y: [-20, 20, -20],
+        scale: [1, 1.06, 1],
       }}
-    />
-  )
-}
-
-function RoutePath({ reduce }: { reduce: boolean }) {
-  if (reduce) return null
-  return (
-    <svg
-      aria-hidden
-      viewBox="0 0 1200 120"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute bottom-6 left-0 right-0 mx-auto h-16 w-full max-w-5xl opacity-70"
-    >
-      <defs>
-        <linearGradient id="route-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(59,130,246,0)" />
-          <stop offset="25%" stopColor="rgba(59,130,246,0.7)" />
-          <stop offset="75%" stopColor="rgba(99,102,241,0.7)" />
-          <stop offset="100%" stopColor="rgba(99,102,241,0)" />
-        </linearGradient>
-      </defs>
-      <motion.path
-        d="M 0 90 Q 200 20 400 70 T 800 60 T 1200 40"
-        stroke="url(#route-grad)"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeDasharray="3 10"
-        fill="none"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ delay: 0.5, duration: 1.4, ease: EASE_APPLE }}
-      />
-    </svg>
-  )
-}
-
-interface LanguageCardProps {
-  locale: (typeof LOCALES)[number]
-  delay: number
-  onSelect: () => void
-  reduce: boolean
-  isDark: boolean
-}
-
-function LanguageCard({
-  locale,
-  delay,
-  onSelect,
-  reduce,
-  isDark,
-}: LanguageCardProps) {
-  const x = useMotionValue(0.5)
-  const y = useMotionValue(0.5)
-  const rotateY = useTransform(x, [0, 1], [-10, 10])
-  const rotateX = useTransform(y, [0, 1], [8, -8])
-  const shineX = useTransform(x, [0, 1], ['-40%', '140%'])
-  const shine = useMotionTemplate`linear-gradient(115deg, transparent 40%, hsl(var(--primary) / 0.18) 50%, transparent 60%) ${shineX} 50% / 100% 100% no-repeat`
-
-  const handleMove = (e: React.PointerEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    x.set((e.clientX - rect.left) / rect.width)
-    y.set((e.clientY - rect.top) / rect.height)
-  }
-
-  const handleLeave = () => {
-    x.set(0.5)
-    y.set(0.5)
-  }
-
-  return (
-    <motion.button
-      type="button"
-      onClick={onSelect}
-      aria-label={locale.label}
-      onPointerMove={reduce ? undefined : handleMove}
-      onPointerLeave={reduce ? undefined : handleLeave}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={
-        reduce
-          ? { duration: 0.01 }
-          : { delay, type: 'spring', stiffness: 240, damping: 22 }
-      }
-      whileTap={reduce ? undefined : { scale: 0.96 }}
-      style={
-        reduce
-          ? undefined
-          : { rotateX, rotateY, transformStyle: 'preserve-3d' }
-      }
+      transition={{
+        duration: 22,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      }}
       className={cn(
-        'group relative flex flex-col items-center gap-1.5 overflow-hidden rounded-xl border px-5 py-5 transition-[border-color,box-shadow,background-color] duration-300',
-        isDark
-          ? 'border-white/10 bg-white/[0.035] hover:border-primary/50 hover:bg-white/[0.06]'
-          : 'border-black/[0.07] bg-white/80 hover:border-primary/50 hover:bg-white',
-        'hover:shadow-glow focus-visible:border-primary/60 focus-visible:shadow-glow',
+        'pointer-events-none absolute left-1/2 top-1/3 h-[640px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[140px]',
+        isDark ? 'bg-primary/15' : 'bg-primary/10',
       )}
-    >
-      {!reduce && (
-        <motion.span
-          aria-hidden
-          style={{ background: shine }}
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        />
-      )}
-      <span className="relative text-[17px] font-semibold leading-none tracking-tight">
-        {locale.label}
-      </span>
-      <span
-        className={cn(
-          'relative mt-1 text-[10px] font-medium uppercase tracking-[0.3em] transition-colors group-hover:text-primary',
-          isDark ? 'text-zinc-500' : 'text-zinc-500',
-        )}
-      >
-        {locale.code}
-      </span>
-      <ArrowRight
-        aria-hidden
-        className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 translate-x-3 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-      />
-    </motion.button>
+    />
   )
 }

@@ -109,31 +109,48 @@ export function ProductTicker({ className }: Props) {
         <KbdKey>→</KbdKey>
         <span>{t('ticker.keyboardHint')}</span>
       </p>
-      <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 shadow-glow backdrop-blur-xl">
-        <div
+
+      {/*
+        Logo + card share a single silhouette so the brand glow envelops both
+        as one shape. `filter: drop-shadow()` follows the rendered alpha (not
+        the bounding box), and `-mb-1` makes the bottom of the logo overlap
+        the rounded top of the card so the silhouette stays continuous.
+      */}
+      <div className="[filter:drop-shadow(0_10px_28px_rgba(59,130,246,0.35))_drop-shadow(0_0_18px_rgba(250,204,21,0.18))]">
+        <img
+          src={`${import.meta.env.BASE_URL}taxi-logo.png`}
+          alt=""
           aria-hidden
-          className="absolute -inset-[1px] -z-10 rounded-2xl bg-gradient-brand opacity-[0.12] blur-md"
+          decoding="async"
+          loading="eager"
+          className="pointer-events-none relative -mb-1 ml-4 block h-12 w-auto select-none"
         />
+        <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 backdrop-blur-xl">
+          <div
+            aria-hidden
+            className="absolute -inset-[1px] -z-10 rounded-2xl bg-gradient-brand opacity-[0.12] blur-md"
+          />
 
-        <Header current={current} idx={idx} />
+          <Header current={current} idx={idx} />
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
-            transition={{ duration: reduce ? 0.01 : 0.35, ease: EASE }}
-            className="min-h-[170px]"
-          >
-            {current === 'revenue' && <RevenueBody reduce={!!reduce} />}
-            {current === 'planning' && <PlanningBody reduce={!!reduce} />}
-            {current === 'fleet' && <FleetBody reduce={!!reduce} />}
-            {current === 'tracking' && <TrackingBody reduce={!!reduce} />}
-            {current === 'drivers' && <DriversBody reduce={!!reduce} />}
-            {current === 'driverApp' && <DriverAppBody reduce={!!reduce} />}
-          </motion.div>
-        </AnimatePresence>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: reduce ? 0.01 : 0.35, ease: EASE }}
+              className="min-h-[170px]"
+            >
+              {current === 'revenue' && <RevenueBody reduce={!!reduce} />}
+              {current === 'planning' && <PlanningBody reduce={!!reduce} />}
+              {current === 'fleet' && <FleetBody reduce={!!reduce} />}
+              {current === 'tracking' && <TrackingBody reduce={!!reduce} />}
+              {current === 'drivers' && <DriversBody reduce={!!reduce} />}
+              {current === 'driverApp' && <DriverAppBody reduce={!!reduce} />}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )

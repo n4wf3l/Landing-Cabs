@@ -81,6 +81,8 @@ export interface PhoneSimState {
   todayRides: CompletedRide[]
   lastCompletedRide: CompletedRide | null
   ridePoolIndex: number
+  locationGranted: boolean
+  locationDenied: boolean
 }
 
 export type NavScreen = Extract<
@@ -108,6 +110,9 @@ export type PhoneSimAction =
     }
   | { type: 'COMPLETE_RIDE'; platform: Platform; cashAmount?: number }
   | { type: 'CONTINUE_AFTER_RIDE' }
+  | { type: 'GRANT_LOCATION' }
+  | { type: 'DENY_LOCATION' }
+  | { type: 'RETRY_LOCATION' }
   | { type: 'RESET' }
 
 export const COMMISSION_RATES: Record<Platform, number> = {

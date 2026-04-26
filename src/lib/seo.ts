@@ -20,7 +20,7 @@ export function organizationJsonLd() {
     foundingDate: '2026',
     foundingLocation: {
       '@type': 'Place',
-      name: 'Brussels, Belgium',
+      name: 'Antwerp, Belgium',
     },
     address: {
       '@type': 'PostalAddress',
