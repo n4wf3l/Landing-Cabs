@@ -28,7 +28,8 @@
     "eyebrow": "Private beta · Belgium · France · Netherlands — launching September 2026",
     "title": "Your drivers, your vehicles, your revenue. One tool, two sides.",
     "subtitle": "A dashboard for you. An app for your drivers. No spreadsheet, no manual math.",
-    "scrollHint": "See the product"
+    "scrollHint": "See the product",
+    "swipeHint": "Swipe to explore"
   },
   "ticker": {
     "keyboardHint": "to navigate",

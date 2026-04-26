@@ -42,6 +42,16 @@ export function SplashScreen() {
   const { theme, setTheme } = useTheme()
   const isDark = theme === 'dark'
   const [taglineIdx, setTaglineIdx] = useState(0)
+  // Touch devices: framer-motion `whileHover` interpreted as a hover-state
+  // before the tap fires can swallow the click (the hover y:-2 transform
+  // is mid-animation when onClick would normally fire). Skip whileHover
+  // entirely when the input is coarse / hover-incapable.
+  const [supportsHover, setSupportsHover] = useState(false)
+  useEffect(() => {
+    setSupportsHover(
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches,
+    )
+  }, [])
 
   useEffect(() => {
     if (!visible) return
@@ -270,13 +280,13 @@ export function SplashScreen() {
                       delay: reduce ? 0 : 0.75 + i * 0.06,
                       ease: EASE,
                     }}
-                    whileHover={reduce ? undefined : { y: -2 }}
-                    whileTap={reduce ? undefined : { scale: 0.97 }}
+                    whileHover={!reduce && supportsHover ? { y: -2 } : undefined}
+                    whileTap={reduce ? undefined : { scale: 0.95 }}
                     className={cn(
-                      'group flex flex-col items-center gap-1 rounded-lg border px-3 py-3 shadow-lg shadow-primary/10 transition-all duration-300 focus-visible:border-primary/60 focus-visible:outline-none',
+                      'group flex min-h-[64px] cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 px-3 py-3 shadow-md transition-[background-color,border-color,box-shadow] duration-150 focus-visible:border-primary focus-visible:outline-none active:border-primary',
                       isDark
-                        ? 'border-white/15 bg-white/[0.05] hover:border-primary/50 hover:bg-white/[0.09] hover:shadow-xl hover:shadow-primary/30'
-                        : 'border-black/10 bg-white hover:border-primary/50 hover:bg-slate-50 hover:shadow-xl hover:shadow-primary/25',
+                        ? 'border-white/20 bg-white/[0.07] shadow-primary/15 hover:border-primary/60 hover:bg-white/[0.12] hover:shadow-lg hover:shadow-primary/30 active:bg-white/[0.15]'
+                        : 'border-zinc-300 bg-white shadow-primary/15 hover:border-primary/60 hover:bg-slate-50 hover:shadow-lg hover:shadow-primary/30 active:bg-slate-100',
                     )}
                   >
                     <span className="text-sm font-semibold tracking-tight">

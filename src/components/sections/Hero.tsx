@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ChevronDown, Sparkles } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { AnimatedGridBackground } from '@/components/common/AnimatedGridBackground'
 import { GlowEffect } from '@/components/common/GlowEffect'
@@ -67,6 +67,48 @@ export function Hero() {
             </motion.div>
           </div>
 
+          {/* Mobile-only header preceding the ProductTicker swipe carousel.
+              Hidden on lg+ where the ticker sits beside the hero text. */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+            transition={{ duration: 0.5, delay: 0.32 }}
+            className="flex flex-col items-center gap-2 lg:hidden"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}taxi-logo.png`}
+              alt="Cabs"
+              className="h-14 w-auto opacity-95"
+            />
+            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <motion.span
+                aria-hidden
+                animate={reduce ? undefined : { x: [0, -3, 0] }}
+                transition={
+                  reduce
+                    ? undefined
+                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+                }
+                className="inline-flex text-primary/70"
+              >
+                <ChevronLeft className="h-3 w-3" />
+              </motion.span>
+              {t('hero.swipeHint')}
+              <motion.span
+                aria-hidden
+                animate={reduce ? undefined : { x: [0, 3, 0] }}
+                transition={
+                  reduce
+                    ? undefined
+                    : { duration: 1.4, repeat: Infinity, ease: 'easeInOut' }
+                }
+                className="inline-flex text-primary/70"
+              >
+                <ChevronRight className="h-3 w-3" />
+              </motion.span>
+            </p>
+          </motion.div>
+
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
             animate={
@@ -74,7 +116,7 @@ export function Hero() {
                 ? { opacity: 1, y: 0, scale: 1 }
                 : { opacity: 0, y: 16, scale: 0.96 }
             }
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="flex justify-center lg:justify-end"
           >
             <ProductTicker />

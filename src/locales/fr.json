@@ -28,7 +28,8 @@
     "eyebrow": "Bêta privée · Belgique · France · Pays-Bas — sortie septembre 2026",
     "title": "Vos chauffeurs, vos véhicules, vos revenus. Un outil, deux faces.",
     "subtitle": "Un tableau de bord pour vous. Une app pour vos chauffeurs. Sans tableur, sans calcul manuel.",
-    "scrollHint": "Voir le produit"
+    "scrollHint": "Voir le produit",
+    "swipeHint": "Glisse pour explorer"
   },
   "ticker": {
     "keyboardHint": "pour naviguer",

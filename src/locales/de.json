@@ -28,7 +28,8 @@
     "eyebrow": "Private Beta · Belgien · Frankreich · Niederlande — Launch September 2026",
     "title": "Ihre Fahrer, Ihre Fahrzeuge, Ihre Einnahmen. Ein Tool, zwei Seiten.",
     "subtitle": "Ein Dashboard für Sie. Eine App für Ihre Fahrer. Ohne Tabelle, ohne Handrechnerei.",
-    "scrollHint": "Produkt ansehen"
+    "scrollHint": "Produkt ansehen",
+    "swipeHint": "Wischen zum Erkunden"
   },
   "ticker": {
     "keyboardHint": "zum Navigieren",
