@@ -10,7 +10,10 @@ export function ShiftSummaryScreen() {
   const { state, dispatch } = usePhoneSim()
   const reduce = useReducedMotion()
 
-  const totals = state.todayRides.reduce(
+  const completedRides = state.todayRides.filter((r) => !r.cancelled)
+  const cancelledCount = state.todayRides.length - completedRides.length
+
+  const totals = completedRides.reduce(
     (acc, r) => ({
       brut: acc.brut + r.brut,
       commission: acc.commission + r.commission,
@@ -19,7 +22,7 @@ export function ShiftSummaryScreen() {
     { brut: 0, commission: 0, net: 0 },
   )
 
-  const byPlatform = state.todayRides.reduce<
+  const byPlatform = completedRides.reduce<
     Record<Platform, { rides: number; net: number }>
   >(
     (acc, r) => {
@@ -64,8 +67,18 @@ export function ShiftSummaryScreen() {
         <p className="mt-1 text-[11px] text-zinc-500 tabular-nums">
           {t('driverApp.sim.shiftSummary.duration', { min })} ·{' '}
           {t('driverApp.sim.shiftSummary.rides', {
-            count: state.todayRides.length,
+            count: completedRides.length,
           })}
+          {cancelledCount > 0 && (
+            <>
+              {' · '}
+              <span className="text-rose-300/80 phone-light:text-rose-700/80">
+                {t('driverApp.sim.shiftSummary.cancelled', {
+                  count: cancelledCount,
+                })}
+              </span>
+            </>
+          )}
         </p>
       </div>
 

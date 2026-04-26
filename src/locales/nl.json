@@ -774,6 +774,30 @@
         "email": "E-mail",
         "documents": "Documenten",
         "documentsValue": "Allemaal geldig",
+        "terms": {
+          "title": "Mijn voorwaarden",
+          "footnote": "Voorwaarden vastgelegd in je contract. Een vraag? Neem contact op met je uitbater.",
+          "formula": {
+            "label": "Formule",
+            "value": "50/50 op de omzet"
+          },
+          "fuel": {
+            "label": "Brandstof",
+            "value": "50% chauffeur · 50% uitbater"
+          },
+          "carwash": {
+            "label": "Carwash",
+            "value": "Door uitbater betaald"
+          },
+          "maintenance": {
+            "label": "Onderhoud",
+            "value": "Door uitbater betaald"
+          },
+          "insurance": {
+            "label": "Verzekering",
+            "value": "Gedekt door de vloot"
+          }
+        },
         "preferences": "Voorkeuren",
         "language": "Taal",
         "theme": "Weergave",
@@ -817,6 +841,7 @@
         "title": "Shift voltooid",
         "duration": "{{min}} min",
         "rides": "{{count}} ritten",
+        "cancelled": "{{count}} geannuleerd",
         "brut": "Bruto",
         "commission": "Commissie",
         "net": "Netto",
@@ -863,6 +888,43 @@
           "start": "Bevestigen en shift starten",
           "end": "Bevestigen en shift beëindigen"
         }
+      },
+      "leave": {
+        "subtitle": "Je uitbater krijgt de aanvraag rechtstreeks — geen sms verloren in WhatsApp.",
+        "today": "Vandaag",
+        "datesSingular": "Datum",
+        "noteLabel": "Notitie (optioneel)",
+        "submit": "Naar uitbater sturen",
+        "dismiss": "Annuleren",
+        "pendingTitle": "Lopende aanvragen",
+        "pendingBadge": "In afwachting uitbater",
+        "leave": {
+          "cta": "Verlof aanvragen",
+          "label": "Verlof",
+          "title": "Verlof aanvragen",
+          "datesLabel": "Aangevraagde dagen",
+          "notePlaceholder": "Bv. Bruiloft van mijn nicht"
+        },
+        "sick": {
+          "cta": "Ziek melden",
+          "label": "Ziek",
+          "title": "Ziektemelding doorgeven",
+          "datesLabel": "Betrokken dagen",
+          "notePlaceholder": "Bv. Griep, attest van de dokter"
+        }
+      },
+      "cancel": {
+        "cta": "Rit annuleren",
+        "title": "Waarom annuleren?",
+        "subtitle": "Cabs houdt het bij voor je uitbater — geen grijze zone.",
+        "reasons": {
+          "no-show": "Klant niet aanwezig",
+          "customer-cancelled": "Klant heeft geannuleerd",
+          "other": "Andere"
+        },
+        "confirm": "Annulering bevestigen",
+        "dismiss": "Rit voortzetten",
+        "statusBadge": "Geannuleerd"
       },
       "ridePicker": {
         "eyebrow": "Rit voltooid",

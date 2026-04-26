@@ -774,6 +774,30 @@
         "email": "Email",
         "documents": "Documents",
         "documentsValue": "All valid",
+        "terms": {
+          "title": "My contract terms",
+          "footnote": "Terms set by your contract. Question? Contact your operator.",
+          "formula": {
+            "label": "Compensation",
+            "value": "50/50 revenue split"
+          },
+          "fuel": {
+            "label": "Fuel",
+            "value": "50% driver · 50% operator"
+          },
+          "carwash": {
+            "label": "Carwash",
+            "value": "Covered by operator"
+          },
+          "maintenance": {
+            "label": "Maintenance",
+            "value": "Covered by operator"
+          },
+          "insurance": {
+            "label": "Insurance",
+            "value": "Covered by the fleet"
+          }
+        },
         "preferences": "Preferences",
         "language": "Language",
         "theme": "Appearance",
@@ -817,6 +841,7 @@
         "title": "Shift completed",
         "duration": "{{min}} min",
         "rides": "{{count}} rides",
+        "cancelled": "{{count}} cancelled",
         "brut": "Gross",
         "commission": "Commission",
         "net": "Net",
@@ -863,6 +888,43 @@
           "start": "Confirm and start shift",
           "end": "Confirm and end shift"
         }
+      },
+      "leave": {
+        "subtitle": "Your operator gets the request directly — no SMS lost in WhatsApp.",
+        "today": "Today",
+        "datesSingular": "Date",
+        "noteLabel": "Note (optional)",
+        "submit": "Send to operator",
+        "dismiss": "Cancel",
+        "pendingTitle": "Pending requests",
+        "pendingBadge": "Awaiting operator",
+        "leave": {
+          "cta": "Request leave",
+          "label": "Leave",
+          "title": "Request leave",
+          "datesLabel": "Days requested",
+          "notePlaceholder": "E.g. Cousin's wedding"
+        },
+        "sick": {
+          "cta": "Sick leave",
+          "label": "Sick",
+          "title": "Report sick leave",
+          "datesLabel": "Days concerned",
+          "notePlaceholder": "E.g. Flu, doctor's note coming"
+        }
+      },
+      "cancel": {
+        "cta": "Cancel this ride",
+        "title": "Why cancel?",
+        "subtitle": "Cabs keeps a record for your operator — no grey zone.",
+        "reasons": {
+          "no-show": "Customer no-show",
+          "customer-cancelled": "Customer cancelled",
+          "other": "Other"
+        },
+        "confirm": "Confirm cancellation",
+        "dismiss": "Stay on the ride",
+        "statusBadge": "Cancelled"
       },
       "ridePicker": {
         "eyebrow": "Ride completed",

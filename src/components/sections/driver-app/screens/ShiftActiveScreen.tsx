@@ -1,4 +1,4 @@
-import { Play, PowerOff } from 'lucide-react'
+import { Play, PowerOff, XCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { usePhoneSim } from '../usePhoneSim'
 import { useShiftClock } from '../useShiftClock'
@@ -16,6 +16,9 @@ export function ShiftActiveScreen() {
     }),
     { brut: 0, net: 0 },
   )
+
+  const completedCount = state.todayRides.filter((r) => !r.cancelled).length
+  const cancelledCount = state.todayRides.filter((r) => r.cancelled).length
 
   return (
     <ScreenScroll>
@@ -49,7 +52,11 @@ export function ShiftActiveScreen() {
       <div className="grid grid-cols-3 gap-2 rounded-2xl bg-white/[0.04] p-3 phone-light:bg-zinc-900/[0.04]">
         <Stat
           label={t('driverApp.sim.shift.ridesToday')}
-          value={state.todayRides.length.toString()}
+          value={
+            cancelledCount > 0
+              ? `${completedCount} · ${cancelledCount} ✕`
+              : completedCount.toString()
+          }
         />
         <Stat
           label={t('driverApp.sim.shift.brutToday')}
@@ -85,18 +92,43 @@ export function ShiftActiveScreen() {
             {state.todayRides.map((ride) => (
               <li
                 key={ride.id}
-                className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 phone-light:border-zinc-900/[0.08] phone-light:bg-zinc-900/[0.03]"
+                className={
+                  'rounded-xl border px-3 py-2 ' +
+                  (ride.cancelled
+                    ? 'border-rose-500/20 bg-rose-500/[0.04] phone-light:border-rose-500/30 phone-light:bg-rose-500/[0.06]'
+                    : 'border-white/[0.06] bg-white/[0.02] phone-light:border-zinc-900/[0.08] phone-light:bg-zinc-900/[0.03]')
+                }
               >
                 <div className="flex items-center justify-between gap-2">
-                  <PlatformBadge
-                    platform={ride.platform}
-                    label={t(`driverApp.sim.platforms.${ride.platform}`)}
-                  />
-                  <span className="text-sm font-bold text-emerald-300 tabular-nums phone-light:text-emerald-700">
-                    +<Money value={ride.net} />
-                  </span>
+                  {ride.cancelled ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-400/30 bg-rose-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-rose-300 phone-light:text-rose-700">
+                      <XCircle className="h-3 w-3" />
+                      {t('driverApp.sim.cancel.statusBadge')}
+                    </span>
+                  ) : (
+                    <PlatformBadge
+                      platform={ride.platform}
+                      label={t(`driverApp.sim.platforms.${ride.platform}`)}
+                    />
+                  )}
+                  {ride.cancelled ? (
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-rose-300/70 phone-light:text-rose-700/70">
+                      {t(`driverApp.sim.cancel.reasons.${ride.cancelReason ?? 'other'}`)}
+                    </span>
+                  ) : (
+                    <span className="text-sm font-bold text-emerald-300 tabular-nums phone-light:text-emerald-700">
+                      +<Money value={ride.net} />
+                    </span>
+                  )}
                 </div>
-                <p className="mt-1 truncate text-[11px] text-zinc-400 phone-light:text-zinc-600">
+                <p
+                  className={
+                    'mt-1 truncate text-[11px] ' +
+                    (ride.cancelled
+                      ? 'text-rose-300/60 line-through phone-light:text-rose-700/60'
+                      : 'text-zinc-400 phone-light:text-zinc-600')
+                  }
+                >
                   {ride.pickup} → {ride.destination}
                 </p>
               </li>

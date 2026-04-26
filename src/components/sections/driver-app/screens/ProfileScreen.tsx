@@ -1,12 +1,17 @@
 import {
   Car,
+  Droplets,
   FileCheck,
+  Fuel,
   Globe,
   Mail,
   Moon,
+  Percent,
   Phone,
+  Shield,
   Star,
   Sun,
+  Wrench,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -67,6 +72,15 @@ export function ProfileScreen() {
         />
       </div>
 
+      {/*
+        Financial conditions of the contract — fuel split, carwash,
+        maintenance, insurance. Real Belgian taxi pain point: drivers
+        forget mid-week if it's 50/50 or forfait, advance €80 in fuel
+        and call the operator to ask. Having this one tap away inside
+        their own app eliminates the back-and-forth.
+      */}
+      <TermsSection />
+
       <div className="pt-1">
         <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
           {t('driverApp.sim.profile.preferences')}
@@ -76,6 +90,97 @@ export function ProfileScreen() {
         <ThemeRow />
       </div>
     </ScreenScroll>
+  )
+}
+
+type TermTone = 'primary' | 'sky' | 'emerald' | 'rose'
+
+const TERMS: ReadonlyArray<{
+  Icon: LucideIcon
+  key: 'formula' | 'fuel' | 'carwash' | 'maintenance' | 'insurance'
+  tone: TermTone
+}> = [
+  { Icon: Percent, key: 'formula', tone: 'primary' },
+  { Icon: Fuel, key: 'fuel', tone: 'sky' },
+  { Icon: Droplets, key: 'carwash', tone: 'emerald' },
+  { Icon: Wrench, key: 'maintenance', tone: 'emerald' },
+  { Icon: Shield, key: 'insurance', tone: 'emerald' },
+] as const
+
+function TermsSection() {
+  const { t } = useTranslation()
+  return (
+    <div className="pt-1">
+      <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+        {t('driverApp.sim.profile.terms.title')}
+      </p>
+      <div className="space-y-2">
+        {TERMS.map(({ Icon, key, tone }) => (
+          <TermRow
+            key={key}
+            Icon={Icon}
+            label={t(`driverApp.sim.profile.terms.${key}.label`)}
+            value={t(`driverApp.sim.profile.terms.${key}.value`)}
+            tone={tone}
+          />
+        ))}
+      </div>
+      <p className="mt-2 px-1 text-[10px] leading-snug text-zinc-500">
+        {t('driverApp.sim.profile.terms.footnote')}
+      </p>
+    </div>
+  )
+}
+
+function TermRow({
+  Icon,
+  label,
+  value,
+  tone,
+}: {
+  Icon: LucideIcon
+  label: string
+  value: string
+  tone: TermTone
+}) {
+  const iconClass = {
+    primary: 'bg-primary/15 text-primary ring-primary/30',
+    sky: 'bg-sky-400/15 text-sky-300 ring-sky-400/30 phone-light:text-sky-700 phone-light:ring-sky-500/40',
+    emerald:
+      'bg-emerald-400/15 text-emerald-300 ring-emerald-400/30 phone-light:text-emerald-700 phone-light:ring-emerald-500/40',
+    rose: 'bg-rose-400/15 text-rose-300 ring-rose-400/30 phone-light:text-rose-700 phone-light:ring-rose-500/40',
+  }[tone]
+  const valueClass = {
+    primary: 'text-primary',
+    sky: 'text-sky-300 phone-light:text-sky-700',
+    emerald: 'text-emerald-300 phone-light:text-emerald-700',
+    rose: 'text-rose-300 phone-light:text-rose-700',
+  }[tone]
+
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 phone-light:border-zinc-900/[0.08] phone-light:bg-zinc-900/[0.03]">
+      <span
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1',
+          iconClass,
+        )}
+      >
+        <Icon className="h-4 w-4" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[10px] uppercase tracking-wider text-zinc-500">
+          {label}
+        </p>
+        <p
+          className={cn(
+            'mt-0.5 truncate text-xs font-semibold',
+            valueClass,
+          )}
+        >
+          {value}
+        </p>
+      </div>
+    </div>
   )
 }
 

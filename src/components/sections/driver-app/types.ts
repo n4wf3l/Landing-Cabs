@@ -1,5 +1,18 @@
 export type Platform = 'uber' | 'bolt' | 'heetch' | 'cash'
 
+export type CancelReason = 'no-show' | 'customer-cancelled' | 'other'
+
+export type LeaveType = 'leave' | 'sick'
+
+export interface LeaveRequest {
+  id: string
+  type: LeaveType
+  // ISO YYYY-MM-DD strings; sick = single day, leave can hold multiple.
+  dates: string[]
+  note?: string
+  createdAt: number
+}
+
 export type Screen =
   | 'demo-start'
   | 'home'
@@ -41,6 +54,12 @@ export interface CompletedRide {
   net: number
   durationSec: number
   completedAt: number
+  // When true, the ride was cancelled rather than completed. Platform is
+  // unknown at cancellation time (Cabs has no platform API), so brut/
+  // commission/net are forced to 0 and `platform` carries a placeholder
+  // that callers should ignore. UI should branch on `cancelled`.
+  cancelled?: boolean
+  cancelReason?: CancelReason
 }
 
 export interface HistoryDay {
@@ -84,6 +103,7 @@ export interface PhoneSimState {
   locationGranted: boolean
   locationDenied: boolean
   splashShown: boolean
+  leaveRequests: LeaveRequest[]
 }
 
 export type NavScreen = Extract<
@@ -109,6 +129,11 @@ export type PhoneSimAction =
       arrivedDurationSec: number
     }
   | { type: 'COMPLETE_RIDE'; platform: Platform; fareEntered: number }
+  | { type: 'CANCEL_RIDE'; reason: CancelReason; durationSec: number }
+  | {
+      type: 'SUBMIT_LEAVE_REQUEST'
+      request: Omit<LeaveRequest, 'id' | 'createdAt'>
+    }
   | { type: 'CONTINUE_AFTER_RIDE' }
   | { type: 'GRANT_LOCATION' }
   | { type: 'DENY_LOCATION' }

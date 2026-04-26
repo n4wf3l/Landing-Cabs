@@ -42,6 +42,7 @@ const INITIAL_STATE: PhoneSimState = {
   locationGranted: false,
   locationDenied: false,
   splashShown: false,
+  leaveRequests: [],
 }
 
 function loadInitial(): PhoneSimState {
@@ -162,6 +163,54 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
       return { ...state, locationGranted: false, locationDenied: false }
     case 'DISMISS_SPLASH':
       return { ...state, splashShown: true }
+    case 'CANCEL_RIDE': {
+      const ride = state.currentRide
+      if (!ride) return state
+      // Cancelled rides are tracked in todayRides for operator
+      // accountability (high cancel rate = problem driver). They don't
+      // contribute to brut/net — Cabs has no platform API to know if a
+      // cancellation fee was paid out, and the driver hasn't yet picked
+      // a platform here. We default platform to 'cash' as a placeholder
+      // that the UI ignores when `cancelled` is true.
+      const cancelled: CompletedRide = {
+        id: ride.id,
+        pickup: ride.template.pickup,
+        destination: ride.template.destination,
+        platform: 'cash',
+        brut: 0,
+        commission: 0,
+        net: 0,
+        durationSec: Math.max(1, action.durationSec),
+        completedAt: Date.now(),
+        cancelled: true,
+        cancelReason: action.reason,
+      }
+      return {
+        ...state,
+        screen: 'shift-active',
+        currentRide: null,
+        todayRides: [cancelled, ...state.todayRides],
+      }
+    }
+    case 'SUBMIT_LEAVE_REQUEST': {
+      const r = action.request
+      // Generated entry. The simulator never actually approves these —
+      // they hang as "En attente patron" forever, which is exactly what
+      // the demo wants to communicate (operator-side decision pending).
+      return {
+        ...state,
+        leaveRequests: [
+          {
+            id: `lr_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+            type: r.type,
+            dates: r.dates,
+            note: r.note,
+            createdAt: Date.now(),
+          },
+          ...state.leaveRequests,
+        ],
+      }
+    }
     case 'CONTINUE_AFTER_RIDE':
       return { ...state, screen: 'shift-active' }
     case 'RESET':

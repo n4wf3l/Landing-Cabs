@@ -774,6 +774,30 @@
         "email": "Email",
         "documents": "Documents",
         "documentsValue": "Tous valides",
+        "terms": {
+          "title": "Mes conditions",
+          "footnote": "Conditions définies dans votre contrat. Une question ? Contactez votre patron.",
+          "formula": {
+            "label": "Formule",
+            "value": "50/50 sur le CA"
+          },
+          "fuel": {
+            "label": "Essence",
+            "value": "50% chauffeur · 50% patron"
+          },
+          "carwash": {
+            "label": "Carwash",
+            "value": "Pris en charge par le patron"
+          },
+          "maintenance": {
+            "label": "Entretien",
+            "value": "Pris en charge par le patron"
+          },
+          "insurance": {
+            "label": "Assurance",
+            "value": "Couverte par la flotte"
+          }
+        },
         "preferences": "Préférences",
         "language": "Langue",
         "theme": "Apparence",
@@ -817,6 +841,7 @@
         "title": "Shift terminé",
         "duration": "{{min}} min",
         "rides": "{{count}} courses",
+        "cancelled": "{{count}} annulée(s)",
         "brut": "Brut",
         "commission": "Commission",
         "net": "Net",
@@ -863,6 +888,43 @@
           "start": "Confirmer et démarrer le shift",
           "end": "Confirmer et terminer le shift"
         }
+      },
+      "leave": {
+        "subtitle": "Votre patron reçoit la demande directement — pas de SMS perdu dans WhatsApp.",
+        "today": "Aujourd'hui",
+        "datesSingular": "Date",
+        "noteLabel": "Note (optionnel)",
+        "submit": "Envoyer au patron",
+        "dismiss": "Annuler",
+        "pendingTitle": "Demandes en cours",
+        "pendingBadge": "En attente patron",
+        "leave": {
+          "cta": "Demander un congé",
+          "label": "Congé",
+          "title": "Demander un congé",
+          "datesLabel": "Jours demandés",
+          "notePlaceholder": "Ex. Mariage de ma cousine"
+        },
+        "sick": {
+          "cta": "Arrêt maladie",
+          "label": "Maladie",
+          "title": "Signaler un arrêt maladie",
+          "datesLabel": "Jours concernés",
+          "notePlaceholder": "Ex. Grippe, certif chez médecin"
+        }
+      },
+      "cancel": {
+        "cta": "Annuler la course",
+        "title": "Pourquoi annuler ?",
+        "subtitle": "Cabs garde une trace pour votre patron — pas de zone grise.",
+        "reasons": {
+          "no-show": "Client absent",
+          "customer-cancelled": "Client a annulé",
+          "other": "Autre"
+        },
+        "confirm": "Confirmer l'annulation",
+        "dismiss": "Continuer la course",
+        "statusBadge": "Annulée"
       },
       "ridePicker": {
         "eyebrow": "Course terminée",

@@ -774,6 +774,30 @@
         "email": "E-Mail",
         "documents": "Dokumente",
         "documentsValue": "Alle gültig",
+        "terms": {
+          "title": "Meine Konditionen",
+          "footnote": "Im Vertrag festgelegte Konditionen. Fragen? Wenden Sie sich an Ihren Betreiber.",
+          "formula": {
+            "label": "Vergütungsmodell",
+            "value": "50/50 auf den Umsatz"
+          },
+          "fuel": {
+            "label": "Kraftstoff",
+            "value": "50% Fahrer · 50% Betreiber"
+          },
+          "carwash": {
+            "label": "Autowäsche",
+            "value": "Vom Betreiber übernommen"
+          },
+          "maintenance": {
+            "label": "Wartung",
+            "value": "Vom Betreiber übernommen"
+          },
+          "insurance": {
+            "label": "Versicherung",
+            "value": "Über die Flotte abgedeckt"
+          }
+        },
         "preferences": "Einstellungen",
         "language": "Sprache",
         "theme": "Erscheinungsbild",
@@ -817,6 +841,7 @@
         "title": "Schicht beendet",
         "duration": "{{min}} Min.",
         "rides": "{{count}} Fahrten",
+        "cancelled": "{{count}} storniert",
         "brut": "Brutto",
         "commission": "Provision",
         "net": "Netto",
@@ -863,6 +888,43 @@
           "start": "Bestätigen und Schicht starten",
           "end": "Bestätigen und Schicht beenden"
         }
+      },
+      "leave": {
+        "subtitle": "Ihr Betreiber erhält den Antrag direkt — keine SMS, die in WhatsApp untergeht.",
+        "today": "Heute",
+        "datesSingular": "Datum",
+        "noteLabel": "Notiz (optional)",
+        "submit": "An Betreiber senden",
+        "dismiss": "Abbrechen",
+        "pendingTitle": "Laufende Anträge",
+        "pendingBadge": "Warten auf Betreiber",
+        "leave": {
+          "cta": "Urlaub beantragen",
+          "label": "Urlaub",
+          "title": "Urlaub beantragen",
+          "datesLabel": "Beantragte Tage",
+          "notePlaceholder": "Z. B. Hochzeit meiner Cousine"
+        },
+        "sick": {
+          "cta": "Krankmeldung",
+          "label": "Krank",
+          "title": "Krankheit melden",
+          "datesLabel": "Betroffene Tage",
+          "notePlaceholder": "Z. B. Grippe, AU folgt"
+        }
+      },
+      "cancel": {
+        "cta": "Fahrt abbrechen",
+        "title": "Warum abbrechen?",
+        "subtitle": "Cabs protokolliert es für Ihren Betreiber — keine Grauzone.",
+        "reasons": {
+          "no-show": "Kunde nicht erschienen",
+          "customer-cancelled": "Kunde hat storniert",
+          "other": "Andere"
+        },
+        "confirm": "Stornierung bestätigen",
+        "dismiss": "Fahrt fortsetzen",
+        "statusBadge": "Storniert"
       },
       "ridePicker": {
         "eyebrow": "Fahrt abgeschlossen",

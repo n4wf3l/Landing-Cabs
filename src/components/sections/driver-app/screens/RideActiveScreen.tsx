@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Flag, MapPin, Navigation, Satellite } from 'lucide-react'
+import { Flag, MapPin, Navigation, Satellite, XCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { RideCancelSheet } from '../RideCancelSheet'
 import { usePhoneSim } from '../usePhoneSim'
+import type { CancelReason } from '../types'
 
 const TICK_MS = 250
 const TARGET_DURATION_MS = 6_500
@@ -18,6 +20,7 @@ export function RideActiveScreen() {
   // counter for ambient feel; the actual fare is typed manually at end.
   const [elapsed, setElapsed] = useState(0)
   const [gpsFixes, setGpsFixes] = useState(0)
+  const [cancelOpen, setCancelOpen] = useState(false)
   const startedAt = useRef<number>(Date.now())
 
   useEffect(() => {
@@ -39,6 +42,15 @@ export function RideActiveScreen() {
       type: 'ARRIVE_AT_DESTINATION',
       arrivedDurationSec: Math.max(1, elapsed),
     })
+  }
+
+  const handleCancel = (reason: CancelReason) => {
+    dispatch({
+      type: 'CANCEL_RIDE',
+      reason,
+      durationSec: Math.max(1, elapsed),
+    })
+    setCancelOpen(false)
   }
 
   const min = Math.floor(elapsed / 60)
@@ -186,15 +198,31 @@ export function RideActiveScreen() {
           {t('driverApp.sim.ride.fareAtEndNote')}
         </p>
 
-        <button
-          type="button"
-          onClick={handleEnd}
-          className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500/90 py-3 text-sm font-semibold text-white shadow-[0_0_30px_-10px_rgba(244,63,94,0.7)] transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
-        >
-          <Navigation className="h-4 w-4" />
-          {t('driverApp.sim.ride.endRide')}
-        </button>
+        <div className="mt-auto space-y-1">
+          <button
+            type="button"
+            onClick={handleEnd}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500/90 py-3 text-sm font-semibold text-white shadow-[0_0_30px_-10px_rgba(244,63,94,0.7)] transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+          >
+            <Navigation className="h-4 w-4" />
+            {t('driverApp.sim.ride.endRide')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCancelOpen(true)}
+            className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg py-2 text-[11px] font-medium text-zinc-500 transition-colors hover:text-rose-300 phone-light:hover:text-rose-700"
+          >
+            <XCircle className="h-3 w-3" />
+            {t('driverApp.sim.cancel.cta')}
+          </button>
+        </div>
       </div>
+
+      <RideCancelSheet
+        open={cancelOpen}
+        onClose={() => setCancelOpen(false)}
+        onConfirm={handleCancel}
+      />
     </div>
   )
 }

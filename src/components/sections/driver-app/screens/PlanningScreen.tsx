@@ -1,10 +1,19 @@
-import { Moon, Sun } from 'lucide-react'
+import { useState } from 'react'
+import {
+  CalendarPlus,
+  Clock3,
+  Moon,
+  Stethoscope,
+  Sun,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
+import { LeaveRequestSheet } from '../LeaveRequestSheet'
 import { PLANNING } from '../mockData'
-import type { PlanningDay, PlanningSlot } from '../types'
+import type { LeaveRequest, LeaveType, PlanningDay, PlanningSlot } from '../types'
 import { ScreenScroll, ScreenTitle } from '../ui'
+import { usePhoneSim } from '../usePhoneSim'
 
 const SHIFT_RANGES = {
   day: '06:00 → 18:00',
@@ -13,9 +22,20 @@ const SHIFT_RANGES = {
 
 export function PlanningScreen() {
   const { t } = useTranslation()
+  const { state, dispatch } = usePhoneSim()
+  const [sheetType, setSheetType] = useState<LeaveType | null>(null)
+
   const yourSlots = PLANNING.reduce((acc, d) => {
     return acc + (d.day.driver?.isYou ? 1 : 0) + (d.night.driver?.isYou ? 1 : 0)
   }, 0)
+
+  const handleSubmit = (req: { dates: string[]; note?: string }) => {
+    if (!sheetType) return
+    dispatch({
+      type: 'SUBMIT_LEAVE_REQUEST',
+      request: { type: sheetType, dates: req.dates, note: req.note },
+    })
+  }
 
   return (
     <ScreenScroll>
@@ -27,13 +47,141 @@ export function PlanningScreen() {
         {t('driverApp.sim.planning.summary', { count: yourSlots })}
       </p>
 
+      {/*
+        Two action cards just under the subtitle. They go to the operator
+        as actual demands — the demo never auto-approves them, which is
+        the whole point: the patron decides, no SMS lost in WhatsApp.
+      */}
+      <div className="grid grid-cols-2 gap-2">
+        <LeaveActionCard
+          tone="sky"
+          Icon={CalendarPlus}
+          label={t('driverApp.sim.leave.leave.cta')}
+          onClick={() => setSheetType('leave')}
+        />
+        <LeaveActionCard
+          tone="rose"
+          Icon={Stethoscope}
+          label={t('driverApp.sim.leave.sick.cta')}
+          onClick={() => setSheetType('sick')}
+        />
+      </div>
+
+      {state.leaveRequests.length > 0 && (
+        <PendingRequests requests={state.leaveRequests} />
+      )}
+
       <ul className="space-y-2">
         {PLANNING.map((day) => (
           <PlanningRow key={day.dayKey} day={day} />
         ))}
       </ul>
+
+      <LeaveRequestSheet
+        open={sheetType !== null}
+        type={sheetType ?? 'leave'}
+        onClose={() => setSheetType(null)}
+        onSubmit={handleSubmit}
+      />
     </ScreenScroll>
   )
+}
+
+function LeaveActionCard({
+  tone,
+  Icon,
+  label,
+  onClick,
+}: {
+  tone: 'sky' | 'rose'
+  Icon: LucideIcon
+  label: string
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'flex flex-col items-center justify-center gap-1.5 rounded-xl border bg-gradient-to-br px-2 py-2.5 text-center transition-all hover:-translate-y-0.5 active:scale-[0.98]',
+        tone === 'sky'
+          ? 'border-sky-400/25 from-sky-400/10 to-transparent hover:border-sky-400/40 phone-light:border-sky-500/30 phone-light:hover:border-sky-500/50'
+          : 'border-rose-400/25 from-rose-400/10 to-transparent hover:border-rose-400/40 phone-light:border-rose-500/30 phone-light:hover:border-rose-500/50',
+      )}
+    >
+      <span
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1',
+          tone === 'sky'
+            ? 'bg-sky-400/15 text-sky-300 ring-sky-400/30 phone-light:text-sky-700 phone-light:ring-sky-500/40'
+            : 'bg-rose-400/15 text-rose-300 ring-rose-400/30 phone-light:text-rose-700 phone-light:ring-rose-500/40',
+        )}
+      >
+        <Icon className="h-4 w-4" />
+      </span>
+      <span className="text-balance text-[11px] font-semibold leading-tight tracking-tight text-white phone-light:text-zinc-900">
+        {label}
+      </span>
+    </button>
+  )
+}
+
+function PendingRequests({ requests }: { requests: LeaveRequest[] }) {
+  const { t, i18n } = useTranslation()
+  return (
+    <section>
+      <p className="mb-1.5 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300 phone-light:text-amber-700">
+        <Clock3 className="h-3 w-3" />
+        {t('driverApp.sim.leave.pendingTitle')}
+      </p>
+      <ul className="space-y-1.5">
+        {requests.map((r) => (
+          <li
+            key={r.id}
+            className="rounded-xl border border-amber-400/25 bg-amber-400/[0.04] px-3 py-2 phone-light:border-amber-500/35 phone-light:bg-amber-400/[0.08]"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className={cn(
+                  'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ring-1',
+                  r.type === 'sick'
+                    ? 'bg-rose-400/15 text-rose-300 ring-rose-400/30 phone-light:text-rose-700 phone-light:ring-rose-500/40'
+                    : 'bg-sky-400/15 text-sky-300 ring-sky-400/30 phone-light:text-sky-700 phone-light:ring-sky-500/40',
+                )}
+              >
+                {t(`driverApp.sim.leave.${r.type}.label`)}
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-300 phone-light:text-amber-700">
+                {t('driverApp.sim.leave.pendingBadge')}
+              </span>
+            </div>
+            <p className="mt-1 text-[11px] font-semibold text-zinc-100 tabular-nums phone-light:text-zinc-900">
+              {formatDateList(r.dates, i18n.language)}
+            </p>
+            {r.note && (
+              <p className="mt-0.5 line-clamp-2 text-[10px] italic text-zinc-500">
+                « {r.note} »
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function formatDateList(dates: string[], lang: string): string {
+  const fmt = new Intl.DateTimeFormat(lang, {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+  })
+  return dates
+    .map((iso) => {
+      const [y, m, d] = iso.split('-').map(Number)
+      return fmt.format(new Date(y, m - 1, d)).replace('.', '')
+    })
+    .join(' · ')
 }
 
 function PlanningRow({ day }: { day: PlanningDay }) {
