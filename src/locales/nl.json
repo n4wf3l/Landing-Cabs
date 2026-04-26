@@ -679,6 +679,11 @@
       "android": "Android 10+",
       "offline": "Offline-modus"
     },
+    "fullscreen": {
+      "openCta": "Volledig scherm proberen",
+      "exit": "Terug naar site",
+      "title": "Demo · Chauffeurs-app"
+    },
     "phone": {
       "next": "Volgende",
       "vehicle": "Voertuig",
@@ -698,6 +703,11 @@
         "allowOnce": "Eén keer toestaan",
         "allowWhileUsing": "Toestaan tijdens gebruik van de app",
         "deny": "Niet toestaan"
+      },
+      "splash": {
+        "welcome": "Welkom, {{name}}",
+        "companyLabel": "Partnerbedrijf",
+        "companyName": "Brussels Taxi Express"
       },
       "locationBlocked": {
         "title": "Locatie vereist",
@@ -787,7 +797,14 @@
         "to": "Bestemming",
         "fare": "Tarief",
         "duration": "Duur",
-        "endRide": "Rit beëindigen"
+        "endRide": "Rit beëindigen",
+        "gpsActive": "GPS actief",
+        "gpsAccuracy": "Nauwkeurigheid < 5 m",
+        "pickupCaptured": "Vertrek vastgelegd",
+        "destinationPending": "Aankomst",
+        "destinationDetectedAtEnd": "wordt aan het einde gedetecteerd",
+        "gpsFixesLabel": "GPS-punten",
+        "fareAtEndNote": "Cabs heeft geen koppeling met Uber/Bolt/Heetch. Je voert het tarief handmatig in aan het einde."
       },
       "rideSummary": {
         "title": "Rit voltooid",
@@ -804,6 +821,7 @@
         "commission": "Commissie",
         "net": "Netto",
         "byPlatform": "Per platform",
+        "distance": "Afgelegde afstand",
         "backHome": "Terug naar start",
         "restart": "Demo herstarten"
       },
@@ -835,6 +853,8 @@
           "scanning": "OCR bezig",
           "scanningHint": "Kilometerstand op het blad detecteren...",
           "label": "Kilometerstand",
+          "labelStart": "Beginstand kilometers",
+          "labelEnd": "Eindstand kilometers",
           "unit": "km",
           "detected": "Gedetecteerd",
           "editHint": "Aanpasbaar als de OCR zich vergiste."
@@ -848,6 +868,9 @@
         "eyebrow": "Rit voltooid",
         "title": "Hoe is hij geboekt?",
         "subtitle": "Selecteer het platform van de rit.",
+        "subtitleSelected": "Platform geselecteerd — vul het tarief in.",
+        "changePlatform": "Ander platform kiezen",
+        "gpsDetected": "GPS gedetecteerd",
         "platform": "Platform",
         "platformHint": {
           "uber": "Toegewezen Uber-rit",
@@ -855,8 +878,18 @@
           "heetch": "Toegewezen Heetch-rit",
           "cash": "Aangehouden op straat"
         },
-        "cashLabel": "Geïnd bedrag",
-        "cashHint": "Aanpasbaar als de meter afwijkt.",
+        "fareLabel": {
+          "uber": "Uber-tarief weergegeven",
+          "bolt": "Bolt-tarief weergegeven",
+          "heetch": "Heetch-tarief weergegeven",
+          "cash": "Geïnd bedrag"
+        },
+        "fareHint": {
+          "uber": "Afgelezen op de Uber Driver-app aan het einde.",
+          "bolt": "Afgelezen op de Bolt Driver-app aan het einde.",
+          "heetch": "Afgelezen op de Heetch Driver-app aan het einde.",
+          "cash": "Wat de klant je daadwerkelijk heeft betaald."
+        },
         "confirm": "Rit opslaan"
       },
       "platforms": {

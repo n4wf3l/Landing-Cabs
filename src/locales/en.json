@@ -679,6 +679,11 @@
       "android": "Android 10+",
       "offline": "Offline mode"
     },
+    "fullscreen": {
+      "openCta": "Try fullscreen",
+      "exit": "Back to site",
+      "title": "Demo · Driver app"
+    },
     "phone": {
       "next": "Next",
       "vehicle": "Vehicle",
@@ -698,6 +703,11 @@
         "allowOnce": "Allow Once",
         "allowWhileUsing": "Allow While Using App",
         "deny": "Don't Allow"
+      },
+      "splash": {
+        "welcome": "Welcome, {{name}}",
+        "companyLabel": "Partner company",
+        "companyName": "Brussels Taxi Express"
       },
       "locationBlocked": {
         "title": "Location required",
@@ -787,7 +797,14 @@
         "to": "Destination",
         "fare": "Fare",
         "duration": "Duration",
-        "endRide": "End ride"
+        "endRide": "End ride",
+        "gpsActive": "GPS active",
+        "gpsAccuracy": "Accuracy < 5 m",
+        "pickupCaptured": "Pickup captured",
+        "destinationPending": "Destination",
+        "destinationDetectedAtEnd": "detected when ride ends",
+        "gpsFixesLabel": "GPS fixes",
+        "fareAtEndNote": "Cabs has no API into Uber/Bolt/Heetch. You'll enter the fare manually at the end."
       },
       "rideSummary": {
         "title": "Ride completed",
@@ -804,6 +821,7 @@
         "commission": "Commission",
         "net": "Net",
         "byPlatform": "By platform",
+        "distance": "Distance driven",
         "backHome": "Back to home",
         "restart": "Restart demo"
       },
@@ -835,6 +853,8 @@
           "scanning": "Running OCR",
           "scanningHint": "Detecting the odometer reading on the sheet...",
           "label": "Odometer",
+          "labelStart": "Starting odometer",
+          "labelEnd": "Closing odometer",
           "unit": "km",
           "detected": "Detected",
           "editHint": "Editable if OCR got it wrong."
@@ -848,6 +868,9 @@
         "eyebrow": "Ride completed",
         "title": "How was it booked?",
         "subtitle": "Select the platform for this ride.",
+        "subtitleSelected": "Platform selected — enter the fare.",
+        "changePlatform": "Pick another platform",
+        "gpsDetected": "GPS detected",
         "platform": "Platform",
         "platformHint": {
           "uber": "Assigned Uber ride",
@@ -855,8 +878,18 @@
           "heetch": "Assigned Heetch ride",
           "cash": "Hailed off the street"
         },
-        "cashLabel": "Amount collected",
-        "cashHint": "Editable if the meter differs.",
+        "fareLabel": {
+          "uber": "Uber fare shown",
+          "bolt": "Bolt fare shown",
+          "heetch": "Heetch fare shown",
+          "cash": "Amount collected"
+        },
+        "fareHint": {
+          "uber": "Read from the Uber Driver app at end of ride.",
+          "bolt": "Read from the Bolt Driver app at end of ride.",
+          "heetch": "Read from the Heetch Driver app at end of ride.",
+          "cash": "What the customer actually paid you."
+        },
         "confirm": "Save the ride"
       },
       "platforms": {

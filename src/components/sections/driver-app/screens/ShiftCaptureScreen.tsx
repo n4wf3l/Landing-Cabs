@@ -37,10 +37,10 @@ export function ShiftCaptureScreen({ mode }: Props) {
   const reduce = useReducedMotion()
   const isNight = useMemo(isNightTime, [])
 
-  const STEPS = useMemo<StepKey[]>(
-    () => (mode === 'start' ? [...SIDE_STEPS, 'ticket'] : [...SIDE_STEPS]),
-    [mode],
-  )
+  // Both shift-start and shift-end require the trip-sheet (feuille de route)
+  // photo: at start it captures the opening mileage, at end it locks in
+  // closing mileage and seals the day's records.
+  const STEPS = useMemo<StepKey[]>(() => [...SIDE_STEPS, 'ticket'], [])
 
   const [stepIndex, setStepIndex] = useState(0)
   const [captured, setCaptured] = useState<Record<string, boolean>>({})
@@ -68,26 +68,30 @@ export function ShiftCaptureScreen({ mode }: Props) {
       if (isTicket) {
         setPhase('ocr-scanning')
         window.setTimeout(() => {
-          setKm(String(generateMockKm()))
+          // For an end-of-shift trip-sheet we anchor the OCR'd reading
+          // to the opening mileage + a plausible 80-200 km driven during
+          // the shift, so the distance shown in the summary stays positive.
+          const detected =
+            mode === 'end' && state.startKm
+              ? state.startKm + 80 + Math.floor(Math.random() * 120)
+              : generateMockKm()
+          setKm(String(detected))
           setPhase('review')
         }, 1300)
-      } else if (stepIndex < STEPS.length - 1) {
+      } else {
         setStepIndex(stepIndex + 1)
         setPhase('capture')
-      } else {
-        // End-mode last side — go straight to review
-        setPhase('review')
       }
     }, 220)
   }
 
   const handleConfirm = () => {
+    const parsed = parseInt(km.replace(/\D/g, ''), 10)
+    const finalKm = Number.isFinite(parsed) && parsed > 0 ? parsed : 0
     if (mode === 'start') {
-      const parsed = parseInt(km.replace(/\D/g, ''), 10)
-      const finalKm = Number.isFinite(parsed) && parsed > 0 ? parsed : 0
       dispatch({ type: 'START_SHIFT', startKm: finalKm })
     } else {
-      dispatch({ type: 'END_SHIFT' })
+      dispatch({ type: 'END_SHIFT', endKm: finalKm })
     }
   }
 
@@ -377,35 +381,42 @@ function ReviewPanel({
         })}
       </div>
 
-      {isStart && (
-        <div className="rounded-xl border border-primary/30 bg-primary/[0.06] p-3 phone-light:border-primary/40 phone-light:bg-primary/[0.08]">
-          <div className="flex items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-              <FileText className="h-3 w-3" />
-              {t('driverApp.sim.shiftCapture.ocr.label')}
-            </span>
-            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-400 ring-1 ring-emerald-500/30 phone-light:text-emerald-700">
-              {t('driverApp.sim.shiftCapture.ocr.detected')}
-            </span>
-          </div>
-          <div className="mt-2 flex items-center gap-2">
-            <input
-              type="text"
-              inputMode="numeric"
-              value={km}
-              onChange={(e) => setKm(e.target.value.replace(/[^\d\s]/g, ''))}
-              className="flex-1 rounded-lg border border-white/[0.1] bg-zinc-950/40 px-2.5 py-2 text-base font-bold tabular-nums text-white outline-none ring-primary/40 transition-shadow focus:ring-2 phone-light:border-zinc-900/[0.12] phone-light:bg-white phone-light:text-zinc-900"
-              aria-label={t('driverApp.sim.shiftCapture.ocr.label')}
-            />
-            <span className="text-sm font-semibold text-zinc-400 phone-light:text-zinc-600">
-              {t('driverApp.sim.shiftCapture.ocr.unit')}
-            </span>
-          </div>
-          <p className="mt-2 text-[10px] text-zinc-500">
-            {t('driverApp.sim.shiftCapture.ocr.editHint')}
-          </p>
+      <div className="rounded-xl border border-primary/30 bg-primary/[0.06] p-3 phone-light:border-primary/40 phone-light:bg-primary/[0.08]">
+        <div className="flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+            <FileText className="h-3 w-3" />
+            {t(
+              isStart
+                ? 'driverApp.sim.shiftCapture.ocr.labelStart'
+                : 'driverApp.sim.shiftCapture.ocr.labelEnd',
+            )}
+          </span>
+          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-400 ring-1 ring-emerald-500/30 phone-light:text-emerald-700">
+            {t('driverApp.sim.shiftCapture.ocr.detected')}
+          </span>
         </div>
-      )}
+        <div className="mt-2 flex items-center gap-2">
+          <input
+            type="text"
+            inputMode="numeric"
+            value={km}
+            size={8}
+            onChange={(e) => setKm(e.target.value.replace(/[^\d\s]/g, ''))}
+            className="w-full min-w-0 flex-1 rounded-lg border border-white/[0.1] bg-zinc-950/40 px-2.5 py-2 text-base font-bold tabular-nums text-white outline-none ring-primary/40 transition-shadow focus:ring-2 phone-light:border-zinc-900/[0.12] phone-light:bg-white phone-light:text-zinc-900"
+            aria-label={t(
+              isStart
+                ? 'driverApp.sim.shiftCapture.ocr.labelStart'
+                : 'driverApp.sim.shiftCapture.ocr.labelEnd',
+            )}
+          />
+          <span className="shrink-0 text-sm font-semibold text-zinc-400 phone-light:text-zinc-600">
+            {t('driverApp.sim.shiftCapture.ocr.unit')}
+          </span>
+        </div>
+        <p className="mt-2 text-[10px] text-zinc-500">
+          {t('driverApp.sim.shiftCapture.ocr.editHint')}
+        </p>
+      </div>
 
       <button
         type="button"

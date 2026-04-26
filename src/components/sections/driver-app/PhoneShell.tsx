@@ -16,6 +16,7 @@ import { RideSummaryScreen } from './screens/RideSummaryScreen'
 import { ShiftSummaryScreen } from './screens/ShiftSummaryScreen'
 import { LocationBlockedScreen } from './LocationBlockedScreen'
 import { LocationPermissionPrompt } from './LocationPermissionPrompt'
+import { SplashScreen } from './SplashScreen'
 import { phoneI18n } from './phoneI18n'
 import { usePhoneSim } from './usePhoneSim'
 import type { Screen } from './types'
@@ -58,11 +59,53 @@ function renderScreen(screen: Screen) {
   }
 }
 
-export function PhoneShell({ reduce }: { reduce: boolean }) {
+/**
+ * The phone's inner content — status bar, current screen, bottom nav and
+ * the three iOS-style overlays. Shared between the embedded shell (with
+ * device bezel) and the fullscreen mobile experience (no bezel, fills the
+ * viewport). Pass `rounded={false}` for fullscreen so it doesn't render
+ * with phone-shaped corners.
+ */
+export function PhoneScreen({
+  reduce,
+  rounded = true,
+}: {
+  reduce: boolean
+  rounded?: boolean
+}) {
   const { state, phoneTheme } = usePhoneSim()
   const showNav = SCREENS_WITH_NAV.has(state.screen)
   const isLight = phoneTheme === 'light'
 
+  return (
+    <div
+      className={cn(
+        'relative flex h-full w-full flex-col overflow-hidden text-white',
+        rounded && 'rounded-[2.25rem]',
+        isLight
+          ? 'phone-light bg-gradient-to-br from-white via-zinc-50 to-zinc-100'
+          : 'phone-dark bg-gradient-to-br from-zinc-950 via-[#0a1226] to-[#070a1f]',
+      )}
+    >
+      <StatusBar />
+      <div className="relative flex-1 overflow-hidden">
+        <ScreenContainer screen={state.screen} reduce={reduce} />
+      </div>
+      {showNav && <BottomNav />}
+      <AnimatePresence>
+        <LocationBlockedScreen key="location-blocked" />
+      </AnimatePresence>
+      <AnimatePresence>
+        <LocationPermissionPrompt key="location-prompt" />
+      </AnimatePresence>
+      <AnimatePresence>
+        <SplashScreen key="splash" />
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export function PhoneShell({ reduce }: { reduce: boolean }) {
   return (
     <I18nextProvider i18n={phoneI18n}>
       <motion.div
@@ -78,26 +121,7 @@ export function PhoneShell({ reduce }: { reduce: boolean }) {
         />
         <div className="relative h-[600px] w-[290px] rounded-[2.75rem] border border-border/60 bg-zinc-950 p-2 shadow-glow-lg">
           <div className="absolute left-1/2 top-2 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-zinc-950" />
-          <div
-            className={cn(
-              'relative flex h-full w-full flex-col overflow-hidden rounded-[2.25rem] text-white',
-              isLight
-                ? 'phone-light bg-gradient-to-br from-white via-zinc-50 to-zinc-100'
-                : 'phone-dark bg-gradient-to-br from-zinc-950 via-[#0a1226] to-[#070a1f]',
-            )}
-          >
-            <StatusBar />
-            <div className="relative flex-1 overflow-hidden">
-              <ScreenContainer screen={state.screen} reduce={!!reduce} />
-            </div>
-            {showNav && <BottomNav />}
-            <AnimatePresence>
-              <LocationBlockedScreen key="location-blocked" />
-            </AnimatePresence>
-            <AnimatePresence>
-              <LocationPermissionPrompt key="location-prompt" />
-            </AnimatePresence>
-          </div>
+          <PhoneScreen reduce={reduce} />
         </div>
       </motion.div>
     </I18nextProvider>

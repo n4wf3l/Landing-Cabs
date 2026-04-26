@@ -28,7 +28,6 @@ export interface ActiveRide {
   template: RideTemplate
   startedAt: number
   arrivedAt: number | null
-  arrivedFare: number | null
   arrivedDurationSec: number | null
 }
 
@@ -77,12 +76,14 @@ export interface PhoneSimState {
   shiftStartedAt: number | null
   shiftEndedAt: number | null
   startKm: number | null
+  endKm: number | null
   currentRide: ActiveRide | null
   todayRides: CompletedRide[]
   lastCompletedRide: CompletedRide | null
   ridePoolIndex: number
   locationGranted: boolean
   locationDenied: boolean
+  splashShown: boolean
 }
 
 export type NavScreen = Extract<
@@ -101,18 +102,18 @@ export type PhoneSimAction =
   | { type: 'START_DEMO' }
   | { type: 'NAV'; screen: NavScreen }
   | { type: 'START_SHIFT'; startKm: number }
-  | { type: 'END_SHIFT' }
+  | { type: 'END_SHIFT'; endKm: number }
   | { type: 'START_RIDE' }
   | {
       type: 'ARRIVE_AT_DESTINATION'
-      arrivedFare: number
       arrivedDurationSec: number
     }
-  | { type: 'COMPLETE_RIDE'; platform: Platform; cashAmount?: number }
+  | { type: 'COMPLETE_RIDE'; platform: Platform; fareEntered: number }
   | { type: 'CONTINUE_AFTER_RIDE' }
   | { type: 'GRANT_LOCATION' }
   | { type: 'DENY_LOCATION' }
   | { type: 'RETRY_LOCATION' }
+  | { type: 'DISMISS_SPLASH' }
   | { type: 'RESET' }
 
 export const COMMISSION_RATES: Record<Platform, number> = {

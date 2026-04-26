@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import {
   BellRing,
   CalendarClock,
   Check,
+  Maximize2,
   Play,
   Wallet,
   type LucideIcon,
@@ -10,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
+import { FullscreenSimulator } from './driver-app/FullscreenSimulator'
 import { PhoneResetButton } from './driver-app/PhoneResetButton'
 import { PhoneShell } from './driver-app/PhoneShell'
 import { PhoneSimProvider } from './driver-app/usePhoneSim'
@@ -29,6 +32,7 @@ const BULLETS: BulletDef[] = [
 export function DriverApp() {
   const { t } = useTranslation()
   const reduce = useReducedMotion()
+  const [fullscreen, setFullscreen] = useState(false)
 
   return (
     <section
@@ -92,7 +96,29 @@ export function DriverApp() {
           <PhoneSimProvider>
             <div className="flex flex-col items-center">
               <PhoneShell reduce={!!reduce} />
+
+              {/*
+                Mobile only: a clear "experience this as a real app" CTA
+                that opens the simulator at viewport size. Hidden on lg+
+                where the embedded shell is already big enough alongside
+                the bullet list.
+              */}
+              <button
+                type="button"
+                onClick={() => setFullscreen(true)}
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-glow transition-all hover:-translate-y-0.5 hover:bg-primary/15 active:scale-[0.98] lg:hidden"
+              >
+                <Maximize2 className="h-4 w-4" />
+                {t('driverApp.fullscreen.openCta')}
+              </button>
+
               <PhoneResetButton />
+
+              <FullscreenSimulator
+                open={fullscreen}
+                onClose={() => setFullscreen(false)}
+                reduce={!!reduce}
+              />
             </div>
           </PhoneSimProvider>
         </div>

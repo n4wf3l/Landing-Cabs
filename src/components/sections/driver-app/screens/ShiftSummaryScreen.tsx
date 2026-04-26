@@ -41,6 +41,11 @@ export function ShiftSummaryScreen() {
       : 0
   const min = Math.max(1, Math.floor(durationMs / 60_000))
 
+  const distanceKm =
+    state.startKm != null && state.endKm != null && state.endKm > state.startKm
+      ? state.endKm - state.startKm
+      : null
+
   return (
     <ScreenScroll>
       <motion.div
@@ -80,6 +85,24 @@ export function ShiftSummaryScreen() {
           tone="primary"
         />
       </div>
+
+      {distanceKm !== null && (
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 phone-light:border-zinc-900/[0.08] phone-light:bg-zinc-900/[0.03]">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              {t('driverApp.sim.shiftSummary.distance')}
+            </p>
+            <p className="text-sm font-bold tabular-nums text-zinc-100 phone-light:text-zinc-900">
+              {distanceKm} {t('driverApp.sim.shiftCapture.ocr.unit')}
+            </p>
+          </div>
+          <p className="mt-0.5 text-[10px] tabular-nums text-zinc-500">
+            {state.startKm}{' '}
+            {t('driverApp.sim.shiftCapture.ocr.unit')} → {state.endKm}{' '}
+            {t('driverApp.sim.shiftCapture.ocr.unit')}
+          </p>
+        </div>
+      )}
 
       {state.todayRides.length > 0 && (
         <section>

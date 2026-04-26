@@ -34,12 +34,14 @@ const INITIAL_STATE: PhoneSimState = {
   shiftStartedAt: null,
   shiftEndedAt: null,
   startKm: null,
+  endKm: null,
   currentRide: null,
   todayRides: [],
   lastCompletedRide: null,
   ridePoolIndex: 0,
   locationGranted: false,
   locationDenied: false,
+  splashShown: false,
 }
 
 function loadInitial(): PhoneSimState {
@@ -85,6 +87,7 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
         shiftStartedAt: Date.now(),
         shiftEndedAt: null,
         startKm: action.startKm,
+        endKm: null,
         todayRides: [],
         lastCompletedRide: null,
       }
@@ -94,6 +97,7 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
         screen: 'shift-summary',
         shiftActive: false,
         shiftEndedAt: Date.now(),
+        endKm: action.endKm,
       }
     case 'START_RIDE': {
       const template = RIDE_POOL[state.ridePoolIndex % RIDE_POOL.length]
@@ -105,7 +109,6 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
           template,
           startedAt: Date.now(),
           arrivedAt: null,
-          arrivedFare: null,
           arrivedDurationSec: null,
         },
         ridePoolIndex: state.ridePoolIndex + 1,
@@ -119,7 +122,6 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
         currentRide: {
           ...state.currentRide,
           arrivedAt: Date.now(),
-          arrivedFare: action.arrivedFare,
           arrivedDurationSec: action.arrivedDurationSec,
         },
       }
@@ -127,11 +129,9 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
     case 'COMPLETE_RIDE': {
       const ride = state.currentRide
       if (!ride) return state
-      const meterFare = ride.arrivedFare ?? ride.template.brut
-      const brut =
-        action.platform === 'cash' && action.cashAmount != null
-          ? action.cashAmount
-          : meterFare
+      // Cabs has no API into Uber/Bolt/Heetch — the driver always types
+      // the fare from the platform app or meter at the end of the ride.
+      const brut = action.fareEntered
       const rate = COMMISSION_RATES[action.platform]
       const commission = Number((brut * rate).toFixed(2))
       const net = Number((brut - commission).toFixed(2))
@@ -160,6 +160,8 @@ function reducer(state: PhoneSimState, action: PhoneSimAction): PhoneSimState {
       return { ...state, locationGranted: false, locationDenied: true }
     case 'RETRY_LOCATION':
       return { ...state, locationGranted: false, locationDenied: false }
+    case 'DISMISS_SPLASH':
+      return { ...state, splashShown: true }
     case 'CONTINUE_AFTER_RIDE':
       return { ...state, screen: 'shift-active' }
     case 'RESET':

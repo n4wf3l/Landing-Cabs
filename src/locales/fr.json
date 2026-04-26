@@ -679,6 +679,11 @@
       "android": "Android 10+",
       "offline": "Mode hors-ligne"
     },
+    "fullscreen": {
+      "openCta": "Essayer en plein écran",
+      "exit": "Retour au site",
+      "title": "Démo · App chauffeur"
+    },
     "phone": {
       "next": "Prochain",
       "vehicle": "Véhicule",
@@ -698,6 +703,11 @@
         "allowOnce": "Autoriser une fois",
         "allowWhileUsing": "Autoriser pendant l'utilisation de l'app",
         "deny": "Refuser"
+      },
+      "splash": {
+        "welcome": "Bienvenue, {{name}}",
+        "companyLabel": "Société partenaire",
+        "companyName": "Brussels Taxi Express"
       },
       "locationBlocked": {
         "title": "Localisation requise",
@@ -787,7 +797,14 @@
         "to": "Destination",
         "fare": "Course",
         "duration": "Durée",
-        "endRide": "Terminer la course"
+        "endRide": "Terminer la course",
+        "gpsActive": "GPS actif",
+        "gpsAccuracy": "Précision < 5 m",
+        "pickupCaptured": "Départ capturé",
+        "destinationPending": "Arrivée",
+        "destinationDetectedAtEnd": "détectée à la fin de course",
+        "gpsFixesLabel": "Points GPS",
+        "fareAtEndNote": "Cabs ne lit pas l'app Uber/Bolt/Heetch. Vous saisirez le tarif manuellement à la fin."
       },
       "rideSummary": {
         "title": "Course terminée",
@@ -804,6 +821,7 @@
         "commission": "Commission",
         "net": "Net",
         "byPlatform": "Par plateforme",
+        "distance": "Distance parcourue",
         "backHome": "Retour à l'accueil",
         "restart": "Recommencer la démo"
       },
@@ -835,6 +853,8 @@
           "scanning": "Lecture OCR en cours",
           "scanningHint": "Détection du kilométrage sur le ticket...",
           "label": "Kilométrage",
+          "labelStart": "Kilométrage de départ",
+          "labelEnd": "Kilométrage final",
           "unit": "km",
           "detected": "Détecté",
           "editHint": "Modifiable si l'OCR s'est trompé."
@@ -848,6 +868,9 @@
         "eyebrow": "Course terminée",
         "title": "Comment a-t-elle été prise ?",
         "subtitle": "Sélectionnez la plateforme de la course.",
+        "subtitleSelected": "Plateforme sélectionnée — saisissez le tarif.",
+        "changePlatform": "Choisir une autre plateforme",
+        "gpsDetected": "Détecté GPS",
         "platform": "Plateforme",
         "platformHint": {
           "uber": "Course Uber assignée",
@@ -855,8 +878,18 @@
           "heetch": "Course Heetch assignée",
           "cash": "Hélée dans la rue"
         },
-        "cashLabel": "Montant encaissé",
-        "cashHint": "Modifiable si le compteur diffère.",
+        "fareLabel": {
+          "uber": "Tarif Uber affiché",
+          "bolt": "Tarif Bolt affiché",
+          "heetch": "Tarif Heetch affiché",
+          "cash": "Montant encaissé"
+        },
+        "fareHint": {
+          "uber": "Lu sur l'app Uber Driver à la fin de course.",
+          "bolt": "Lu sur l'app Bolt Driver à la fin de course.",
+          "heetch": "Lu sur l'app Heetch Driver à la fin de course.",
+          "cash": "Montant que le client a réellement payé."
+        },
         "confirm": "Enregistrer la course"
       },
       "platforms": {
