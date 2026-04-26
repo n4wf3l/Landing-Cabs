@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   BellRing,
@@ -227,7 +228,14 @@ function MobileMenu({ open, onClose, onAnchor }: MobileMenuProps) {
     exit: reduce ? { opacity: 0 } : { opacity: 0, y: 8, transition: { duration: 0.18 } },
   }
 
-  return (
+  // The header has `transform` (via -translate-y-2 when hidden) plus a
+  // `transition-[transform]` that lingers even when the transform is none.
+  // Either creates a containing block for `position: fixed` descendants,
+  // which would clip the overlay to the header's box. Portaling to <body>
+  // sidesteps that entirely.
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -364,7 +372,8 @@ function MobileMenu({ open, onClose, onAnchor }: MobileMenuProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
 

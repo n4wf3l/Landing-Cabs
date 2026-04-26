@@ -29,6 +29,8 @@ export type LocaleCode = (typeof LOCALES)[number]['code']
 
 export interface Founder {
   key: 'kristian' | 'ismael' | 'nawfel'
+  fullName: string
+  jobTitle: string
   initials: string
   linkedin: string
   instagram?: string
@@ -38,16 +40,22 @@ export interface Founder {
 export const FOUNDERS: readonly Founder[] = [
   {
     key: 'kristian',
+    fullName: 'Kristian Vasiaj',
+    jobTitle: 'Co-fondateur · Backend',
     initials: 'KV',
     linkedin: 'https://www.linkedin.com/in/kristian-vasiaj-705b46223/',
   },
   {
     key: 'ismael',
+    fullName: 'Ismael Bouzrouti',
+    jobTitle: 'Co-fondateur · Opérations',
     initials: 'IB',
     linkedin: 'https://www.linkedin.com/in/ismaelbouzrouti/',
   },
   {
     key: 'nawfel',
+    fullName: 'Nawfel Ajari',
+    jobTitle: 'Co-fondateur · Frontend',
     initials: 'NA',
     linkedin: 'https://www.linkedin.com/in/nawfel-ajari/',
     instagram: 'https://www.instagram.com/na.innovations/',

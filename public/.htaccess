@@ -98,6 +98,12 @@ AddDefaultCharset UTF-8
   RewriteCond %{HTTP_HOST} ^joincabs\.com$ [NC]
   RewriteRule ^ https://www.joincabs.com%{REQUEST_URI} [L,R=301]
 
+  # Route extensionless API endpoints to their .php files
+  # /api/public/contact  ->  /api/public/contact.php
+  # /api/public/notify   ->  /api/public/notify.php
+  RewriteCond %{REQUEST_URI} !\.php$
+  RewriteRule ^api/public/([a-z]+)$ api/public/$1.php [L]
+
   # SPA fallback: serve existing files/dirs as-is, otherwise hand off to index.html
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -113,6 +119,11 @@ AddDefaultCharset UTF-8
 # Block access to sensitive files
 # -----------------------------------------------------------------------------
 <FilesMatch "(^\.env|^\.git|composer\.(json|lock)|package(-lock)?\.json|\.map$)">
+  Require all denied
+</FilesMatch>
+
+# Block direct access to PHP helpers / config in /api/public/
+<FilesMatch "^_(lib|config|config\.example)\.php$">
   Require all denied
 </FilesMatch>
 

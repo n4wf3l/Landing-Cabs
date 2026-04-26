@@ -15,8 +15,12 @@ dist-ssr
 # Environment files (contains secrets — never commit)
 .env
 .env.local
+.env.production
 .env.*.local
 server/.env
+
+# PHP backend config (contains Turnstile secret — never commit)
+public/api/public/_config.php
 server/node_modules
 
 # Editor directories and files

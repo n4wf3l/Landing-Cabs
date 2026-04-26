@@ -130,13 +130,13 @@ PORT=8080                                   # or whatever the platform assigns
 ALLOWED_ORIGIN=https://www.joincabs.com,https://joincabs.com
 BRAND_URL=https://www.joincabs.com
 
-MAIL_HOST=smtp-auth.mailprotect.be
-MAIL_PORT=587
-MAIL_USERNAME=info@nainnovations.be
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=465
+MAIL_USERNAME=contact@joincabs.com
 MAIL_PASSWORD=<rotated_password>
-MAIL_FROM_ADDRESS=info@nainnovations.be
+MAIL_FROM_ADDRESS=contact@joincabs.com
 MAIL_FROM_NAME=Cabs
-MAIL_INBOUND_TO=info@nainnovations.be
+MAIL_INBOUND_TO=contact@joincabs.com
 SEND_NOTIFY_CONFIRMATION=true
 ```
 

@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { SEO } from '@/components/common/SEO'
+import { BRAND } from '@/lib/constants'
+import { breadcrumbJsonLd } from '@/lib/seo'
 
 const SECTIONS = [
   'controller',
@@ -16,7 +18,14 @@ export default function LegalPrivacy() {
   const { t } = useTranslation()
   return (
     <>
-      <SEO path="/legal/privacy" title={t('legal.privacy.title')} />
+      <SEO
+        path="/legal/privacy"
+        title={t('legal.privacy.title')}
+        jsonLd={breadcrumbJsonLd([
+          { name: BRAND.name, path: '/' },
+          { name: t('legal.privacy.title'), path: '/legal/privacy' },
+        ])}
+      />
       <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           {t('legal.privacy.title')}

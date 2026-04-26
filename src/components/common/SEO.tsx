@@ -32,7 +32,7 @@ export function SEO({
   const fullTitle = title ? `${title} · ${BRAND.name}` : `${BRAND.name} · ${BRAND.tagline}`
   const desc = description ?? BRAND.tagline
   const url = `${BRAND.url}${path}`
-  const ogImage = image ?? `${BRAND.url}/tlogo_white.png`
+  const ogImage = image ?? `${BRAND.url}/og.png`
   const ogLocale = OG_LOCALE_MAP[lang] ?? 'fr_BE'
 
   const ldArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : []
@@ -69,6 +69,9 @@ export function SEO({
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
       <meta property="og:image:alt" content={BRAND.name} />
       <meta property="og:locale" content={ogLocale} />
       {Object.entries(OG_LOCALE_MAP)

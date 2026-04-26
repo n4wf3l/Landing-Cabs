@@ -9,6 +9,7 @@
     "dev:all": "concurrently --kill-others-on-fail -n web,api -c blue,magenta \"npm run dev\" \"npm run dev:server\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "og:generate": "node scripts/generate-og-and-icons.mjs",
     "preview": "vite preview",
     "server:install": "npm --prefix server install",
     "server:start": "npm --prefix server start"
@@ -65,6 +66,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
     "postcss": "^8.5.10",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.19",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~6.0.2",

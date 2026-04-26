@@ -46,6 +46,7 @@ import {
 } from '@/components/common/ScrollReveal'
 import { submitContact, type ContactSubject } from '@/lib/api/contact'
 import { BRAND, FOUNDERS } from '@/lib/constants'
+import { breadcrumbJsonLd, faqPageJsonLd } from '@/lib/seo'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 
@@ -139,12 +140,24 @@ export default function Contact() {
     return msg ? t(msg) : undefined
   }
 
+  const faqItems = FAQ_KEYS.map((k) => ({
+    question: t(`contact.faq.items.${k}.q`),
+    answer: t(`contact.faq.items.${k}.a`),
+  }))
+
   return (
     <>
       <SEO
         path="/contact"
         title={t('nav.contact')}
         description={t('contact.subtitle')}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: BRAND.name, path: '/' },
+            { name: t('nav.contact'), path: '/contact' },
+          ]),
+          faqPageJsonLd(faqItems),
+        ]}
       />
 
       <section className="relative overflow-hidden pt-20 sm:pt-28">

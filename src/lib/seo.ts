@@ -33,7 +33,9 @@ export function organizationJsonLd() {
       { '@type': 'Country', name: 'Netherlands' },
       { '@type': 'Country', name: 'Germany' },
     ],
-    sameAs: [BRAND.instagram, BRAND.linkedin],
+    sameAs: BRAND.socialsLive
+      ? [BRAND.instagram, BRAND.linkedin]
+      : FOUNDERS.map((f) => f.linkedin),
     knowsAbout: [
       'Taxi fleet management',
       'Ride-hailing platform aggregation',
@@ -42,7 +44,8 @@ export function organizationJsonLd() {
     ],
     founder: FOUNDERS.map((f) => ({
       '@type': 'Person',
-      name: f.key,
+      name: f.fullName,
+      jobTitle: f.jobTitle,
       sameAs: [f.linkedin, f.instagram].filter(Boolean),
     })),
   }
@@ -105,6 +108,26 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
       position: i + 1,
       name: item.name,
       item: `${BRAND.url}${item.path}`,
+    })),
+  }
+}
+
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+export function faqPageJsonLd(items: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((it) => ({
+      '@type': 'Question',
+      name: it.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: it.answer,
+      },
     })),
   }
 }

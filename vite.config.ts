@@ -18,8 +18,28 @@ export default defineConfig({
       },
     },
   },
+  // Strip every `console.*` call and `debugger` statement from the
+  // production bundle, including third-party warnings emitted by Radix,
+  // Framer Motion and react-turnstile. Guarantees zero log output in
+  // DevTools on www.joincabs.com.
+  define: {
+    'console.log': '(()=>{})',
+    'console.warn': '(()=>{})',
+    'console.error': '(()=>{})',
+    'console.info': '(()=>{})',
+    'console.debug': '(()=>{})',
+    'console.trace': '(()=>{})',
+    'console.table': '(()=>{})',
+    'console.dir': '(()=>{})',
+    'console.group': '(()=>{})',
+    'console.groupCollapsed': '(()=>{})',
+    'console.groupEnd': '(()=>{})',
+    'console.time': '(()=>{})',
+    'console.timeEnd': '(()=>{})',
+  },
   build: {
     target: 'es2022',
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
