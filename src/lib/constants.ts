@@ -48,6 +48,6 @@ export const FOUNDERS: readonly Founder[] = [
     initials: 'NA',
     linkedin: 'https://www.linkedin.com/in/nawfel-ajari/',
     instagram: 'https://www.instagram.com/na.innovations/',
-    photo: '/nawfel.jpg',
+    photo: `${import.meta.env.BASE_URL}nawfel.jpg`,
   },
 ] as const

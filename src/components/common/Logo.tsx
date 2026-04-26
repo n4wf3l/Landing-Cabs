@@ -23,7 +23,8 @@ export function Logo({
   layoutId,
 }: LogoProps) {
   const { theme } = useTheme()
-  const src = theme === 'dark' ? '/tlogo_white.png' : '/tlogo_black.png'
+  const base = import.meta.env.BASE_URL
+  const src = theme === 'dark' ? `${base}tlogo_white.png` : `${base}tlogo_black.png`
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <motion.img

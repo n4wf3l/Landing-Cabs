@@ -11,9 +11,9 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border/60 bg-background/60">
-      <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          <div className="space-y-4">
+      <div className="container mx-auto px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-3 sm:gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div className="space-y-4 sm:col-span-3 md:col-span-1">
             <Logo />
             <p className="max-w-sm text-sm text-muted-foreground">
               {t('footer.tagline')}
@@ -25,10 +25,10 @@ export function Footer() {
             <div>
               <a
                 href={`mailto:${BRAND.email}`}
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="inline-flex max-w-full items-center gap-2 break-all text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Mail className="h-4 w-4" />
-                {BRAND.email}
+                <Mail className="h-4 w-4 shrink-0" />
+                <span className="truncate">{BRAND.email}</span>
               </a>
             </div>
             <div className="flex gap-2 pt-2">
@@ -126,9 +126,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 space-y-2 border-t border-border/60 pt-6 text-xs text-muted-foreground">
-          <p className="max-w-3xl">{t('footer.preIncorporationNotice')}</p>
-          <div className="flex flex-col justify-between gap-2 sm:flex-row">
+        <div className="mt-10 space-y-3 border-t border-border/60 pt-6 text-xs text-muted-foreground">
+          <p className="max-w-3xl leading-relaxed">
+            {t('footer.preIncorporationNotice')}
+          </p>
+          <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
             <p>{t('footer.copyright', { year })}</p>
             <p>{t('footer.madeIn')}</p>
           </div>

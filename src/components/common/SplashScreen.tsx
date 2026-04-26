@@ -129,7 +129,7 @@ export function SplashScreen() {
           <div className="relative z-10 flex w-full max-w-5xl flex-col items-center">
             <motion.img
               layoutId="brand-logo"
-              src={isDark ? '/tlogo_white.png' : '/tlogo_black.png'}
+              src={isDark ? `${import.meta.env.BASE_URL}tlogo_white.png` : `${import.meta.env.BASE_URL}tlogo_black.png`}
               alt=""
               width={80}
               height={80}
