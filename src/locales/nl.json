@@ -44,7 +44,6 @@
     "revenue": {
       "title": "Geconsolideerde inkomsten",
       "platform": "Uber",
-      "gross": "Bruto",
       "commission": "Commissie",
       "net": "Echte netto"
     },
@@ -178,8 +177,8 @@
   },
   "roi": {
     "eyebrow": "Bereken je ROI",
-    "title": "Hoeveel tijd bespaart Cabs je?",
-    "subtitle": "Schuif de regelaars naar je vloot. De cijfers werken live bij.",
+    "title": "Hoeveel tijd én geld bespaart Cabs je?",
+    "subtitle": "Admin-tijd wordt euro's. Schuif de regelaars naar je vloot, de cijfers werken live bij.",
     "header": "Schatting voor jouw bedrijf",
     "inputs": {
       "vehicles": "Voertuigen",
@@ -189,23 +188,23 @@
       "hoursWeek": "Uren bespaard",
       "hoursWeekHint": "Per week, op voertuig- en chauffeursadmin",
       "daysMonth": "Dagen per maand",
-      "daysMonthHint": "Op basis van werkdagen van 8u",
-      "eurMonth": "Fouten teruggevorderd",
-      "eurMonthHint": "Verkeerd berekende platformcommissies per maand",
+      "daysMonthHint": "Op basis van werkdagen van 8 u",
+      "eurMonth": "€ bespaard/maand",
+      "eurMonthHint": "Bespaarde uren × gemiddelde admin-kost (≈ 25 €/u in België)",
       "errorsMonth": "Anomalieën opgespoord",
-      "errorsMonthHint": "Ontbrekende tickets, urenverschillen, enz."
+      "errorsMonthHint": "Ontbrekende tickets, urenverschillen, vergeten ritten, enz."
     },
-    "disclaimer": "Voorzichtige schattingen gebaseerd op praktijken in de Belgische taxisector (0,5u/wk per voertuig, 1,5u/wk per chauffeur, €18/maand aan commissiefouten per chauffeur). Verschilt naar gelang je huidige werking.",
+    "disclaimer": "Voorzichtige schattingen vanuit de Belgische taxisector: 0,5 u/wk per voertuig + 1,5 u/wk per chauffeur op admin, gewaardeerd aan de gemiddelde dispatch-/admin-kost in België (≈ 25 €/u). Chauffeurs voeren zelf het netto in de app in, dus platformcommissies worden niet herberekend.",
     "methodology": {
       "toggle": "Methodologie en bronnen",
       "intro": "Multiplicatoren aangepast aan de Belgische context van operatoren die chauffeurs beheren op Uber, Bolt en Heetch. Publieke bronnen:",
       "kfw": "KMO's besteden tot 8,7 % van hun werktijd aan bureaucratie.",
       "sage": "kleine ondernemers verliezen het equivalent van een maand werk per jaar aan papierwerk.",
-      "nyag": "schikking van 328 M$ Uber/Lyft voor systematische fouten in uitbetalingen (≈ 91 $/maand/chauffeur over 100 000+ chauffeurs).",
+      "statbel": "gemiddeld bruto uurloon in België ≈ 22-26 €/u afhankelijk van de sector (2024).",
       "gtl": "≈ 19 700 actieve taxi/VVB-chauffeurs in België.",
       "frVtc": "71 300 actieve VTC-chauffeurs in Frankrijk in 2024 (+27 % vs 2023).",
       "nlTaxi": "14 400 taxibedrijven in Nederland in 2024, waarvan 11 400 zelfstandigen (+29 % in 5 jaar).",
-      "note": "Onze multiplicatoren (0,5 u/voertuig, 1,5 u/chauffeur, 18 €/chauffeur) blijven onder de publiek gedocumenteerde afwijkingen. Worden verfijnd tijdens de besloten bèta."
+      "note": "Onze multiplicatoren (0,5 u/voertuig, 1,5 u/chauffeur, ≈ 25 €/u admin-kost) zijn voorzichtig en worden verfijnd tijdens de besloten bèta."
     },
     "expansion": "België, Frankrijk en Nederland vanaf september. Duitsland volgt snel."
   },
@@ -249,17 +248,12 @@
       "maintenance": "Onderhoud",
       "repair": "Reparatie",
       "totalDrivers": "Totaal chauffeurs",
-      "onLeave": "Verlof",
-      "gross": "Bruto · 7 dagen",
-      "platformCommissions": "Platform-commissies",
-      "realNet": "Echte netto"
+      "onLeave": "Verlof"
     },
     "trends": {
       "thisWeek": "+2 deze week",
       "fleetShare": "{{percent}}% van de vloot",
-      "monthGain": "+15% deze maand",
-      "vsGross": "{{percent}}% van bruto",
-      "afterCommission": "Na commissies"
+      "monthGain": "+15% deze maand"
     },
     "dashboard": {
       "shiftStart": "Start · {{time}}",
@@ -437,7 +431,6 @@
       "title": "Kasoverzicht",
       "subtitle": "Wanneer het geld binnenkomt, en waar het naartoe gaat.",
       "byPlatform": "Verdeling per platform",
-      "deductedCommissions": "Ingehouden commissies",
       "weekDays": "M,D,W,D,V,Z,Z",
       "periods": {
         "day": "Dag",
@@ -488,7 +481,7 @@
       "platforms": {
         "title": "Platforms & commissies",
         "helper": "Zichtbaar bij chauffeur aanmaken",
-        "warning": "Ingegeven percentages worden binnen 48u dubbelgecheckt aan de hand van de officiële voorwaarden van elk platform. Alleen goedgekeurde commissies tellen voor de netto-berekening.",
+        "warning": "Activeer de platformen die je chauffeurs gebruiken. Cabs consolideert de netto-inkomsten per platform op basis van wat de chauffeurs aan het einde van elke rit invoeren.",
         "status": {
           "approved": "Goedgekeurd",
           "pending": "In validatie",
@@ -820,7 +813,7 @@
         "destinationPending": "Aankomst",
         "destinationDetectedAtEnd": "wordt aan het einde gedetecteerd",
         "gpsFixesLabel": "GPS-punten",
-        "fareAtEndNote": "Aan het einde voer je het netto in dat je echt ontvangt (al na platform-commissie)."
+        "fareAtEndNote": "Aan het einde vul je het netto in dat je in je driver-app ziet."
       },
       "rideSummary": {
         "title": "Rit voltooid",

@@ -44,7 +44,6 @@
     "revenue": {
       "title": "Revenus consolidés",
       "platform": "Uber",
-      "gross": "Brut",
       "commission": "Commission",
       "net": "Net réel"
     },
@@ -178,8 +177,8 @@
   },
   "roi": {
     "eyebrow": "Calculez votre ROI",
-    "title": "Combien de temps Cabs vous fait gagner ?",
-    "subtitle": "Bougez les curseurs selon votre flotte. Le calcul se met à jour en direct.",
+    "title": "Combien de temps et d'argent Cabs vous fait gagner ?",
+    "subtitle": "Le temps admin se transforme en euros. Bougez les curseurs selon votre flotte, le calcul se met à jour en direct.",
     "header": "Estimation pour votre société",
     "inputs": {
       "vehicles": "Véhicules",
@@ -189,23 +188,23 @@
       "hoursWeek": "Heures gagnées",
       "hoursWeekHint": "Par semaine, sur l'admin véhicules + chauffeurs",
       "daysMonth": "Jours par mois",
-      "daysMonthHint": "À raison de 8h par journée de travail",
-      "eurMonth": "Erreurs récupérées",
-      "eurMonthHint": "Commissions plateformes mal calculées par mois",
+      "daysMonthHint": "À raison de 8 h par journée de travail",
+      "eurMonth": "€ économisés/mois",
+      "eurMonthHint": "Heures gagnées × coût horaire admin moyen (≈ 25 €/h en Belgique)",
       "errorsMonth": "Anomalies détectées",
-      "errorsMonthHint": "Tickets manquants, écarts d'heures, etc."
+      "errorsMonthHint": "Tickets manquants, écarts d'heures, courses oubliées, etc."
     },
-    "disclaimer": "Estimations conservatrices basées sur les pratiques observées dans le secteur taxi belge (0,5h/sem par véhicule, 1,5h/sem par chauffeur, 18€/mois d'erreurs commission par chauffeur). Variables selon votre organisation actuelle.",
+    "disclaimer": "Estimations conservatrices basées sur le secteur taxi belge : 0,5 h/sem par véhicule + 1,5 h/sem par chauffeur sur l'admin, valorisées au coût horaire moyen d'un dispatch/admin en Belgique (≈ 25 €/h). Les chauffeurs entrent eux-mêmes le net dans l'app, donc aucune commission plateforme n'est recalculée.",
     "methodology": {
       "toggle": "Méthodologie et sources",
       "intro": "Multiplicateurs adaptés au contexte belge des opérateurs gérant des chauffeurs sur Uber, Bolt et Heetch. Sources publiques :",
       "kfw": "les PME consacrent jusqu'à 8,7 % de leur temps de travail à la bureaucratie.",
       "sage": "les patrons de petites entreprises perdent l'équivalent d'un mois de travail par an en paperasse.",
-      "nyag": "328 M$ de règlement Uber/Lyft pour erreurs systématiques sur les paiements (≈ 91 $/mois/chauffeur sur 100 000+ chauffeurs).",
+      "statbel": "salaire horaire brut moyen en Belgique ≈ 22-26 €/h selon le secteur (2024).",
       "gtl": "≈ 19 700 chauffeurs taxi/LVC actifs en Belgique.",
       "frVtc": "71 300 chauffeurs VTC actifs en France en 2024 (+27 % vs 2023).",
       "nlTaxi": "14 400 entreprises de taxi aux Pays-Bas en 2024, dont 11 400 indépendants (+29 % en 5 ans).",
-      "note": "Nos multiplicateurs (0,5 h/véhicule, 1,5 h/chauffeur, 18 €/chauffeur) restent en deçà des écarts publics documentés. Affinés au fil de la bêta privée."
+      "note": "Nos multiplicateurs (0,5 h/véhicule, 1,5 h/chauffeur, ≈ 25 €/h coût admin) sont prudents et seront affinés au fil de la bêta privée."
     },
     "expansion": "Belgique, France et Pays-Bas dès septembre. L'Allemagne dans la foulée."
   },
@@ -249,17 +248,12 @@
       "maintenance": "Maintenance",
       "repair": "Réparation",
       "totalDrivers": "Total chauffeurs",
-      "onLeave": "En congé",
-      "gross": "Brut · 7 jours",
-      "platformCommissions": "Commissions plateformes",
-      "realNet": "Net réel"
+      "onLeave": "En congé"
     },
     "trends": {
       "thisWeek": "+2 cette semaine",
       "fleetShare": "{{percent}}% de la flotte",
-      "monthGain": "+15% ce mois",
-      "vsGross": "{{percent}}% du brut",
-      "afterCommission": "Après commissions"
+      "monthGain": "+15% ce mois"
     },
     "dashboard": {
       "shiftStart": "Début · {{time}}",
@@ -437,7 +431,6 @@
       "title": "Bilan de caisse",
       "subtitle": "Quand l'argent rentre, et où il part.",
       "byPlatform": "Répartition par plateforme",
-      "deductedCommissions": "Commissions retenues",
       "weekDays": "L,M,M,J,V,S,D",
       "periods": {
         "day": "Jour",
@@ -488,7 +481,7 @@
       "platforms": {
         "title": "Plateformes & commissions",
         "helper": "Affichées dans la création de chauffeur",
-        "warning": "Les pourcentages saisis sont validés sous 48h en croisant les conditions officielles de chaque plateforme. Seules les commissions approuvées sont appliquées au calcul du net.",
+        "warning": "Activez les plateformes que vos chauffeurs utilisent. La consolidation par plateforme se fait automatiquement à partir des nets saisis par chacun.",
         "status": {
           "approved": "Validé",
           "pending": "En validation",
@@ -820,7 +813,7 @@
         "destinationPending": "Arrivée",
         "destinationDetectedAtEnd": "détectée à la fin de course",
         "gpsFixesLabel": "Points GPS",
-        "fareAtEndNote": "À la fin, vous saisissez le net que vous recevez (déjà après commission plateforme)."
+        "fareAtEndNote": "À la fin, vous saisissez directement le net que vous recevez sur l'app."
       },
       "rideSummary": {
         "title": "Course terminée",

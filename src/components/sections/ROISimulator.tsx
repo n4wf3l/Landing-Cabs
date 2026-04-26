@@ -5,13 +5,15 @@ import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { cn } from '@/lib/utils'
 
-// Conservative estimates derived from typical Brussels taxi-fleet admin time:
+// Conservative estimates derived from typical Belgian taxi-fleet admin time:
 // — 0.5h/week per vehicle (maintenance log, document upkeep, planning)
-// — 1.5h/week per driver (ride reconciliation, WhatsApp tickets, commission verification)
-// — 18€/month per driver in commission errors caught early (Bolt/Heetch/Uber rate changes)
+// — 1.5h/week per driver (ride reconciliation, WhatsApp tickets, shift admin)
+// — €25/h average loaded cost of admin/dispatcher time in Belgium (Statbel
+//   median hourly compensation 2024). Drivers enter NET amounts directly,
+//   so we don't claim platform-commission verification savings here.
 const HOURS_PER_VEHICLE = 0.5
 const HOURS_PER_DRIVER = 1.5
-const EUR_PER_DRIVER_PER_MONTH = 18
+const EUR_PER_HOUR_ADMIN = 25
 
 const MIN_VEHICLES = 1
 const MAX_VEHICLES = 50
@@ -30,9 +32,9 @@ const SOURCES = [
     url: 'https://www.sage.com/en-gb/company/digital-newsroom/2025/05/09/the-hidden-admin-burden-on-small-businesses/',
   },
   {
-    key: 'nyag',
-    label: 'NY Attorney General (2023)',
-    url: 'https://ag.ny.gov/press-release/2023/attorney-general-james-secures-328-million-uber-and-lyft-taking-earnings-drivers',
+    key: 'statbel',
+    label: 'Statbel · Salaires (2024)',
+    url: 'https://statbel.fgov.be/fr/themes/emploi-formation/salaires-et-cout-de-la-main-doeuvre/salaires-mensuels-bruts-moyens',
   },
   {
     key: 'gtl',
@@ -67,7 +69,7 @@ export function ROISimulator() {
     const hoursWeek = vehicles * HOURS_PER_VEHICLE + drivers * HOURS_PER_DRIVER
     const hoursMonth = hoursWeek * 4.33
     const daysMonth = hoursMonth / 8
-    const eurMonth = drivers * EUR_PER_DRIVER_PER_MONTH
+    const eurMonth = Math.round(hoursMonth * EUR_PER_HOUR_ADMIN)
     const errorsMonth = drivers * 2
 
     const m: Metric[] = [

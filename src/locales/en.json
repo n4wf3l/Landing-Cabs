@@ -44,7 +44,6 @@
     "revenue": {
       "title": "Consolidated revenue",
       "platform": "Uber",
-      "gross": "Gross",
       "commission": "Commission",
       "net": "Real net"
     },
@@ -178,8 +177,8 @@
   },
   "roi": {
     "eyebrow": "Calculate your ROI",
-    "title": "How much time will Cabs save you?",
-    "subtitle": "Drag the sliders to your fleet. Numbers update live.",
+    "title": "How much time and money will Cabs save you?",
+    "subtitle": "Admin time turns into euros. Drag the sliders to match your fleet, the numbers update live.",
     "header": "Estimate for your company",
     "inputs": {
       "vehicles": "Vehicles",
@@ -189,23 +188,23 @@
       "hoursWeek": "Hours saved",
       "hoursWeekHint": "Per week, on vehicle + driver admin",
       "daysMonth": "Days per month",
-      "daysMonthHint": "Based on 8h working days",
-      "eurMonth": "Errors recovered",
-      "eurMonthHint": "Mis-calculated platform commissions per month",
+      "daysMonthHint": "Based on 8 h working days",
+      "eurMonth": "€ saved/month",
+      "eurMonthHint": "Hours saved × average admin loaded cost (≈ €25/h in Belgium)",
       "errorsMonth": "Anomalies caught",
-      "errorsMonthHint": "Missing receipts, time gaps, etc."
+      "errorsMonthHint": "Missing receipts, time gaps, forgotten rides, etc."
     },
-    "disclaimer": "Conservative estimates based on practices observed in the Belgian taxi industry (0.5h/wk per vehicle, 1.5h/wk per driver, €18/mo in commission errors per driver). Varies based on your current setup.",
+    "disclaimer": "Conservative estimates from the Belgian taxi sector: 0.5 h/wk per vehicle + 1.5 h/wk per driver of admin time, valued at the average dispatcher/admin loaded cost in Belgium (≈ €25/h). Drivers enter net amounts directly in the app, so platform commissions are not recomputed.",
     "methodology": {
       "toggle": "Methodology and sources",
       "intro": "Multipliers adapted to the Belgian context of operators managing drivers across Uber, Bolt, and Heetch. Public sources:",
       "kfw": "SMEs spend up to 8.7% of their working time on bureaucracy.",
       "sage": "small business owners lose the equivalent of one month of work per year to paperwork.",
-      "nyag": "$328M Uber/Lyft settlement for systematic payment errors (~$91/mo/driver across 100,000+ drivers).",
+      "statbel": "average gross hourly wage in Belgium ≈ €22–26/h depending on sector (2024).",
       "gtl": "~19,700 active taxi/LVC drivers in Belgium.",
       "frVtc": "71,300 active VTC drivers in France in 2024 (+27% vs 2023).",
       "nlTaxi": "14,400 taxi businesses in the Netherlands in 2024, of which 11,400 are self-employed (+29% in 5 years).",
-      "note": "Our multipliers (0.5h/vehicle, 1.5h/driver, €18/driver) stay below the publicly documented gaps. Refined as the private beta progresses."
+      "note": "Our multipliers (0.5 h/vehicle, 1.5 h/driver, ≈ €25/h admin cost) are conservative and will be refined as the private beta progresses."
     },
     "expansion": "Belgium, France, and the Netherlands from September. Germany following soon."
   },
@@ -249,17 +248,12 @@
       "maintenance": "Maintenance",
       "repair": "Repair",
       "totalDrivers": "Total drivers",
-      "onLeave": "On leave",
-      "gross": "Gross · 7 days",
-      "platformCommissions": "Platform commissions",
-      "realNet": "Real net"
+      "onLeave": "On leave"
     },
     "trends": {
       "thisWeek": "+2 this week",
       "fleetShare": "{{percent}}% of fleet",
-      "monthGain": "+15% this month",
-      "vsGross": "{{percent}}% of gross",
-      "afterCommission": "After commissions"
+      "monthGain": "+15% this month"
     },
     "dashboard": {
       "shiftStart": "Started · {{time}}",
@@ -437,7 +431,6 @@
       "title": "Revenue report",
       "subtitle": "When money comes in, and where it goes.",
       "byPlatform": "Breakdown by platform",
-      "deductedCommissions": "Commissions deducted",
       "weekDays": "M,T,W,T,F,S,S",
       "periods": {
         "day": "Day",
@@ -488,7 +481,7 @@
       "platforms": {
         "title": "Platforms & commissions",
         "helper": "Shown in driver creation",
-        "warning": "Commission rates are double-checked within 48h against each platform's official terms. Only approved rates apply to net calculations.",
+        "warning": "Enable the platforms your drivers use. Cabs consolidates net revenue per platform from what drivers log at the end of each ride.",
         "status": {
           "approved": "Approved",
           "pending": "Pending",
@@ -820,7 +813,7 @@
         "destinationPending": "Destination",
         "destinationDetectedAtEnd": "detected when ride ends",
         "gpsFixesLabel": "GPS fixes",
-        "fareAtEndNote": "At the end you'll enter the net you actually receive (already after platform commission)."
+        "fareAtEndNote": "At the end you type the net you receive — straight from your driver app."
       },
       "rideSummary": {
         "title": "Ride completed",

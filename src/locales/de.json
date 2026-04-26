@@ -44,7 +44,6 @@
     "revenue": {
       "title": "Konsolidierte Einnahmen",
       "platform": "Uber",
-      "gross": "Brutto",
       "commission": "Kommission",
       "net": "Echtes Netto"
     },
@@ -178,8 +177,8 @@
   },
   "roi": {
     "eyebrow": "Berechnen Sie Ihren ROI",
-    "title": "Wie viel Zeit spart Cabs Ihnen?",
-    "subtitle": "Bewegen Sie die Regler entsprechend Ihrer Flotte. Die Zahlen aktualisieren sich live.",
+    "title": "Wie viel Zeit und Geld spart Cabs Ihnen?",
+    "subtitle": "Verwaltungszeit wird zu Euro. Bewegen Sie die Regler entsprechend Ihrer Flotte, die Zahlen aktualisieren sich live.",
     "header": "Schätzung für Ihr Unternehmen",
     "inputs": {
       "vehicles": "Fahrzeuge",
@@ -190,22 +189,22 @@
       "hoursWeekHint": "Pro Woche, an Fahrzeug- und Fahreradmin",
       "daysMonth": "Tage pro Monat",
       "daysMonthHint": "Bei Arbeitstagen von 8 Std",
-      "eurMonth": "Wiedergewonnene Fehler",
-      "eurMonthHint": "Falsch berechnete Plattformprovisionen pro Monat",
+      "eurMonth": "€ gespart/Monat",
+      "eurMonthHint": "Eingesparte Stunden × durchschnittliche Admin-Kosten (≈ 25 €/Std in Belgien)",
       "errorsMonth": "Erkannte Anomalien",
-      "errorsMonthHint": "Fehlende Tickets, Stundenabweichungen usw."
+      "errorsMonthHint": "Fehlende Tickets, Stundenabweichungen, vergessene Fahrten usw."
     },
-    "disclaimer": "Konservative Schätzungen, basierend auf in der belgischen Taxibranche beobachteten Praktiken (0,5 Std/Woche pro Fahrzeug, 1,5 Std/Woche pro Fahrer, 18 €/Monat Provisionsfehler pro Fahrer). Variiert je nach Ihrer aktuellen Organisation.",
+    "disclaimer": "Konservative Schätzungen aus dem belgischen Taxisektor: 0,5 Std/Woche pro Fahrzeug + 1,5 Std/Woche pro Fahrer Verwaltungsaufwand, bewertet zu durchschnittlichen Dispatch-/Admin-Kosten in Belgien (≈ 25 €/Std). Fahrer geben Netto-Beträge direkt in der App ein, daher werden Plattformprovisionen nicht neu berechnet.",
     "methodology": {
       "toggle": "Methodik und Quellen",
       "intro": "Multiplikatoren angepasst an den belgischen Kontext von Betreibern, die Fahrer auf Uber, Bolt und Heetch verwalten. Öffentliche Quellen:",
       "kfw": "KMU verwenden bis zu 8,7 % ihrer Arbeitszeit auf Bürokratie.",
       "sage": "Kleinunternehmer verlieren pro Jahr den Gegenwert eines Monats Arbeit an Papierkram.",
-      "nyag": "328 Mio. $ Uber/Lyft-Vergleich wegen systematischer Auszahlungsfehler (≈ 91 $/Monat/Fahrer bei über 100 000 Fahrern).",
+      "statbel": "durchschnittlicher Bruttostundenlohn in Belgien ≈ 22-26 €/Std je nach Branche (2024).",
       "gtl": "≈ 19 700 aktive Taxi-/VTC-Fahrer in Belgien.",
       "frVtc": "71 300 aktive VTC-Fahrer in Frankreich in 2024 (+27 % vs. 2023).",
       "nlTaxi": "14 400 Taxiunternehmen in den Niederlanden in 2024, davon 11 400 Selbstständige (+29 % in 5 Jahren).",
-      "note": "Unsere Multiplikatoren (0,5 Std/Fahrzeug, 1,5 Std/Fahrer, 18 €/Fahrer) bleiben unter den öffentlich dokumentierten Abweichungen. Werden während der privaten Beta verfeinert."
+      "note": "Unsere Multiplikatoren (0,5 Std/Fahrzeug, 1,5 Std/Fahrer, ≈ 25 €/Std Admin-Kosten) sind konservativ und werden während der privaten Beta verfeinert."
     },
     "expansion": "Belgien, Frankreich und Niederlande ab September. Deutschland folgt zeitnah."
   },
@@ -249,17 +248,12 @@
       "maintenance": "Wartung",
       "repair": "Reparatur",
       "totalDrivers": "Gesamtfahrer",
-      "onLeave": "Im Urlaub",
-      "gross": "Brutto · 7 Tage",
-      "platformCommissions": "Plattform-Kommissionen",
-      "realNet": "Echtes Netto"
+      "onLeave": "Im Urlaub"
     },
     "trends": {
       "thisWeek": "+2 diese Woche",
       "fleetShare": "{{percent}}% der Flotte",
-      "monthGain": "+15% diesen Monat",
-      "vsGross": "{{percent}}% vom Brutto",
-      "afterCommission": "Nach Kommissionen"
+      "monthGain": "+15% diesen Monat"
     },
     "dashboard": {
       "shiftStart": "Start · {{time}}",
@@ -437,7 +431,6 @@
       "title": "Kassenbericht",
       "subtitle": "Wann das Geld reinkommt und wohin es geht.",
       "byPlatform": "Aufteilung nach Plattform",
-      "deductedCommissions": "Einbehaltene Kommissionen",
       "weekDays": "M,D,M,D,F,S,S",
       "periods": {
         "day": "Tag",
@@ -488,7 +481,7 @@
       "platforms": {
         "title": "Plattformen & Provisionen",
         "helper": "Bei Fahreranlage angezeigt",
-        "warning": "Eingegebene Prozente werden binnen 48 Stunden anhand der offiziellen Bedingungen jeder Plattform doppelt geprüft. Nur freigegebene Provisionen fließen in die Netto-Berechnung ein.",
+        "warning": "Aktivieren Sie die Plattformen, die Ihre Fahrer nutzen. Cabs konsolidiert die Netto-Einnahmen pro Plattform aus dem, was die Fahrer am Ende jeder Fahrt eintragen.",
         "status": {
           "approved": "Freigegeben",
           "pending": "In Prüfung",
@@ -820,7 +813,7 @@
         "destinationPending": "Ziel",
         "destinationDetectedAtEnd": "wird bei Fahrtende erkannt",
         "gpsFixesLabel": "GPS-Punkte",
-        "fareAtEndNote": "Am Ende geben Sie das Netto ein, das Sie tatsächlich erhalten (bereits nach Plattform-Provision)."
+        "fareAtEndNote": "Am Ende geben Sie direkt das Netto ein, das in Ihrer Driver-App erscheint."
       },
       "rideSummary": {
         "title": "Fahrt abgeschlossen",

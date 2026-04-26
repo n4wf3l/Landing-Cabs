@@ -127,7 +127,7 @@ export function RideEndPickerScreen() {
               type="button"
               onClick={() => {
                 setSelected(null)
-                setFare('')
+                setNet('')
               }}
               className="group flex flex-col items-start gap-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-2.5 text-left transition-all hover:border-white/[0.12] hover:bg-white/[0.04] phone-light:border-zinc-900/[0.08] phone-light:bg-zinc-900/[0.02] phone-light:hover:border-zinc-900/[0.15]"
             >
