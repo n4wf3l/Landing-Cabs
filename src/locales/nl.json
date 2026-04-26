@@ -199,6 +199,10 @@
       "perYear": "/ jaar",
       "tagline": "Dat laat je elk jaar liggen zonder Cabs."
     },
+    "counter": {
+      "label": "Verloren sinds je hier bent",
+      "tagline": "{{rate}}/min admin-tijd verloren tijdens je werkuren. De teller blijft tikken zolang je zonder Cabs werkt."
+    },
     "disclaimer": "Voorzichtige schattingen vanuit de Belgische taxisector: 0,5 u/wk per voertuig + 1,5 u/wk per chauffeur op admin, gewaardeerd aan de gemiddelde dispatch-/admin-kost in België (≈ 25 €/u). Chauffeurs voeren zelf het netto in de app in, dus platformcommissies worden niet herberekend.",
     "methodology": {
       "toggle": "Methodologie en bronnen",

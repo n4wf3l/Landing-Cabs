@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calculator, ChevronRight, Clock, Coins, FileWarning, Sparkles } from 'lucide-react'
+import { Calculator, ChevronRight, Clock, Coins, FileWarning, Sparkles, TrendingDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { cn } from '@/lib/utils'
@@ -65,13 +65,30 @@ export function ROISimulator() {
   const [vehicles, setVehicles] = useState(8)
   const [drivers, setDrivers] = useState(12)
 
-  const { metrics, eurYear } = useMemo(() => {
+  // Live "money bleeding" counter. Anchored to the user's slider values so
+  // it scales with what they declare. Ticks every 1s, computed against work
+  // hours (≈ 176 h/month) so the counter actually moves visibly within a
+  // page visit instead of crawling at the divided-by-31M-seconds-a-year rate.
+  const startTime = useRef<number>(Date.now())
+  const [elapsedSec, setElapsedSec] = useState(0)
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setElapsedSec((Date.now() - startTime.current) / 1000)
+    }, 1000)
+    return () => window.clearInterval(id)
+  }, [])
+
+  const { metrics, eurYear, lostNow, eurPerMin } = useMemo(() => {
     const hoursWeek = vehicles * HOURS_PER_VEHICLE + drivers * HOURS_PER_DRIVER
     const hoursMonth = hoursWeek * 4.33
     const daysMonth = hoursMonth / 8
     const eurMonth = Math.round(hoursMonth * EUR_PER_HOUR_ADMIN)
     const eurYear = eurMonth * 12
     const errorsMonth = drivers * 2
+    // 22 work days × 8h = 176h/month → per-second rate during work time.
+    const eurPerSec = eurMonth / (176 * 3600)
+    const eurPerMin = eurPerSec * 60
+    const lostNow = elapsedSec * eurPerSec
 
     const m: Metric[] = [
       {
@@ -99,8 +116,8 @@ export function ROISimulator() {
         hintKey: 'roi.metrics.errorsMonthHint',
       },
     ]
-    return { metrics: m, eurYear }
-  }, [vehicles, drivers])
+    return { metrics: m, eurYear, lostNow, eurPerMin }
+  }, [vehicles, drivers, elapsedSec])
 
   return (
     <section
@@ -127,6 +144,41 @@ export function ROISimulator() {
           />
 
           <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/60 shadow-glow-lg backdrop-blur">
+            {/* Live "bleed" counter — money lost since the user landed.
+                Anchored to the slider values so it scales with their fleet. */}
+            <div className="relative overflow-hidden border-b border-rose-500/20 bg-gradient-to-r from-rose-500/[0.07] via-rose-500/[0.04] to-rose-500/[0.07] px-6 py-4">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-x-12 -top-12 h-24 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.18),transparent_70%)] blur-2xl"
+              />
+              <div className="relative flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-rose-500/15 text-rose-400 ring-1 ring-rose-500/30">
+                    <TrendingDown className="h-4 w-4" />
+                    <motion.span
+                      aria-hidden
+                      className="absolute inset-0 rounded-md bg-rose-500/30"
+                      animate={{ opacity: [0, 0.6, 0] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                  </span>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-rose-400">
+                      {t('roi.counter.label')}
+                    </p>
+                    <p className="mt-0.5 font-mono text-3xl font-extrabold tabular-nums text-rose-400 sm:text-4xl">
+                      €{lostNow.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-[11px] leading-relaxed text-muted-foreground sm:max-w-[220px] sm:text-right">
+                  {t('roi.counter.tagline', {
+                    rate: `€${eurPerMin.toFixed(2)}`,
+                  })}
+                </p>
+              </div>
+            </div>
+
             {/* Header */}
             <div className="flex items-center gap-2 border-b border-border/40 bg-card/40 px-6 py-3">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-primary/15 text-primary">
