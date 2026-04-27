@@ -79,30 +79,21 @@
     touch-action: pan-y;
     overscroll-behavior-x: none;
   }
-  /* Real mobile GPUs (especially mid-range Android, iPhone <13) tank
-     under heavy backdrop-filter / filter blur. With ~36 files using
-     glassmorphism + decorative glow blurs, the page can take 10+ s
-     to compose its initial frame on real devices, even though
-     DevTools mobile emulation (running on the laptop GPU) renders
-     instantly. Drop the most expensive blur effects on viewports
-     <1024 px so mobile gets a flat-but-fast rendering. The decorative
-     fallback bg-card/border-border styles remain, so the visual
-     intent (cards, depth) is preserved without the GPU cost. */
+  /* Real mobile GPUs tank under any non-trivial CSS filter or
+     backdrop-filter. Even small drop-shadows multiplied across the
+     page create dozens of GPU compositing layers that real devices
+     repaint frame-by-frame, blocking layout flushes for seconds.
+     Nuclear option: disable filter / backdrop-filter on EVERY element
+     below 1024 px. Visual cost is the loss of glassmorphism, glow
+     drop-shadows and decorative blurs on mobile. Performance gain is
+     a flat, correctly-rendered page from the first paint. */
   @media (max-width: 1023px) {
-    .backdrop-blur,
-    .backdrop-blur-sm,
-    .backdrop-blur-md,
-    .backdrop-blur-lg,
-    .backdrop-blur-xl,
-    .backdrop-blur-2xl,
-    .backdrop-blur-3xl {
+    *,
+    *::before,
+    *::after {
+      filter: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
-    }
-    .blur-xl,
-    .blur-2xl,
-    .blur-3xl {
-      filter: none !important;
     }
   }
   *:focus-visible {
