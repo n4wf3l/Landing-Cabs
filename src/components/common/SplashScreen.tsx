@@ -42,16 +42,6 @@ export function SplashScreen() {
   const { theme, setTheme } = useTheme()
   const isDark = theme === 'dark'
   const [taglineIdx, setTaglineIdx] = useState(0)
-  // Touch devices: framer-motion `whileHover` interpreted as a hover-state
-  // before the tap fires can swallow the click (the hover y:-2 transform
-  // is mid-animation when onClick would normally fire). Skip whileHover
-  // entirely when the input is coarse / hover-incapable.
-  const [supportsHover, setSupportsHover] = useState(false)
-  useEffect(() => {
-    setSupportsHover(
-      window.matchMedia('(hover: hover) and (pointer: fine)').matches,
-    )
-  }, [])
 
   useEffect(() => {
     if (!visible) return
@@ -268,17 +258,19 @@ export function SplashScreen() {
               </p>
               <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
                 {LOCALES.map((locale) => (
-                  <motion.button
+                  // Plain native <button> on the critical interaction. The
+                  // previous motion.button + whileTap/whileHover added a
+                  // small but real attach delay on first paint that made
+                  // taps miss on slow mobiles before the splash felt
+                  // 'alive'. CSS active:scale-[0.97] gives the press
+                  // feedback without any JS in the click path.
+                  <button
                     key={locale.code}
                     type="button"
                     onClick={() => pickLanguage(locale.code)}
                     aria-label={locale.label}
-                    initial={false}
-                    animate={false}
-                    whileHover={!reduce && supportsHover ? { y: -2 } : undefined}
-                    whileTap={reduce ? undefined : { scale: 0.95 }}
                     className={cn(
-                      'group flex min-h-[64px] cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 px-3 py-3 shadow-md transition-[background-color,border-color,box-shadow] duration-150 focus-visible:border-primary focus-visible:outline-none active:border-primary',
+                      'group flex min-h-[64px] cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 px-3 py-3 shadow-md transition-[background-color,border-color,box-shadow,transform] duration-150 focus-visible:border-primary focus-visible:outline-none active:scale-[0.97] active:border-primary',
                       isDark
                         ? 'border-white/20 bg-white/[0.07] shadow-primary/15 hover:border-primary/60 hover:bg-white/[0.12] hover:shadow-lg hover:shadow-primary/30 active:bg-white/[0.15]'
                         : 'border-zinc-300 bg-white shadow-primary/15 hover:border-primary/60 hover:bg-slate-50 hover:shadow-lg hover:shadow-primary/30 active:bg-slate-100',
@@ -295,7 +287,7 @@ export function SplashScreen() {
                     >
                       {locale.code}
                     </span>
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             </motion.div>
