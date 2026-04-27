@@ -129,6 +129,12 @@
       }
     }
   },
+  "launcher": {
+    "adminCta": "Dashboard-Simulator starten",
+    "driverCta": "Fahrer-App starten",
+    "hint": "Interaktive Demo · Fiktive Daten · Keine Anmeldung",
+    "loading": "Simulator wird geladen"
+  },
   "showcase": {
     "eyebrow": "01 · Betreiberseite",
     "title": "Ein Dashboard. Alles, was zählt.",

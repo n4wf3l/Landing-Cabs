@@ -129,6 +129,12 @@
       }
     }
   },
+  "launcher": {
+    "adminCta": "Lancer le simulateur dashboard",
+    "driverCta": "Lancer l'app chauffeur",
+    "hint": "Démo interactive · Données fictives · 0 inscription",
+    "loading": "Chargement du simulateur"
+  },
   "showcase": {
     "eyebrow": "01 · Côté patron",
     "title": "Un tableau de bord. Tout ce qui compte.",

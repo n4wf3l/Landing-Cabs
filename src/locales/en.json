@@ -129,6 +129,12 @@
       }
     }
   },
+  "launcher": {
+    "adminCta": "Launch the dashboard simulator",
+    "driverCta": "Launch the driver app",
+    "hint": "Interactive demo · Mock data · No signup",
+    "loading": "Loading simulator"
+  },
   "showcase": {
     "eyebrow": "01 · Operator side",
     "title": "One dashboard. Everything that matters.",
