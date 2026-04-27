@@ -9,6 +9,11 @@ interface ScrollRevealProps {
   as?: 'div' | 'section' | 'li' | 'article'
 }
 
+// Content stays at opacity:1 in `hidden` so a slow main thread that
+// delays the IntersectionObserver can't strand a section invisible.
+// The translate is the only motion left — gentle enter cue for users
+// who do see the animation. Trade-off: no fade-in, but no risk of
+// "the section never appeared" on slow mobiles.
 export function ScrollReveal({
   children,
   delay = 0,
@@ -17,7 +22,7 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const reduce = useReducedMotion()
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : y },
+    hidden: { opacity: 1, y: reduce ? 0 : y },
     show: {
       opacity: 1,
       y: 0,
@@ -43,6 +48,6 @@ export const staggerContainer: Variants = {
 }
 
 export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 1, y: 12 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 }

@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react'
 import { SEO } from '@/components/common/SEO'
 import { Hero } from '@/components/sections/Hero'
 import { PainPoints } from '@/components/sections/PainPoints'
+import { ProductShowcase } from '@/components/sections/ProductShowcase'
 import { Features } from '@/components/sections/Features'
 import { ROISimulator } from '@/components/sections/ROISimulator'
+import { DriverApp } from '@/components/sections/DriverApp'
 import { Team } from '@/components/sections/Team'
 import { FinalCTA } from '@/components/sections/FinalCTA'
 import {
@@ -12,27 +13,10 @@ import {
   webSiteJsonLd,
 } from '@/lib/seo'
 
-// Heavy sections lazy-loaded so the home page above-fold renders fast.
-// ProductShowcase contains the full admin simulator (mock fleet of 12
-// drivers × 7 vehicles × shifts × revenue × map). DriverApp ships the
-// phone simulator with ~12 screens. Each is ~150-250 KB on its own.
-const ProductShowcase = lazy(() =>
-  import('@/components/sections/ProductShowcase').then((m) => ({
-    default: m.ProductShowcase,
-  })),
-)
-const DriverApp = lazy(() =>
-  import('@/components/sections/DriverApp').then((m) => ({
-    default: m.DriverApp,
-  })),
-)
-
-// Thin block-level placeholder so the page height stays roughly stable
-// while a sim chunk streams in. Avoids a giant layout shift when a 200 KB
-// chunk lands and a 90vh section pops into existence.
-function SimSkeleton() {
-  return <div aria-hidden className="min-h-[60vh] sm:min-h-[80vh]" />
-}
+// All sections eager-imported. The lazy split for ProductShowcase +
+// DriverApp made initial bundle smaller, but the Suspense fallback
+// (an empty min-h-[60vh] div) showed as a big black block while the
+// chunk streamed in — a worse UX than a slightly bigger initial bundle.
 
 export default function Landing() {
   return (
@@ -48,15 +32,11 @@ export default function Landing() {
       <Hero />
       <PainPoints />
       <section id="admin" className="scroll-mt-0">
-        <Suspense fallback={<SimSkeleton />}>
-          <ProductShowcase />
-        </Suspense>
+        <ProductShowcase />
         <Features />
       </section>
       <ROISimulator />
-      <Suspense fallback={<SimSkeleton />}>
-        <DriverApp />
-      </Suspense>
+      <DriverApp />
       <Team />
       <FinalCTA />
     </>
