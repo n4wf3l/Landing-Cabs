@@ -3,8 +3,11 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { SplashScreen } from '@/components/common/SplashScreen'
 import { Skeleton } from '@/components/ui/skeleton'
+// Landing is the entry route — eager-import it so the home page renders
+// immediately after the bundle parses, instead of a black/skeleton hold
+// while a separate ~250 KB chunk downloads. Other routes stay lazy.
+import Landing from '@/pages/Landing'
 
-const Landing = lazy(() => import('@/pages/Landing'))
 const Contact = lazy(() => import('@/pages/Contact'))
 const LegalTerms = lazy(() => import('@/pages/LegalTerms'))
 const LegalPrivacy = lazy(() => import('@/pages/LegalPrivacy'))

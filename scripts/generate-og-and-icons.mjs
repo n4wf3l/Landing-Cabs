@@ -115,4 +115,25 @@ const apple = await sharp(LOGO)
 writeFileSync(resolve(PUBLIC, 'apple-touch-icon.png'), apple)
 console.log(`[apple] wrote public/apple-touch-icon.png (${(apple.length / 1024).toFixed(1)} KB)`)
 
+// ── Brand logos for navbar / splash (tlogo_white, tlogo_black) ──────────
+// Source files in public/ are 1024×1024 PNGs (~1.5 MB each). They render
+// at ~48 px max in the splash and ~28-40 px in the navbar, so the source
+// is wildly oversized — kills mobile load time. Re-encode in place at
+// 192×192 (retina-safe) with max PNG compression. Drops each from
+// ~1.5 MB to ~10-25 KB.
+const TLOGO_SOURCES = ['tlogo_white.png', 'tlogo_black.png']
+for (const name of TLOGO_SOURCES) {
+  const p = resolve(PUBLIC, name)
+  console.log(`[tlogo] re-encoding ${name} at 192×192…`)
+  const before = readFileSync(p).byteLength
+  const buf = await sharp(p)
+    .resize(192, 192, { fit: 'inside', withoutEnlargement: true })
+    .png({ compressionLevel: 9, palette: false })
+    .toBuffer()
+  writeFileSync(p, buf)
+  console.log(
+    `[tlogo] ${name}: ${(before / 1024).toFixed(0)} KB → ${(buf.length / 1024).toFixed(1)} KB`,
+  )
+}
+
 console.log('\n✓ done')
