@@ -7,7 +7,7 @@ import { HISTORY, HISTORY_TOTALS } from '../mockData'
 import { Money, PlatformBadge, ScreenScroll, ScreenTitle } from '../ui'
 import type { Platform } from '../types'
 
-const PLATFORMS: Platform[] = ['uber', 'bolt', 'heetch', 'cash']
+const PLATFORMS: Platform[] = ['uber', 'bolt', 'heetch', 'taxivert', 'cash']
 
 export function HistoryScreen() {
   const { t } = useTranslation()

@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
 import {
+  CameraOff,
   ClipboardList,
   FileSpreadsheet,
   MapPinOff,
   MessageCircleWarning,
   PhoneCall,
-  ReceiptText,
   type LucideIcon,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -23,7 +23,7 @@ const PAINS: Pain[] = [
   { key: 'whatsapp', Icon: MessageCircleWarning },
   { key: 'clockin', Icon: PhoneCall },
   { key: 'location', Icon: MapPinOff },
-  { key: 'reconciliation', Icon: ReceiptText },
+  { key: 'damage', Icon: CameraOff },
 ]
 
 export function PainPoints() {

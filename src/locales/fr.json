@@ -43,8 +43,6 @@
     },
     "revenue": {
       "title": "Revenus consolidés",
-      "platform": "Uber",
-      "commission": "Commission",
       "net": "Net réel"
     },
     "planning": {
@@ -107,11 +105,11 @@
     "items": {
       "aggregation": {
         "title": "Agrégation multi-plateforme",
-        "description": "Uber, Bolt, Heetch, TaxiVert et cash. Une seule source de vérité, mise à jour chaque jour."
+        "description": "Uber, Bolt, Heetch, TaxiVert et cash. Une seule source de vérité, mise à jour à chaque course."
       },
-      "commissions": {
-        "title": "Brut, net, commissions",
-        "description": "Cabs anticipe les commissions de chaque plateforme et vous donne le chiffre d'affaires brut et le net réel par chauffeur, par véhicule, par période."
+      "reconciliation": {
+        "title": "Net consolidé pour votre comptable",
+        "description": "Le net que vos chauffeurs saisissent à chaque course, agrégé par plateforme, par chauffeur, par véhicule, par période. Vous tenez la réconciliation hebdomadaire face aux versements Uber/Bolt sans rouvrir 8 onglets Excel."
       },
       "time": {
         "title": "Fin des calculs manuels",
@@ -167,9 +165,9 @@
         "title": "« T'es où ? » par téléphone toutes les 30 minutes",
         "description": "Aucune géolocalisation, aucune visibilité sur qui est en course, qui est en pause, qui est rentré."
       },
-      "reconciliation": {
-        "title": "Réconciliation Uber × Bolt × Heetch à la main",
-        "description": "Vous découvrez 3 mois plus tard que la commission Bolt a changé. Trop tard pour récupérer."
+      "damage": {
+        "title": "« C'était déjà rayé avant moi »",
+        "description": "Aucune photo à la prise et fin de poste. Le chauffeur de jour accuse celui de nuit, vous tranchez sans preuve. €600 de carrosserie partis sur votre marge."
       }
     },
     "bridge": "Cabs élimine ça en automatisant les 6.",
@@ -488,7 +486,7 @@
         "uploadLogo": "Téléverser le logo"
       },
       "platforms": {
-        "title": "Plateformes & commissions",
+        "title": "Plateformes & paiements",
         "helper": "Affichées dans la création de chauffeur",
         "warning": "Activez les plateformes que vos chauffeurs utilisent. La consolidation par plateforme se fait automatiquement à partir des nets saisis par chacun.",
         "status": {
@@ -664,7 +662,7 @@
       },
       "revenue": {
         "title": "Revenus en temps réel",
-        "description": "Brut du jour, net après commissions, comparaison avec hier. Le chauffeur sait exactement ce qu'il gagne, à la course près."
+        "description": "Net du jour, comparaison avec hier. Le chauffeur sait exactement ce qu'il gagne, à la course près."
       },
       "alerts": {
         "title": "Alertes opérateur",
@@ -928,19 +926,22 @@
           "uber": "Course Uber assignée",
           "bolt": "Course Bolt assignée",
           "heetch": "Course Heetch assignée",
-          "cash": "Hélée dans la rue"
+          "cash": "Hélée dans la rue",
+          "taxivert": "Course TaxiVert assignée"
         },
         "netLabel": {
           "uber": "Net que vous recevez",
           "bolt": "Net que vous recevez",
           "heetch": "Net que vous recevez",
-          "cash": "Montant encaissé"
+          "cash": "Montant encaissé",
+          "taxivert": "Net TaxiVert reçu"
         },
         "netHint": {
           "uber": "Lu dans \"Vos gains\" sur l'app Uber Driver à la fin de course.",
           "bolt": "Lu dans \"Vos gains\" sur l'app Bolt Driver à la fin de course.",
           "heetch": "Lu dans \"Vos gains\" sur l'app Heetch Driver à la fin de course.",
-          "cash": "Montant que le client vous a réellement payé."
+          "cash": "Montant que le client vous a réellement payé.",
+          "taxivert": "Lu sur l'app TaxiVert Driver à la fin de course."
         },
         "confirm": "Enregistrer la course"
       },
@@ -948,7 +949,8 @@
         "uber": "Uber",
         "bolt": "Bolt",
         "heetch": "Heetch",
-        "cash": "Cash"
+        "cash": "Cash",
+        "taxivert": "TaxiVert"
       },
       "reset": {
         "cta": "Réinitialiser la démo",
@@ -1016,10 +1018,22 @@
       "description": "Pas de support externalisé, pas de bot, pas de chatbot IA. Vos messages arrivent directement chez Kristian, Ismael et Nawfel."
     },
     "fields": {
-      "name": { "label": "Nom complet", "placeholder": "Sofia Rossi" },
-      "email": { "label": "Email professionnel", "placeholder": "sofia@votresociete.be" },
-      "company": { "label": "Société (optionnel)", "placeholder": "Antwerp Taxi BV" },
-      "message": { "label": "Votre message", "placeholder": "Parlez-nous de votre flotte, de vos besoins, de ce qui vous bloque aujourd'hui." }
+      "name": {
+        "label": "Nom complet",
+        "placeholder": "Sofia Rossi"
+      },
+      "email": {
+        "label": "Email professionnel",
+        "placeholder": "sofia@votresociete.be"
+      },
+      "company": {
+        "label": "Société (optionnel)",
+        "placeholder": "Antwerp Taxi BV"
+      },
+      "message": {
+        "label": "Votre message",
+        "placeholder": "Parlez-nous de votre flotte, de vos besoins, de ce qui vous bloque aujourd'hui."
+      }
     },
     "subjects": {
       "label": "Au sujet de",
@@ -1048,10 +1062,22 @@
       "title": "Canaux directs",
       "comingSoon": "À venir · Quelques semaines avant la sortie publique",
       "comingSoonShort": "À venir",
-      "email": { "label": "Email", "value": "contact@joincabs.com" },
-      "linkedin": { "label": "LinkedIn", "value": "Suivre Cabs" },
-      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
-      "whatsapp": { "label": "WhatsApp Business", "value": "Sur demande" }
+      "email": {
+        "label": "Email",
+        "value": "contact@joincabs.com"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "value": "Suivre Cabs"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "value": "@joincabs.com"
+      },
+      "whatsapp": {
+        "label": "WhatsApp Business",
+        "value": "Sur demande"
+      }
     },
     "responseTime": {
       "title": "Délai de réponse",
@@ -1085,7 +1111,7 @@
         },
         "integrations": {
           "q": "Comment Cabs récupère mes courses Uber, Bolt et Heetch ?",
-          "a": "Vous configurez d'abord vos plateformes et leurs commissions dans le dashboard. À la fin de chaque course, le chauffeur indique simplement quelle app il a utilisée. Cabs calcule automatiquement les commissions et le net réel. Aucun accès direct à vos comptes Uber, Bolt ou Heetch n'est requis, donc aucun risque côté plateformes."
+          "a": "Aucun accès direct à vos comptes Uber, Bolt ou Heetch n'est requis. À la fin de chaque course, le chauffeur indique la plateforme et tape le net qu'il vient de recevoir sur l'app. Cabs consolide les courses du jour, du chauffeur et de la flotte, puis croise avec les versements hebdomadaires de chaque plateforme pour repérer les écarts."
         },
         "drivers": {
           "q": "Mes chauffeurs sont obligés d'utiliser l'app ?",
@@ -1097,7 +1123,7 @@
         },
         "accounting": {
           "q": "Mon comptable peut récupérer les exports facilement ?",
-          "a": "Oui. Chaque donnée (revenus par plateforme, par chauffeur, par véhicule, période, TVA, commissions) dispose d'exports dédiés en CSV et PDF, compatibles avec les principaux logiciels comptables belges : Yuki, Octopus, BOB, Winbooks."
+          "a": "Oui. Chaque donnée (revenus par plateforme, par chauffeur, par véhicule, période, TVA) dispose d'exports dédiés en CSV et PDF, compatibles avec les principaux logiciels comptables belges : Yuki, Octopus, BOB, Winbooks."
         },
         "hosting": {
           "q": "Mes données et celles de mes chauffeurs sont stockées où ?",

@@ -1,7 +1,7 @@
 import {
-  Calculator,
   FileSpreadsheet,
   Layers,
+  Scale,
   Sliders,
   UserCog,
   Wallet,
@@ -20,7 +20,7 @@ interface FeatureDef {
 
 const FEATURES: FeatureDef[] = [
   { key: 'aggregation', Icon: Layers },
-  { key: 'commissions', Icon: Calculator },
+  { key: 'reconciliation', Icon: Scale },
   { key: 'time', Icon: Wallet },
   { key: 'structure', Icon: Sliders },
   { key: 'drivers', Icon: UserCog },

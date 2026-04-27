@@ -43,8 +43,6 @@
     },
     "revenue": {
       "title": "Konsolidierte Einnahmen",
-      "platform": "Uber",
-      "commission": "Kommission",
       "net": "Echtes Netto"
     },
     "planning": {
@@ -107,11 +105,11 @@
     "items": {
       "aggregation": {
         "title": "Multi-Plattform-Aggregation",
-        "description": "Uber, Bolt, Heetch, TaxiVert und Bar. Eine einzige Quelle der Wahrheit, täglich aktualisiert."
+        "description": "Uber, Bolt, Heetch, TaxiVert und Bar. Eine einzige Quelle der Wahrheit, bei jeder Fahrt aktualisiert."
       },
-      "commissions": {
-        "title": "Brutto, Netto, Kommissionen",
-        "description": "Cabs antizipiert die Kommission jeder Plattform und zeigt Ihnen den Bruttoumsatz und das echte Netto pro Fahrer, pro Fahrzeug, pro Zeitraum."
+      "reconciliation": {
+        "title": "Netto-Konsolidierung für Ihre Buchhaltung",
+        "description": "Das Netto, das Ihre Fahrer bei jeder Fahrt eintragen, aggregiert nach Plattform, Fahrer, Fahrzeug und Zeitraum. Sie führen den wöchentlichen Abgleich gegen Uber/Bolt-Auszahlungen, ohne 8 Excel-Tabs erneut zu öffnen."
       },
       "time": {
         "title": "Schluss mit manuellen Berechnungen",
@@ -167,9 +165,9 @@
         "title": "« Wo bist du? » alle 30 Minuten per Anruf",
         "description": "Keine Geolokalisierung, keine Sicht darauf, wer auf Fahrt ist, wer pausiert, wer zuhause ist."
       },
-      "reconciliation": {
-        "title": "Uber × Bolt × Heetch manuell abgleichen",
-        "description": "3 Monate später erfahren Sie, dass die Bolt-Provision geändert hat. Zu spät."
+      "damage": {
+        "title": "« Der Kratzer war schon vor meiner Schicht da »",
+        "description": "Kein Foto bei der Übergabe. Der Tagfahrer beschuldigt den Nachtfahrer, Sie entscheiden ohne Beweis. 600 € Karosserie fressen Ihre Marge."
       }
     },
     "bridge": "Cabs schaltet alle 6 ab.",
@@ -488,7 +486,7 @@
         "uploadLogo": "Logo hochladen"
       },
       "platforms": {
-        "title": "Plattformen & Provisionen",
+        "title": "Plattformen & Auszahlungen",
         "helper": "Bei Fahreranlage angezeigt",
         "warning": "Aktivieren Sie die Plattformen, die Ihre Fahrer nutzen. Cabs konsolidiert die Netto-Einnahmen pro Plattform aus dem, was die Fahrer am Ende jeder Fahrt eintragen.",
         "status": {
@@ -664,7 +662,7 @@
       },
       "revenue": {
         "title": "Einnahmen in Echtzeit",
-        "description": "Brutto des Tages, Netto nach Kommissionen, Vergleich mit gestern. Der Fahrer weiß, was er verdient, Fahrt für Fahrt."
+        "description": "Netto des Tages, Vergleich mit gestern. Der Fahrer weiß, was er verdient, Fahrt für Fahrt."
       },
       "alerts": {
         "title": "Betreibernachrichten",
@@ -928,19 +926,22 @@
           "uber": "Zugewiesene Uber-Fahrt",
           "bolt": "Zugewiesene Bolt-Fahrt",
           "heetch": "Zugewiesene Heetch-Fahrt",
-          "cash": "Auf der Straße angehalten"
+          "cash": "Auf der Straße angehalten",
+          "taxivert": "Zugewiesene TaxiVert-Fahrt"
         },
         "netLabel": {
           "uber": "Netto, das Sie erhalten",
           "bolt": "Netto, das Sie erhalten",
           "heetch": "Netto, das Sie erhalten",
-          "cash": "Eingenommener Betrag"
+          "cash": "Eingenommener Betrag",
+          "taxivert": "TaxiVert-Netto erhalten"
         },
         "netHint": {
           "uber": "Aus \"Ihre Einnahmen\" in der Uber-Driver-App am Fahrtende abgelesen.",
           "bolt": "Aus \"Ihre Einnahmen\" in der Bolt-Driver-App am Fahrtende abgelesen.",
           "heetch": "Aus \"Ihre Einnahmen\" in der Heetch-Driver-App am Fahrtende abgelesen.",
-          "cash": "Was der Kunde tatsächlich bezahlt hat."
+          "cash": "Was der Kunde tatsächlich bezahlt hat.",
+          "taxivert": "Aus der TaxiVert-Driver-App am Fahrtende abgelesen."
         },
         "confirm": "Fahrt speichern"
       },
@@ -948,7 +949,8 @@
         "uber": "Uber",
         "bolt": "Bolt",
         "heetch": "Heetch",
-        "cash": "Cash"
+        "cash": "Cash",
+        "taxivert": "TaxiVert"
       },
       "reset": {
         "cta": "Demo zurücksetzen",
@@ -1016,10 +1018,22 @@
       "description": "Kein ausgelagerter Support, kein Bot, kein KI-Chatbot. Ihre Nachrichten landen direkt bei Kristian, Ismael und Nawfel."
     },
     "fields": {
-      "name": { "label": "Vollständiger Name", "placeholder": "Sofia Rossi" },
-      "email": { "label": "Geschäftliche E-Mail", "placeholder": "sofia@ihrunternehmen.de" },
-      "company": { "label": "Unternehmen (optional)", "placeholder": "Antwerp Taxi BV" },
-      "message": { "label": "Ihre Nachricht", "placeholder": "Erzählen Sie uns von Ihrer Flotte, Ihren Bedürfnissen, was heute hakt." }
+      "name": {
+        "label": "Vollständiger Name",
+        "placeholder": "Sofia Rossi"
+      },
+      "email": {
+        "label": "Geschäftliche E-Mail",
+        "placeholder": "sofia@ihrunternehmen.de"
+      },
+      "company": {
+        "label": "Unternehmen (optional)",
+        "placeholder": "Antwerp Taxi BV"
+      },
+      "message": {
+        "label": "Ihre Nachricht",
+        "placeholder": "Erzählen Sie uns von Ihrer Flotte, Ihren Bedürfnissen, was heute hakt."
+      }
     },
     "subjects": {
       "label": "Anliegen",
@@ -1048,10 +1062,22 @@
       "title": "Direkte Kanäle",
       "comingSoon": "Demnächst · Einige Wochen vor dem öffentlichen Launch",
       "comingSoonShort": "Demnächst",
-      "email": { "label": "E-Mail", "value": "contact@joincabs.com" },
-      "linkedin": { "label": "LinkedIn", "value": "Cabs folgen" },
-      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
-      "whatsapp": { "label": "WhatsApp Business", "value": "Auf Anfrage" }
+      "email": {
+        "label": "E-Mail",
+        "value": "contact@joincabs.com"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "value": "Cabs folgen"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "value": "@joincabs.com"
+      },
+      "whatsapp": {
+        "label": "WhatsApp Business",
+        "value": "Auf Anfrage"
+      }
     },
     "responseTime": {
       "title": "Antwortzeit",

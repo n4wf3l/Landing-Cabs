@@ -1,4 +1,4 @@
-export type Platform = 'uber' | 'bolt' | 'heetch' | 'cash'
+export type Platform = 'uber' | 'bolt' | 'heetch' | 'taxivert' | 'cash'
 
 export type CancelReason = 'no-show' | 'customer-cancelled' | 'other'
 

@@ -43,8 +43,6 @@
     },
     "revenue": {
       "title": "Geconsolideerde inkomsten",
-      "platform": "Uber",
-      "commission": "Commissie",
       "net": "Echte netto"
     },
     "planning": {
@@ -107,11 +105,11 @@
     "items": {
       "aggregation": {
         "title": "Multi-platform aggregatie",
-        "description": "Uber, Bolt, Heetch, TaxiVert en cash. Eén bron van waarheid, dagelijks bijgewerkt."
+        "description": "Uber, Bolt, Heetch, TaxiVert en cash. Eén bron van waarheid, bij elke rit bijgewerkt."
       },
-      "commissions": {
-        "title": "Bruto, netto, commissies",
-        "description": "Cabs anticipeert de commissie van elk platform en toont je bruto-omzet en echte netto per chauffeur, per voertuig, per periode."
+      "reconciliation": {
+        "title": "Netto geconsolideerd voor je boekhouder",
+        "description": "Het netto dat je chauffeurs bij elke rit invoeren, gegroepeerd per platform, per chauffeur, per voertuig, per periode. Je doet de wekelijkse afstemming met de Uber/Bolt-uitbetalingen zonder 8 Excel-tabbladen heropen te slaan."
       },
       "time": {
         "title": "Geen handmatig rekenwerk meer",
@@ -167,9 +165,9 @@
         "title": "« Waar ben je? » om de 30 minuten bellen",
         "description": "Geen geolocatie, geen zicht op wie op rit is, wie pauzeert, wie thuis is."
       },
-      "reconciliation": {
-        "title": "Uber × Bolt × Heetch handmatig verzoenen",
-        "description": "Je ontdekt 3 maanden later dat de Bolt-commissie veranderd is. Te laat."
+      "damage": {
+        "title": "« Dat krasje was er al vóór mijn shift »",
+        "description": "Geen foto bij de overdracht. De dagchauffeur beschuldigt de nachtchauffeur, jij beslist zonder bewijs. €600 carrosserie eet je marge op."
       }
     },
     "bridge": "Cabs schakelt deze 6 uit.",
@@ -488,7 +486,7 @@
         "uploadLogo": "Logo uploaden"
       },
       "platforms": {
-        "title": "Platforms & commissies",
+        "title": "Platformen & uitbetalingen",
         "helper": "Zichtbaar bij chauffeur aanmaken",
         "warning": "Activeer de platformen die je chauffeurs gebruiken. Cabs consolideert de netto-inkomsten per platform op basis van wat de chauffeurs aan het einde van elke rit invoeren.",
         "status": {
@@ -664,7 +662,7 @@
       },
       "revenue": {
         "title": "Live inkomsten",
-        "description": "Bruto van de dag, netto na commissies, vergelijking met gisteren. De chauffeur weet wat hij verdient, rit voor rit."
+        "description": "Netto van de dag, vergelijking met gisteren. De chauffeur weet wat hij verdient, rit voor rit."
       },
       "alerts": {
         "title": "Operator-meldingen",
@@ -928,19 +926,22 @@
           "uber": "Toegewezen Uber-rit",
           "bolt": "Toegewezen Bolt-rit",
           "heetch": "Toegewezen Heetch-rit",
-          "cash": "Aangehouden op straat"
+          "cash": "Aangehouden op straat",
+          "taxivert": "Toegewezen TaxiVert-rit"
         },
         "netLabel": {
           "uber": "Netto dat je ontvangt",
           "bolt": "Netto dat je ontvangt",
           "heetch": "Netto dat je ontvangt",
-          "cash": "Geïnd bedrag"
+          "cash": "Geïnd bedrag",
+          "taxivert": "TaxiVert-netto ontvangen"
         },
         "netHint": {
           "uber": "Afgelezen in \"Jouw verdiensten\" op de Uber Driver-app aan het einde.",
           "bolt": "Afgelezen in \"Jouw verdiensten\" op de Bolt Driver-app aan het einde.",
           "heetch": "Afgelezen in \"Jouw verdiensten\" op de Heetch Driver-app aan het einde.",
-          "cash": "Wat de klant je daadwerkelijk heeft betaald."
+          "cash": "Wat de klant je daadwerkelijk heeft betaald.",
+          "taxivert": "Afgelezen op de TaxiVert Driver-app aan het einde."
         },
         "confirm": "Rit opslaan"
       },
@@ -948,7 +949,8 @@
         "uber": "Uber",
         "bolt": "Bolt",
         "heetch": "Heetch",
-        "cash": "Cash"
+        "cash": "Cash",
+        "taxivert": "TaxiVert"
       },
       "reset": {
         "cta": "Demo resetten",
@@ -1016,10 +1018,22 @@
       "description": "Geen externe support, geen bot, geen AI-chatbot. Je berichten komen rechtstreeks bij Kristian, Ismael en Nawfel terecht."
     },
     "fields": {
-      "name": { "label": "Volledige naam", "placeholder": "Sofia Rossi" },
-      "email": { "label": "Werk-e-mail", "placeholder": "sofia@jouwbedrijf.be" },
-      "company": { "label": "Bedrijf (optioneel)", "placeholder": "Antwerp Taxi BV" },
-      "message": { "label": "Je bericht", "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot." }
+      "name": {
+        "label": "Volledige naam",
+        "placeholder": "Sofia Rossi"
+      },
+      "email": {
+        "label": "Werk-e-mail",
+        "placeholder": "sofia@jouwbedrijf.be"
+      },
+      "company": {
+        "label": "Bedrijf (optioneel)",
+        "placeholder": "Antwerp Taxi BV"
+      },
+      "message": {
+        "label": "Je bericht",
+        "placeholder": "Vertel ons over je vloot, je behoeften, wat vandaag niet vlot."
+      }
     },
     "subjects": {
       "label": "Onderwerp",
@@ -1048,10 +1062,22 @@
       "title": "Directe kanalen",
       "comingSoon": "Binnenkort · Enkele weken vóór de publieke lancering",
       "comingSoonShort": "Binnenkort",
-      "email": { "label": "E-mail", "value": "contact@joincabs.com" },
-      "linkedin": { "label": "LinkedIn", "value": "Cabs volgen" },
-      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
-      "whatsapp": { "label": "WhatsApp Business", "value": "Op aanvraag" }
+      "email": {
+        "label": "E-mail",
+        "value": "contact@joincabs.com"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "value": "Cabs volgen"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "value": "@joincabs.com"
+      },
+      "whatsapp": {
+        "label": "WhatsApp Business",
+        "value": "Op aanvraag"
+      }
     },
     "responseTime": {
       "title": "Antwoordtijd",

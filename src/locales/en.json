@@ -43,8 +43,6 @@
     },
     "revenue": {
       "title": "Consolidated revenue",
-      "platform": "Uber",
-      "commission": "Commission",
       "net": "Real net"
     },
     "planning": {
@@ -107,11 +105,11 @@
     "items": {
       "aggregation": {
         "title": "Multi-platform aggregation",
-        "description": "Uber, Bolt, Heetch, TaxiVert and cash. One source of truth, refreshed daily."
+        "description": "Uber, Bolt, Heetch, TaxiVert and cash. One source of truth, updated on every ride."
       },
-      "commissions": {
-        "title": "Gross, net, commissions",
-        "description": "Cabs anticipates each platform's commission and shows you gross revenue and real net per driver, per vehicle, per period."
+      "reconciliation": {
+        "title": "Net consolidated for your accountant",
+        "description": "The net your drivers log on each ride, aggregated per platform, per driver, per vehicle, per period. You run weekly reconciliation against Uber/Bolt payouts without re-opening 8 Excel tabs."
       },
       "time": {
         "title": "No more manual math",
@@ -167,9 +165,9 @@
         "title": "\"Where are you?\" calls every 30 minutes",
         "description": "No live tracking, no idea who's on a ride, who's on break, who's home."
       },
-      "reconciliation": {
-        "title": "Manual Uber × Bolt × Heetch reconciliation",
-        "description": "You find out 3 months later that Bolt's rate changed. Too late to recover."
+      "damage": {
+        "title": "« It was already scratched before my shift »",
+        "description": "No photo at handoff. The day driver blames the night driver, you arbitrate blind. €600 of bodywork eats your margin."
       }
     },
     "bridge": "Cabs kills all six.",
@@ -488,7 +486,7 @@
         "uploadLogo": "Upload logo"
       },
       "platforms": {
-        "title": "Platforms & commissions",
+        "title": "Platforms & payouts",
         "helper": "Shown in driver creation",
         "warning": "Enable the platforms your drivers use. Cabs consolidates net revenue per platform from what drivers log at the end of each ride.",
         "status": {
@@ -664,7 +662,7 @@
       },
       "revenue": {
         "title": "Live revenue",
-        "description": "Today's gross, net after commissions, comparison with yesterday. The driver knows what they earn, ride by ride."
+        "description": "Today's net, compared to yesterday. The driver knows what they earn, ride by ride."
       },
       "alerts": {
         "title": "Operator alerts",
@@ -928,19 +926,22 @@
           "uber": "Assigned Uber ride",
           "bolt": "Assigned Bolt ride",
           "heetch": "Assigned Heetch ride",
-          "cash": "Hailed off the street"
+          "cash": "Hailed off the street",
+          "taxivert": "Assigned TaxiVert ride"
         },
         "netLabel": {
           "uber": "Net you receive",
           "bolt": "Net you receive",
           "heetch": "Net you receive",
-          "cash": "Amount collected"
+          "cash": "Amount collected",
+          "taxivert": "TaxiVert net received"
         },
         "netHint": {
           "uber": "Read from \"Your earnings\" in the Uber Driver app at end of ride.",
           "bolt": "Read from \"Your earnings\" in the Bolt Driver app at end of ride.",
           "heetch": "Read from \"Your earnings\" in the Heetch Driver app at end of ride.",
-          "cash": "What the customer actually paid you."
+          "cash": "What the customer actually paid you.",
+          "taxivert": "Read from the TaxiVert Driver app at end of ride."
         },
         "confirm": "Save the ride"
       },
@@ -948,7 +949,8 @@
         "uber": "Uber",
         "bolt": "Bolt",
         "heetch": "Heetch",
-        "cash": "Cash"
+        "cash": "Cash",
+        "taxivert": "TaxiVert"
       },
       "reset": {
         "cta": "Reset demo",
@@ -1016,10 +1018,22 @@
       "description": "No outsourced support, no bot, no AI chatbot. Your messages land directly with Kristian, Ismael and Nawfel."
     },
     "fields": {
-      "name": { "label": "Full name", "placeholder": "Sofia Rossi" },
-      "email": { "label": "Work email", "placeholder": "sofia@yourcompany.com" },
-      "company": { "label": "Company (optional)", "placeholder": "Antwerp Taxi BV" },
-      "message": { "label": "Your message", "placeholder": "Tell us about your fleet, your needs, what's getting in the way today." }
+      "name": {
+        "label": "Full name",
+        "placeholder": "Sofia Rossi"
+      },
+      "email": {
+        "label": "Work email",
+        "placeholder": "sofia@yourcompany.com"
+      },
+      "company": {
+        "label": "Company (optional)",
+        "placeholder": "Antwerp Taxi BV"
+      },
+      "message": {
+        "label": "Your message",
+        "placeholder": "Tell us about your fleet, your needs, what's getting in the way today."
+      }
     },
     "subjects": {
       "label": "About",
@@ -1048,10 +1062,22 @@
       "title": "Direct channels",
       "comingSoon": "Coming soon · A few weeks before public launch",
       "comingSoonShort": "Coming soon",
-      "email": { "label": "Email", "value": "contact@joincabs.com" },
-      "linkedin": { "label": "LinkedIn", "value": "Follow Cabs" },
-      "instagram": { "label": "Instagram", "value": "@joincabs.com" },
-      "whatsapp": { "label": "WhatsApp Business", "value": "On request" }
+      "email": {
+        "label": "Email",
+        "value": "contact@joincabs.com"
+      },
+      "linkedin": {
+        "label": "LinkedIn",
+        "value": "Follow Cabs"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "value": "@joincabs.com"
+      },
+      "whatsapp": {
+        "label": "WhatsApp Business",
+        "value": "On request"
+      }
     },
     "responseTime": {
       "title": "Response time",
@@ -1085,7 +1111,7 @@
         },
         "integrations": {
           "q": "How does Cabs pull my Uber, Bolt and Heetch rides?",
-          "a": "You first configure your platforms and their commissions in the dashboard. At the end of each ride, the driver simply marks which app was used. Cabs automatically computes commissions and real net. No direct access to your Uber, Bolt or Heetch accounts is required, so zero risk on the platform side."
+          "a": "No direct access to your Uber, Bolt or Heetch accounts is required. At the end of each ride, the driver picks the platform and types the net they just received on the app. Cabs consolidates the day's rides per driver and per vehicle, then cross-checks with each platform's weekly payout to flag any mismatch."
         },
         "drivers": {
           "q": "Are my drivers required to use the app?",
@@ -1097,7 +1123,7 @@
         },
         "accounting": {
           "q": "Can my accountant pull exports easily?",
-          "a": "Yes. Each data type (revenue per platform, per driver, per vehicle, period, VAT, commissions) ships with dedicated CSV and PDF exports, compatible with major Belgian accounting tools: Yuki, Octopus, BOB, Winbooks."
+          "a": "Yes. Each data type (revenue per platform, per driver, per vehicle, period, VAT) ships with dedicated CSV and PDF exports, compatible with major Belgian accounting tools: Yuki, Octopus, BOB, Winbooks."
         },
         "hosting": {
           "q": "Where are my data and my drivers' data stored?",

@@ -13,12 +13,13 @@ import { cn } from '@/lib/utils'
 import type { Platform } from '../types'
 import { usePhoneSim } from '../usePhoneSim'
 
-const PLATFORMS: Platform[] = ['uber', 'bolt', 'heetch', 'cash']
+const PLATFORMS: Platform[] = ['uber', 'bolt', 'heetch', 'taxivert', 'cash']
 
 const PLATFORM_TONE: Record<Platform, string> = {
   uber: 'from-zinc-200/20 via-zinc-300/10 to-transparent',
   bolt: 'from-emerald-400/25 via-emerald-500/10 to-transparent',
   heetch: 'from-fuchsia-400/25 via-fuchsia-500/10 to-transparent',
+  taxivert: 'from-sky-400/25 via-sky-500/10 to-transparent',
   cash: 'from-amber-400/25 via-amber-500/10 to-transparent',
 }
 

@@ -53,6 +53,7 @@ export function PlatformBadge({
     uber: 'bg-zinc-200/10 text-zinc-100 ring-zinc-200/20 phone-light:bg-zinc-900/[0.08] phone-light:text-zinc-800 phone-light:ring-zinc-900/[0.12]',
     bolt: 'bg-emerald-400/10 text-emerald-300 ring-emerald-400/20 phone-light:bg-emerald-500/15 phone-light:text-emerald-800 phone-light:ring-emerald-500/30',
     heetch: 'bg-fuchsia-400/10 text-fuchsia-300 ring-fuchsia-400/20 phone-light:bg-fuchsia-500/15 phone-light:text-fuchsia-800 phone-light:ring-fuchsia-500/30',
+    taxivert: 'bg-sky-400/10 text-sky-300 ring-sky-400/20 phone-light:bg-sky-500/15 phone-light:text-sky-800 phone-light:ring-sky-500/30',
     cash: 'bg-amber-400/10 text-amber-300 ring-amber-400/20 phone-light:bg-amber-500/20 phone-light:text-amber-800 phone-light:ring-amber-500/40',
   }
   return (
