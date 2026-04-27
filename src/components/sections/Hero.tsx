@@ -70,12 +70,7 @@ export function Hero() {
           {/* Mobile-only swipe hint, sits between the hero CTA and the
               ProductTicker carousel. The ticker keeps its own decorative
               taxi-roof sticker; no duplicate logo here. */}
-          <motion.p
-            initial={reduce ? false : { opacity: 0 }}
-            animate={introReady ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="mt-20 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:mt-0 lg:hidden"
-          >
+          <p className="mt-20 flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground lg:mt-0 lg:hidden">
             <motion.span
               aria-hidden
               animate={reduce ? undefined : { x: [0, -3, 0] }}
@@ -101,16 +96,15 @@ export function Hero() {
             >
               <ChevronRight className="h-3 w-3" />
             </motion.span>
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={reduce ? false : { opacity: 0 }}
-            animate={introReady ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="flex justify-center lg:justify-end"
-          >
+          {/* No motion wrapper here — content stays visible from frame 0
+              even when framer-motion's animation loop is delayed by JS
+              parsing on slow mobiles. The ProductTicker still has its
+              own internal animations on user interaction. */}
+          <div className="flex justify-center lg:justify-end">
             <ProductTicker />
-          </motion.div>
+          </div>
         </div>
 
         <motion.button

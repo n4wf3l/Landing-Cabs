@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import {
-  ArrowDownRight,
   ArrowUpRight,
   CalendarDays,
   CarFront,
@@ -150,7 +149,14 @@ export function ProductTicker({ className }: Props) {
 
           <Header current={current} idx={idx} />
 
-          <AnimatePresence mode="wait">
+          {/* `initial={false}` on AnimatePresence skips the entrance
+              animation on the FIRST snapshot. Without this, the body
+              starts at opacity:0 and only animates to 1 once the framer
+              animation loop runs — which can be delayed by 5-10 s on a
+              slow mobile parsing the JS bundle, leaving the carousel
+              body looking 'empty/black'. Subsequent snapshot changes
+              still animate as before. */}
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current}
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
@@ -187,7 +193,7 @@ function Header({ current, idx }: { current: SnapshotKind; idx: number }) {
   const Icon = ICONS[current]
   return (
     <header className="mb-4 flex items-center justify-between">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={current}
           initial={reduce ? { opacity: 0 } : { opacity: 0, x: -6 }}
@@ -253,33 +259,37 @@ function Stagger({
   )
 }
 
+// Sample net revenue per platform — already deducted of platform fees.
+// The ticker pitches Cabs's actual job: consolidating multi-platform
+// nets in one view, not recomputing commissions client-side.
+const REVENUE_PLATFORMS = [
+  { name: 'Uber', net: 430, dotClass: 'bg-zinc-300 phone-light:bg-zinc-700' },
+  { name: 'Bolt', net: 280, dotClass: 'bg-emerald-400' },
+  { name: 'Heetch', net: 250, dotClass: 'bg-fuchsia-400' },
+] as const
+
 function RevenueBody({ reduce }: { reduce: boolean }) {
   const { t } = useTranslation()
-  const gross = 1247
-  const rate = 23
-  const commission = Math.round(gross * (rate / 100))
-  const net = gross - commission
+  const total = REVENUE_PLATFORMS.reduce((a, p) => a + p.net, 0)
   const variants = rowVariants(reduce)
 
   return (
     <Stagger reduce={reduce}>
-      <motion.div variants={variants} className="flex items-baseline justify-between">
-        <span className="text-sm text-muted-foreground">
-          {t('ticker.revenue.gross')} {t('ticker.revenue.platform')}
-        </span>
-        <span className="text-base font-medium tabular-nums">
-          {formatEur(gross)}
-        </span>
-      </motion.div>
-      <motion.div variants={variants} className="flex items-baseline justify-between">
-        <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <ArrowDownRight className="h-3.5 w-3.5" />
-          {t('ticker.revenue.commission')} {rate}%
-        </span>
-        <span className="text-base font-medium tabular-nums text-foreground/80">
-          − {formatEur(commission)}
-        </span>
-      </motion.div>
+      {REVENUE_PLATFORMS.map((p) => (
+        <motion.div
+          key={p.name}
+          variants={variants}
+          className="flex items-baseline justify-between"
+        >
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span aria-hidden className={cn('h-2 w-2 rounded-full', p.dotClass)} />
+            {p.name}
+          </span>
+          <span className="text-base font-medium tabular-nums">
+            {formatEur(p.net)}
+          </span>
+        </motion.div>
+      ))}
       <div
         aria-hidden
         className="my-1 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent"
@@ -290,7 +300,7 @@ function RevenueBody({ reduce }: { reduce: boolean }) {
           {t('ticker.revenue.net')}
         </span>
         <span className="text-2xl font-bold tabular-nums text-primary">
-          {formatEur(net)}
+          {formatEur(total)}
         </span>
       </motion.div>
     </Stagger>
