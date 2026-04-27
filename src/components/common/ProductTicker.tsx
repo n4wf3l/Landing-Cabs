@@ -226,37 +226,15 @@ function Header({ current, idx }: { current: SnapshotKind; idx: number }) {
   )
 }
 
-function rowVariants(reduce: boolean) {
-  return {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 6 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: reduce ? 0.01 : 0.35, ease: EASE },
-    },
-  }
-}
-
-function Stagger({
-  reduce,
-  children,
-}: {
-  reduce: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: reduce ? 0 : 0.15 } },
-      }}
-      className="space-y-3"
-    >
-      {children}
-    </motion.div>
-  )
+// Plain wrapper. The previous version was a motion.div with stagger
+// variants and child motion.div items (rowVariants). Each snapshot
+// body queued ~4-7 framer-motion animations on mount, which on real
+// mobile took 6-7 s of main-thread time and held up every section
+// below from rendering. Now: plain <div>, content visible instantly,
+// snapshot cross-fade still handled by the outer AnimatePresence in
+// ProductTicker.
+function Stagger({ children }: { children: React.ReactNode }) {
+  return <div className="space-y-3">{children}</div>
 }
 
 // Sample net revenue per platform — already deducted of platform fees.
@@ -268,17 +246,15 @@ const REVENUE_PLATFORMS = [
   { name: 'Heetch', net: 250, dotClass: 'bg-fuchsia-400' },
 ] as const
 
-function RevenueBody({ reduce }: { reduce: boolean }) {
+function RevenueBody({ reduce: _ }: { reduce: boolean }) {
   const { t } = useTranslation()
   const total = REVENUE_PLATFORMS.reduce((a, p) => a + p.net, 0)
-  const variants = rowVariants(reduce)
+
 
   return (
-    <Stagger reduce={reduce}>
+    <Stagger>
       {REVENUE_PLATFORMS.map((p) => (
-        <motion.div
-          key={p.name}
-          variants={variants}
+        <div key={p.name}
           className="flex items-baseline justify-between"
         >
           <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -288,13 +264,13 @@ function RevenueBody({ reduce }: { reduce: boolean }) {
           <span className="text-base font-medium tabular-nums">
             {formatEur(p.net)}
           </span>
-        </motion.div>
+        </div>
       ))}
       <div
         aria-hidden
         className="my-1 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent"
       />
-      <motion.div variants={variants} className="flex items-baseline justify-between">
+      <div className="flex items-baseline justify-between">
         <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
           <Check className="h-3.5 w-3.5 text-primary" />
           {t('ticker.revenue.net')}
@@ -302,7 +278,7 @@ function RevenueBody({ reduce }: { reduce: boolean }) {
         <span className="text-2xl font-bold tabular-nums text-primary">
           {formatEur(total)}
         </span>
-      </motion.div>
+      </div>
     </Stagger>
   )
 }
@@ -335,18 +311,13 @@ function PlanningBody({ reduce }: { reduce: boolean }) {
         reduce={reduce}
         tone="muted"
       />
-      <motion.p
-        initial={reduce ? { opacity: 0 } : { opacity: 0, y: 4 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: reduce ? 0 : 1, duration: reduce ? 0.01 : 0.3 }}
-        className="flex items-center gap-1.5 pt-1 text-xs text-muted-foreground"
-      >
+      <p className="flex items-center gap-1.5 pt-1 text-xs text-muted-foreground">
         <Check className="h-3 w-3 text-primary" />
         {t('ticker.planning.summary', {
           assigned: totalAssigned,
           conflicts: 0,
         })}
-      </motion.p>
+      </p>
     </div>
   )
 }
@@ -395,9 +366,9 @@ function PlanningRow({
   )
 }
 
-function FleetBody({ reduce }: { reduce: boolean }) {
+function FleetBody({ reduce: _ }: { reduce: boolean }) {
   const { t } = useTranslation()
-  const variants = rowVariants(reduce)
+
   const items = [
     { key: 'inService', count: 8, color: 'bg-emerald-500' },
     { key: 'maintenance', count: 2, color: 'bg-amber-500' },
@@ -406,17 +377,12 @@ function FleetBody({ reduce }: { reduce: boolean }) {
   ] as const
 
   return (
-    <Stagger reduce={reduce}>
-      <motion.p
-        variants={variants}
-        className="text-sm font-semibold tracking-tight"
-      >
+    <Stagger>
+      <p className="text-sm font-semibold tracking-tight">
         {t('ticker.fleet.title', { count: 12 })}
-      </motion.p>
+      </p>
       {items.map((item) => (
-        <motion.div
-          key={item.key}
-          variants={variants}
+        <div
           className="flex items-baseline justify-between"
         >
           <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -429,15 +395,15 @@ function FleetBody({ reduce }: { reduce: boolean }) {
           <span className="text-base font-semibold tabular-nums">
             {item.count}
           </span>
-        </motion.div>
+        </div>
       ))}
     </Stagger>
   )
 }
 
-function DriversBody({ reduce }: { reduce: boolean }) {
+function DriversBody({ reduce: _ }: { reduce: boolean }) {
   const { t } = useTranslation()
-  const variants = rowVariants(reduce)
+
   const items = [
     { key: 'active', count: 19, color: 'bg-emerald-500' },
     { key: 'leave', count: 3, color: 'bg-sky-500' },
@@ -446,17 +412,12 @@ function DriversBody({ reduce }: { reduce: boolean }) {
   ] as const
 
   return (
-    <Stagger reduce={reduce}>
-      <motion.p
-        variants={variants}
-        className="text-sm font-semibold tracking-tight"
-      >
+    <Stagger>
+      <p className="text-sm font-semibold tracking-tight">
         {t('ticker.drivers.title', { count: 24 })}
-      </motion.p>
+      </p>
       {items.map((item) => (
-        <motion.div
-          key={item.key}
-          variants={variants}
+        <div
           className="flex items-baseline justify-between"
         >
           <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -469,7 +430,7 @@ function DriversBody({ reduce }: { reduce: boolean }) {
           <span className="text-base font-semibold tabular-nums">
             {item.count}
           </span>
-        </motion.div>
+        </div>
       ))}
     </Stagger>
   )
@@ -616,12 +577,11 @@ function TrackingDot({
 
 function DriverAppBody({ reduce }: { reduce: boolean }) {
   const { t } = useTranslation()
-  const variants = rowVariants(reduce)
+
 
   return (
-    <Stagger reduce={reduce}>
-      <motion.div
-        variants={variants}
+    <Stagger>
+      <div
         className="flex items-center justify-between"
       >
         <span className="flex items-center gap-2 text-sm">
@@ -636,27 +596,24 @@ function DriverAppBody({ reduce }: { reduce: boolean }) {
         <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
           {t('ticker.driverApp.dayShift')}
         </span>
-      </motion.div>
-      <motion.div
-        variants={variants}
+      </div>
+      <div
         className="flex items-baseline justify-between"
       >
         <span className="text-sm text-muted-foreground">
           {t('ticker.driverApp.rides')}
         </span>
         <span className="text-base font-semibold tabular-nums">23</span>
-      </motion.div>
-      <motion.div
-        variants={variants}
+      </div>
+      <div
         className="flex items-baseline justify-between"
       >
         <span className="text-sm text-muted-foreground">
           {t('ticker.driverApp.netToday')}
         </span>
         <span className="text-base font-semibold tabular-nums">312 €</span>
-      </motion.div>
-      <motion.div
-        variants={variants}
+      </div>
+      <div
         className="flex items-baseline justify-between"
       >
         <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -666,7 +623,7 @@ function DriverAppBody({ reduce }: { reduce: boolean }) {
         <span className="text-base font-semibold tabular-nums text-emerald-500">
           +18%
         </span>
-      </motion.div>
+      </div>
     </Stagger>
   )
 }
