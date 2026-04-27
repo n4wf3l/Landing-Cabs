@@ -1,10 +1,8 @@
 import { useState, type KeyboardEvent } from 'react'
-import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Languages, MapPin, Sparkles } from 'lucide-react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { InstagramIcon, LinkedinIcon } from '@/components/common/SocialIcons'
-import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
 import {
   Dialog,
   DialogContent,
@@ -38,13 +36,7 @@ export function Team() {
           ~90 px and fits all three founders in roughly one screen.
           ≥sm: original vertical centered card.
         */}
-        <motion.ul
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-15%' }}
-          variants={staggerContainer}
-          className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
-        >
+        <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {FOUNDERS.map((founder) => {
             const name = t(`team.members.${founder.key}.name`)
             const role = t(`team.members.${founder.key}.role`)
@@ -60,20 +52,17 @@ export function Team() {
               e.stopPropagation()
 
             return (
-              <motion.li key={founder.key} variants={staggerItem}>
-                <motion.div
+              <li key={founder.key}>
+                <div
                   role="button"
                   tabIndex={0}
                   aria-label={t('team.modal.openLabel', { name })}
                   onClick={handleOpen}
                   onKeyDown={handleKeyDown}
-                  whileHover={{ y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: 'spring', stiffness: 260, damping: 24 }}
                   className={cn(
-                    'group relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-4 text-left backdrop-blur transition-colors',
+                    'group relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-4 text-left backdrop-blur transition-all duration-200',
                     'sm:flex-col sm:items-center sm:gap-0 sm:p-8 sm:text-center',
-                    'hover:border-primary/40 hover:shadow-glow',
+                    'hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow active:scale-[0.98]',
                     'focus-visible:border-primary/60 focus-visible:shadow-glow focus-visible:outline-none',
                   )}
                 >
@@ -134,11 +123,11 @@ export function Team() {
                       <LinkedinIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </a>
                   </div>
-                </motion.div>
-              </motion.li>
+                </div>
+              </li>
             )
           })}
-        </motion.ul>
+        </ul>
       </div>
 
       <Dialog

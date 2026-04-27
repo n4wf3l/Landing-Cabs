@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { motion } from 'framer-motion'
 
 interface SectionHeadingProps {
   eyebrow?: string
@@ -9,6 +8,11 @@ interface SectionHeadingProps {
   className?: string
 }
 
+// Plain HTML heading. The previous version was a motion.div with
+// whileInView fade-in. Rendered ~6 times across the landing (one per
+// section), it added 6 framer-motion mount-time costs + 6 IntersectionObserver
+// callbacks on a real mobile already saturated by the page's commit
+// phase. Static HTML renders the moment the parent section commits.
 export function SectionHeading({
   eyebrow,
   title,
@@ -17,11 +21,7 @@ export function SectionHeading({
   className,
 }: SectionHeadingProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-15%' }}
-      transition={{ duration: 0.5 }}
+    <div
       className={cn(
         'mx-auto max-w-3xl space-y-4',
         center && 'text-center',
@@ -41,6 +41,6 @@ export function SectionHeading({
           {subtitle}
         </p>
       )}
-    </motion.div>
+    </div>
   )
 }
