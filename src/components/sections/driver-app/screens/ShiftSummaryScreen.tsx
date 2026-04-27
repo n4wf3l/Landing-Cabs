@@ -30,6 +30,7 @@ export function ShiftSummaryScreen() {
       uber: { rides: 0, net: 0 },
       bolt: { rides: 0, net: 0 },
       heetch: { rides: 0, net: 0 },
+      taxivert: { rides: 0, net: 0 },
       cash: { rides: 0, net: 0 },
     },
   )

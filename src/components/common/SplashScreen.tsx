@@ -89,16 +89,11 @@ export function SplashScreen() {
   }, [visible, reduce, taglines.length])
 
   // Every block now renders fully visible / interactive from frame zero.
-  // The previous cascading delays (0.1s → 0.93s) made the language buttons
-  // invisible for ~1.3s on mount, which felt like "unclickable" on slow
-  // mobiles where JS parsing already eats 1-2s. The single splash-level
-  // fade-in is enough polish.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const fadeUp = (_delay: number) => ({
-    initial: false as const,
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0 },
-  })
+  // No fadeUp helper or cascading delays — the previous animation chain
+  // (0.1s → 0.93s) made language buttons invisible for ~1.3s on mount,
+  // which felt like "unclickable" on slow mobiles where JS parsing already
+  // eats 1-2s. The splash itself still does its single fade-in/out via
+  // the outer AnimatePresence.
 
   return (
     <AnimatePresence>
@@ -144,25 +139,14 @@ export function SplashScreen() {
               </span>
             </div>
 
-            <motion.div
-              {...fadeUp(0.2)}
-              className="relative mt-5 h-7 w-full max-w-[420px] overflow-hidden"
-            >
+            <div className="relative mt-5 h-7 w-full max-w-[420px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={tagline}
-                  initial={
-                    reduce
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: 10, filter: 'blur(6px)' }
-                  }
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={
-                    reduce
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: -10, filter: 'blur(6px)' }
-                  }
-                  transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE }}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                  transition={{ duration: reduce ? 0.01 : 0.3, ease: EASE }}
                   className={cn(
                     'absolute inset-0 text-center text-base font-medium',
                     isDark ? 'text-zinc-400' : 'text-zinc-600',
@@ -171,17 +155,14 @@ export function SplashScreen() {
                   {tagline}
                 </motion.p>
               </AnimatePresence>
-            </motion.div>
+            </div>
 
             <span
               aria-hidden
               className="mt-8 block h-px w-16 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
             />
 
-            <motion.div
-              {...fadeUp(0.45)}
-              className="mt-8 flex flex-col items-center gap-2.5"
-            >
+            <div className="mt-8 flex flex-col items-center gap-2.5">
               <p
                 className={cn(
                   'text-[10px] font-semibold uppercase tracking-[0.28em]',
@@ -242,12 +223,9 @@ export function SplashScreen() {
                   )
                 })}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              {...fadeUp(0.6)}
-              className="mt-8 flex w-full flex-col items-center gap-3"
-            >
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
               <p
                 className={cn(
                   'text-[10px] font-semibold uppercase tracking-[0.28em]',
@@ -290,16 +268,13 @@ export function SplashScreen() {
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.button
+          <button
             type="button"
             onClick={dismiss}
             aria-label="Skip"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: reduce ? 0 : 1.1, duration: 0.3 }}
             className={cn(
               'absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs transition-colors sm:right-6 sm:top-6',
               isDark
@@ -309,7 +284,7 @@ export function SplashScreen() {
           >
             Skip
             <X className="h-3.5 w-3.5" />
-          </motion.button>
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
