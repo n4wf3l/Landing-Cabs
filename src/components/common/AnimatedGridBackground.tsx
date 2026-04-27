@@ -9,10 +9,7 @@ export function AnimatedGridBackground({ className }: AnimatedGridBackgroundProp
     <div
       aria-hidden
       className={cn(
-        // Hidden on mobile: the radial mask-image is extremely expensive
-        // on iOS Safari and contributes to the long delay before the
-        // page paints content below the carousel on real devices.
-        'pointer-events-none absolute inset-0 hidden overflow-hidden lg:block',
+        'pointer-events-none absolute inset-0 overflow-hidden',
         className,
       )}
     >
