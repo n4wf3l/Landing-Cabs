@@ -7,10 +7,8 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
-import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
 import { cn } from '@/lib/utils'
 
 interface FeatureDef {
@@ -36,22 +34,18 @@ export function Features() {
           title={t('features.title')}
           subtitle={t('features.subtitle')}
         />
-        <motion.ul
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-15%' }}
-          variants={staggerContainer}
-          className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Plain <ul> + <li>. The previous motion.ul + staggerContainer
+            + 6 motion.li with whileHover queued an animation chain that
+            stalled the main thread on real mobile and held up every
+            section below from rendering. CSS hover:translate keeps the
+            lift-on-hover effect on desktop without any framer cost. */}
+        <ul className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map(({ key, Icon }) => (
-            <motion.li
+            <li
               key={key}
-              variants={staggerItem}
-              whileHover={{ y: -4 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 24 }}
               className={cn(
-                'group relative overflow-hidden rounded-xl border border-border/60 bg-card/60 p-6 backdrop-blur transition-all',
-                'hover:border-primary/40 hover:shadow-glow',
+                'group relative overflow-hidden rounded-xl border border-border/60 bg-card/60 p-6 backdrop-blur transition-all duration-300',
+                'hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow',
               )}
             >
               <div
@@ -67,9 +61,9 @@ export function Features() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {t(`features.items.${key}.description`)}
               </p>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
     </section>
   )

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import {
   CameraOff,
   ClipboardList,
@@ -10,7 +9,6 @@ import {
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { SectionHeading } from '@/components/common/SectionHeading'
-import { staggerContainer, staggerItem } from '@/components/common/ScrollReveal'
 
 interface Pain {
   key: string
@@ -46,17 +44,16 @@ export function PainPoints() {
           subtitle={t('pains.subtitle')}
         />
 
-        <motion.ul
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-15%' }}
-          variants={staggerContainer}
-          className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Plain <ul> + <li> instead of motion.ul + staggerContainer.
+            On real mobile the framer-motion stagger queue (6 items × 80 ms)
+            held up the main thread for several seconds and blocked the
+            whileInView triggers of every section below. Plain HTML
+            renders the cards instantly, content is always visible,
+            zero animation cost. */}
+        <ul className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {PAINS.map(({ key, Icon }) => (
-            <motion.li
+            <li
               key={key}
-              variants={staggerItem}
               className="group relative overflow-hidden rounded-xl border border-border/60 bg-background/50 p-5 transition-colors hover:border-rose-500/30"
             >
               <div
@@ -72,17 +69,11 @@ export function PainPoints() {
               <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
                 {t(`pains.items.${key}.description`)}
               </p>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
 
-        <motion.p
-          initial={{ opacity: 1, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="mx-auto mt-10 max-w-xl text-center text-sm text-muted-foreground"
-        >
+        <p className="mx-auto mt-10 max-w-xl text-center text-sm text-muted-foreground">
           {t('pains.bridge')}{' '}
           <a
             href="#admin"
@@ -90,7 +81,7 @@ export function PainPoints() {
           >
             {t('pains.bridgeCta')}
           </a>
-        </motion.p>
+        </p>
       </div>
     </section>
   )
