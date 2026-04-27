@@ -98,10 +98,16 @@ export function SplashScreen() {
     return () => window.clearInterval(id)
   }, [visible, reduce, taglines.length])
 
-  const fadeUp = (delay: number) => ({
-    initial: reduce ? { opacity: 0 } : { opacity: 0, y: 8 },
+  // Every block now renders fully visible / interactive from frame zero.
+  // The previous cascading delays (0.1s → 0.93s) made the language buttons
+  // invisible for ~1.3s on mount, which felt like "unclickable" on slow
+  // mobiles where JS parsing already eats 1-2s. The single splash-level
+  // fade-in is enough polish.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const fadeUp = (_delay: number) => ({
+    initial: false as const,
     animate: { opacity: 1, y: 0 },
-    transition: { duration: reduce ? 0.01 : 0.5, delay: reduce ? 0 : delay, ease: EASE },
+    transition: { duration: 0 },
   })
 
   return (
@@ -138,17 +144,14 @@ export function SplashScreen() {
                 height={48}
                 className="h-12 w-auto"
               />
-              <motion.span
-                initial={reduce ? { opacity: 0 } : { opacity: 0, x: -6 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.1, ease: EASE }}
+              <span
                 className={cn(
                   'text-3xl font-bold tracking-tight',
                   isDark ? 'text-white' : 'text-zinc-900',
                 )}
               >
                 Cabs
-              </motion.span>
+              </span>
             </div>
 
             <motion.div
@@ -180,12 +183,9 @@ export function SplashScreen() {
               </AnimatePresence>
             </motion.div>
 
-            <motion.span
+            <span
               aria-hidden
-              initial={reduce ? { opacity: 0 } : { scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: reduce ? 0.01 : 0.55, delay: reduce ? 0 : 0.35, ease: EASE }}
-              className="mt-8 block h-px w-16 origin-center bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+              className="mt-8 block h-px w-16 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
             />
 
             <motion.div
@@ -267,19 +267,14 @@ export function SplashScreen() {
                 Langue · Language · Taal · Sprache
               </p>
               <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-4">
-                {LOCALES.map((locale, i) => (
+                {LOCALES.map((locale) => (
                   <motion.button
                     key={locale.code}
                     type="button"
                     onClick={() => pickLanguage(locale.code)}
                     aria-label={locale.label}
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                      duration: reduce ? 0.01 : 0.4,
-                      delay: reduce ? 0 : 0.75 + i * 0.06,
-                      ease: EASE,
-                    }}
+                    initial={false}
+                    animate={false}
                     whileHover={!reduce && supportsHover ? { y: -2 } : undefined}
                     whileTap={reduce ? undefined : { scale: 0.95 }}
                     className={cn(
