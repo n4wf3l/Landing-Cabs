@@ -129,12 +129,6 @@
       }
     }
   },
-  "launcher": {
-    "adminCta": "Start de dashboard-simulator",
-    "driverCta": "Start de chauffeurs-app",
-    "hint": "Interactieve demo · Fictieve data · Geen registratie",
-    "loading": "Simulator laden"
-  },
   "showcase": {
     "eyebrow": "01 · Uitbaterskant",
     "title": "Eén dashboard. Alles wat telt.",
