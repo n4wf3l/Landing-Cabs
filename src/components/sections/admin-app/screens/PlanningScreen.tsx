@@ -219,6 +219,7 @@ export function PlanningScreen() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <ShiftLegend />
           <Pill
             tone="emerald"
             label={t('admin.planning.assigned', {
@@ -581,5 +582,51 @@ function Pill({
     >
       {label}
     </span>
+  )
+}
+
+const SHIFT_TONE_PILL: Record<
+  'amber' | 'indigo' | 'emerald' | 'rose',
+  string
+> = {
+  amber:
+    'border-amber-400/30 bg-amber-400/10 text-amber-300',
+  indigo:
+    'border-indigo-400/30 bg-indigo-400/10 text-indigo-300',
+  emerald:
+    'border-emerald-400/30 bg-emerald-400/10 text-emerald-300',
+  rose: 'border-rose-400/30 bg-rose-400/10 text-rose-300',
+}
+
+/**
+ * Reads the configured shift slots from context and renders a small
+ * legend pill per slot — so the operator immediately sees what "Day"
+ * and "Night" actually mean in their current setup, plus any custom
+ * extra slots they've added.
+ */
+function ShiftLegend() {
+  const { t } = useTranslation()
+  const { shiftSlots } = useAdminApp()
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      {shiftSlots.map((slot) => (
+        <span
+          key={slot.id}
+          className={cn(
+            'inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-semibold tabular-nums',
+            SHIFT_TONE_PILL[slot.tone],
+          )}
+          title={t(`admin.settings.defaults.shiftLabels.${slot.id}`)}
+        >
+          <span className="uppercase tracking-wider">
+            {slot.label ??
+              t(`admin.settings.defaults.shiftLabels.${slot.id}`)}
+          </span>
+          <span className="opacity-80">
+            {slot.start} → {slot.end}
+          </span>
+        </span>
+      ))}
+    </div>
   )
 }

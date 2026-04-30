@@ -9,6 +9,7 @@ import {
   IdCard,
   Mail,
   MapPin,
+  Sliders,
   User,
   X,
 } from 'lucide-react'
@@ -16,6 +17,7 @@ import { useTranslation } from 'react-i18next'
 import { useAdminApp } from '../useAdminApp'
 import type {
   DriverFormPayload,
+  DriverRow,
   PaymentMethod,
   PreferredShift,
   Weekday,
@@ -72,6 +74,34 @@ const INITIAL_PAYLOAD: DriverFormPayload = {
   acceptedPayments: ['CASH', 'CARD', 'UBER_APP', 'BOLT_CARD'],
 }
 
+/**
+ * Converts the in-progress add-driver payload into a DriverRow shape so
+ * we can hand it to the conditions panel right after the operator hits
+ * "Save + advanced". Mirrors the equivalent helper in DriversScreen but
+ * uses a `pending_` prefix to signal this is a fresh driver that hasn't
+ * been re-keyed against the persisted addedDrivers index yet.
+ */
+function payloadToDriverRow(p: DriverFormPayload): DriverRow {
+  const initials =
+    `${p.user.firstName.charAt(0)}${p.user.lastName.charAt(0)}`.toUpperCase() ||
+    '??'
+  return {
+    id: `pending_${Date.now()}`,
+    initials,
+    firstName: p.user.firstName || '—',
+    lastName: p.user.lastName || '',
+    email: p.user.email || '—',
+    phone: p.user.phoneNumber || '—',
+    city: p.user.city || '—',
+    postcode: p.user.postalCode || '—',
+    status: 'active',
+    shiftStartedAt: '—',
+    shiftDurationMinutes: 0,
+    paymentEnabled: p.acceptedPayments.length > 0,
+    avatarHue: ((p.user.firstName.charCodeAt(0) || 0) * 7) % 360,
+  }
+}
+
 interface AddDriverPanelProps {
   open: boolean
   onClose: () => void
@@ -79,7 +109,7 @@ interface AddDriverPanelProps {
 
 export function AddDriverPanel({ open, onClose }: AddDriverPanelProps) {
   const { t } = useTranslation()
-  const { addDriver } = useAdminApp()
+  const { addDriver, openConditionsFor } = useAdminApp()
   const [payload, setPayload] = useState<DriverFormPayload>(INITIAL_PAYLOAD)
   const [showJson, setShowJson] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -121,6 +151,25 @@ export function AddDriverPanel({ open, onClose }: AddDriverPanelProps) {
       setPayload(INITIAL_PAYLOAD)
       onClose()
     }, 1400)
+  }
+
+  // Save + open the per-platform conditions panel for the just-created
+  // driver, so the operator can configure 40/60 Uber, forfait Bolt, etc.
+  // without first having to find them in the drivers list.
+  const handleSubmitAdvanced = () => {
+    if (!payload.user.firstName.trim() || !payload.user.lastName.trim()) {
+      // The HTML form's `required` will fire on the regular Save path;
+      // for this secondary route we need a manual minimal guard so the
+      // conditions panel doesn't open with an empty driver name.
+      return
+    }
+    addDriver(payload)
+    const newRow = payloadToDriverRow(payload)
+    setPayload(INITIAL_PAYLOAD)
+    onClose()
+    // Open the conditions panel on the next tick so the close animation
+    // of the form modal has a frame to start before the next one stacks.
+    window.setTimeout(() => openConditionsFor(newRow), 80)
   }
 
   return (
@@ -409,17 +458,25 @@ export function AddDriverPanel({ open, onClose }: AddDriverPanelProps) {
                   </Section>
                 </div>
 
-                <footer className="flex items-center justify-between gap-2 border-t border-border/40 bg-card/80 px-4 py-2.5 backdrop-blur">
+                <footer className="border-t border-border/40 bg-card/80 px-4 py-2.5 backdrop-blur">
                   <p className="text-[10px] text-muted-foreground">
                     {t('admin.addDriver.footerHint')}
                   </p>
-                  <div className="flex items-center gap-1.5">
+                  <div className="mt-2 flex flex-wrap items-center justify-end gap-1.5">
                     <button
                       type="button"
                       onClick={onClose}
                       className="inline-flex h-7 items-center rounded-md border border-border/60 bg-background/40 px-3 text-[10px] font-medium text-muted-foreground hover:text-foreground"
                     >
                       {t('admin.addDriver.cancel')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSubmitAdvanced}
+                      className="inline-flex h-7 items-center gap-1.5 rounded-md border border-primary/40 bg-primary/10 px-3 text-[10px] font-semibold text-primary transition-colors hover:bg-primary/15"
+                    >
+                      <Sliders className="h-3 w-3" />
+                      {t('admin.addDriver.saveAdvanced')}
                     </button>
                     <button
                       type="submit"

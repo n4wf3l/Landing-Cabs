@@ -35,16 +35,21 @@ export function DriverApp() {
   const [fullscreen, setFullscreen] = useState(false)
 
   return (
-    <section
-      id="app"
-      className="relative scroll-mt-20 overflow-hidden py-24 sm:py-32"
-    >
+    <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow={t('driverApp.eyebrow')}
-          title={t('driverApp.title')}
-          subtitle={t('driverApp.subtitle')}
-        />
+        {/*
+          #app anchor lands on the heading wrapper, not the section, so
+          clicking the navbar link skips past the section's vertical
+          padding and parks the eyebrow ~4 px under the 64 px navbar
+          (scroll-mt = 68 px). Same offset as the #team anchor.
+        */}
+        <div id="app" className="scroll-mt-[68px]">
+          <SectionHeading
+            eyebrow={t('driverApp.eyebrow')}
+            title={t('driverApp.title')}
+            subtitle={t('driverApp.subtitle')}
+          />
+        </div>
 
         <div className="mx-auto mt-16 grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
           <motion.ul

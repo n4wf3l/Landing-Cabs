@@ -14,13 +14,21 @@ import { ShiftsScreen } from './screens/ShiftsScreen'
 import { PlaceholderScreen } from './screens/PlaceholderScreen'
 import { DemoStartScreen } from './screens/DemoStartScreen'
 import { AddDriverPanel } from './screens/AddDriverPanel'
+import { DriverConditionsPanel } from './screens/DriverConditionsPanel'
 import { AddVehiclePanel } from './screens/AddVehiclePanel'
 import { DemoToast } from './parts/DemoToast'
 import type { AdminScreen } from './types'
 
 function ShellInner() {
   const { t } = useTranslation()
-  const { started, screen, modal, openModal } = useAdminApp()
+  const {
+    started,
+    screen,
+    modal,
+    openModal,
+    conditionsDriver,
+    closeConditions,
+  } = useAdminApp()
   const reduce = useReducedMotion()
 
   const renderScreen = (s: AdminScreen) => {
@@ -99,6 +107,10 @@ function ShellInner() {
       <AddVehiclePanel
         open={modal === 'addVehicle'}
         onClose={() => openModal(null)}
+      />
+      <DriverConditionsPanel
+        driver={conditionsDriver}
+        onClose={closeConditions}
       />
       <DemoToast />
     </div>

@@ -591,7 +591,7 @@ function DriverAppBody({ reduce }: { reduce: boolean }) {
             )}
             <span className="relative inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
           </span>
-          <span className="font-semibold tracking-tight">Sofia R.</span>
+          <span className="font-semibold tracking-tight">Lucas M.</span>
         </span>
         <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
           {t('ticker.driverApp.dayShift')}

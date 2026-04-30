@@ -120,6 +120,64 @@ export interface VehicleFormPayload {
   condition: string
 }
 
+// ── Platform-wide shift templates ─────────────────────────────────────
+// The operator defines N shift slots (1 to 4) at the platform level —
+// classic 2-slot day/night, or 3 drivers × 24 h (6-14, 14-22, 22-6), or
+// any other layout. Each slot has start/end times and a tone color used
+// in the planning grid. Per-day overrides are out of scope here; this
+// covers the platform-default layer.
+
+export type ShiftSlotKey = 'day' | 'night' | 'afternoon' | 'morning'
+
+export type ShiftTone = 'amber' | 'indigo' | 'emerald' | 'rose'
+
+export interface ShiftSlot {
+  id: ShiftSlotKey
+  /** Free-form label override; falls back to the i18n key for the id. */
+  label?: string
+  /** "HH:MM" 24 h format. */
+  start: string
+  end: string
+  tone: ShiftTone
+}
+
+export const DEFAULT_SHIFT_SLOTS: ShiftSlot[] = [
+  { id: 'day', start: '06:00', end: '18:00', tone: 'amber' },
+  { id: 'night', start: '18:00', end: '06:00', tone: 'indigo' },
+]
+
+export const MAX_SHIFT_SLOTS = 4
+
+// ── Per-driver compensation conditions ─────────────────────────────────
+// Per-driver overrides for the SettingsScreen platform list. The operator
+// configures, for each enabled platform, either a percentage split (e.g.
+// 50/50, 60/40) or a flat-rate (forfait) with a period. Plus a contracted
+// hours/week ceiling and a notification preference for overtime alerts
+// (push to driver vs. silent / dashboard-only).
+
+export type PlatformKey = 'uber' | 'bolt' | 'heetch' | 'taxivert' | 'cash'
+export type CompensationMode = 'percentage' | 'flat'
+export type FlatPeriod = 'day' | 'week' | 'month'
+export type OvertimePolicy = 'declared' | 'silent'
+
+export interface PlatformComp {
+  platform: PlatformKey
+  enabled: boolean
+  mode: CompensationMode
+  /** When mode = 'percentage'. 0–100 = the driver's share (operator gets 100 − value). */
+  driverShare: number
+  /** When mode = 'flat'. */
+  flatAmount: number
+  flatPeriod: FlatPeriod
+}
+
+export interface DriverConditions {
+  driverId: string
+  platforms: PlatformComp[]
+  contractedHoursPerWeek: number
+  overtimePolicy: OvertimePolicy
+}
+
 export interface DriverFormPayload {
   user: {
     firstName: string

@@ -432,7 +432,8 @@
       "success": {
         "title": "Driver added",
         "subtitle": "{{name}} has been created and now appears at the top of your list."
-      }
+      },
+      "saveAdvanced": "Save + advanced conditions"
     },
     "map": {
       "live": "Live",
@@ -440,7 +441,37 @@
       "available": "Available",
       "onRide": "On a ride",
       "preview": "Mock preview",
-      "previewNotice": "Hand-coded preview for the demo. The production version will use the Mapbox API (interactive 3D map, satellite layer, real-time navigation)."
+      "previewNotice": "Hand-coded preview for the demo. The production version will use the Mapbox API (interactive 3D map, satellite layer, real-time navigation).",
+      "close": "Close",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "filter": {
+        "all": "All",
+        "available": "Available",
+        "onRide": "On ride",
+        "idle": "Idle ≥15m"
+      },
+      "search": {
+        "placeholder": "Search driver…",
+        "noResults": "No driver matches"
+      },
+      "idle": {
+        "label": "Idle",
+        "since": "Available for {{minutes}} min"
+      },
+      "detail": {
+        "vehicle": "Vehicle",
+        "shift": "Shift",
+        "shiftHours": "{{hours}} h on shift",
+        "netToday": "Today's net",
+        "ridesCount": "{{count}} rides",
+        "platform": "Active platform",
+        "gpsFix": "GPS · updated {{age}} ago",
+        "currentTrip": "Current trip",
+        "fare": "Fare",
+        "eta": "ETA",
+        "contact": "Contact driver"
+      }
     },
     "revenue": {
       "title": "Revenue report",
@@ -523,7 +554,18 @@
           "RENTAL": "Rental"
         },
         "dayShift": "Day shift",
-        "nightShift": "Night shift"
+        "nightShift": "Night shift",
+        "shiftsTitle": "Default shifts",
+        "shiftsHint": "{{count}} of {{max}}",
+        "addShift": "Add shift",
+        "removeShift": "Remove this shift",
+        "cycleTone": "Cycle color",
+        "shiftLabels": {
+          "morning": "Morning",
+          "day": "Day",
+          "afternoon": "Afternoon",
+          "night": "Night"
+        }
       },
       "toast": {
         "saved": "Settings saved. Auto-validation within 48h.",
@@ -653,6 +695,52 @@
       "legalNote": "Compliant with ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) obligations.",
       "print": "Print",
       "exportToast": "{{format}} export of trip sheet {{plate}} — available at public launch."
+    },
+    "driverConditions": {
+      "eyebrow": "Driver conditions",
+      "title": "Driver conditions",
+      "openLabel": "View {{name}}'s conditions",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saveToast": "{{name}}'s conditions saved.",
+      "platforms": {
+        "title": "Assigned platforms",
+        "description": "Enable the platforms this driver works on. Disabled = their rides won't show up for that platform."
+      },
+      "formula": {
+        "title": "Compensation formula",
+        "description": "Per platform: net percentage split (50/50, 60/40...) or flat retainer.",
+        "empty": "Enable at least one platform to configure its formula.",
+        "modes": {
+          "percentage": "Percentage",
+          "flat": "Flat-rate"
+        },
+        "driverShare": "Driver share",
+        "operatorShare": "Operator share",
+        "flatAmount": "Amount",
+        "periods": {
+          "day": "Day",
+          "week": "Week",
+          "month": "Month"
+        }
+      },
+      "contract": {
+        "title": "Contracted hours",
+        "description": "Weekly hours declared in this driver's contract.",
+        "unit": "hours / week"
+      },
+      "overtime": {
+        "title": "Overtime alerts",
+        "description": "How Cabs notifies the driver when they cross their contracted hours.",
+        "declared": {
+          "title": "Notify driver",
+          "hint": "Driver gets a push alert in their app the moment they cross — same channel as other Cabs reminders."
+        },
+        "silent": {
+          "title": "Silent mode",
+          "hint": "Driver gets no alert in their app. Overtime hours stay visible only in your dashboard — helpful for senior drivers who don't need the nudge."
+        }
+      }
     }
   },
   "driverApp": {
@@ -1028,11 +1116,11 @@
     "fields": {
       "name": {
         "label": "Full name",
-        "placeholder": "Sofia Rossi"
+        "placeholder": "Marco Rossi"
       },
       "email": {
         "label": "Work email",
-        "placeholder": "sofia@yourcompany.com"
+        "placeholder": "marco@yourcompany.com"
       },
       "company": {
         "label": "Company (optional)",

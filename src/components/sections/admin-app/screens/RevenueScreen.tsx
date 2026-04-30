@@ -153,23 +153,23 @@ function platformShares(totalNet: number): PlatformShare[] {
 
 const TOP_DRIVERS_BY_PERIOD: Record<Period, NameAmount[]> = {
   day: [
-    { initials: 'AH', name: 'Ahmed Haddad', net: 412 },
+    { initials: 'LM', name: 'Lucas Maes', net: 412 },
     { initials: 'YS', name: 'Youssef Sbai', net: 388 },
-    { initials: 'FT', name: 'Fatima Talbi', net: 354 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 354 },
   ],
   week: [
-    { initials: 'AH', name: 'Ahmed Haddad', net: 2_780 },
-    { initials: 'FT', name: 'Fatima Talbi', net: 2_540 },
+    { initials: 'LM', name: 'Lucas Maes', net: 2_780 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 2_540 },
     { initials: 'YS', name: 'Youssef Sbai', net: 2_310 },
   ],
   month: [
-    { initials: 'AH', name: 'Ahmed Haddad', net: 11_840 },
-    { initials: 'FT', name: 'Fatima Talbi', net: 10_620 },
-    { initials: 'KH', name: 'Khadija Halimi', net: 9_780 },
+    { initials: 'LM', name: 'Lucas Maes', net: 11_840 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 10_620 },
+    { initials: 'BJ', name: 'Bram Janssens', net: 9_780 },
   ],
   year: [
-    { initials: 'AH', name: 'Ahmed Haddad', net: 138_400 },
-    { initials: 'FT', name: 'Fatima Talbi', net: 124_900 },
+    { initials: 'LM', name: 'Lucas Maes', net: 138_400 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 124_900 },
     { initials: 'YS', name: 'Youssef Sbai', net: 117_300 },
   ],
 }

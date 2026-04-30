@@ -6,14 +6,14 @@ import type {
 } from './types'
 
 export const DRIVER = {
-  name: 'Ahmed H.',
-  fullName: 'Ahmed Haddad',
-  initials: 'AH',
+  name: 'Lucas M.',
+  fullName: 'Lucas Maes',
+  initials: 'LM',
   vehicle: 'Ford Puma · T-XJJ-888',
   vehicleModel: 'Ford Puma',
   vehiclePlate: 'T-XJJ-888',
   phone: '+32 498 12 34 56',
-  email: 'ahmed.h@cabs.brussels',
+  email: 'lucas.m@cabs.brussels',
 }
 
 export const RIDE_POOL: RideTemplate[] = [
@@ -28,52 +28,52 @@ export const RIDE_POOL: RideTemplate[] = [
 ]
 
 // Drivers and plates aligned with the admin simulator's fleet (mockData.ts in
-// admin-app). Ahmed is "you" — top driver in the admin's revenue screens,
-// runs T-XJJ-888 Ford Puma, regular night relay is Layla Vermeulen.
-const AHMED: PlanningPerson = {
+// admin-app). Lucas is "you" — top driver in the admin's revenue screens,
+// runs T-XJJ-888 Ford Puma, regular night relay is Marco Russo.
+const LUCAS: PlanningPerson = {
   name: DRIVER.fullName,
   initials: DRIVER.initials,
   isYou: true,
 }
-const LAYLA: PlanningPerson = { name: 'Layla Vermeulen', initials: 'LV' }
+const MARCO: PlanningPerson = { name: 'Marco Russo', initials: 'MR' }
 const MOHAMED: PlanningPerson = { name: 'Mohamed Benali', initials: 'MB' }
 const HASSAN: PlanningPerson = { name: 'Hassan Marrakchi', initials: 'HM' }
 const OMAR: PlanningPerson = { name: 'Omar Mouss', initials: 'OM' }
 
-const PLATE_PUMA = DRIVER.vehiclePlate // T-XJJ-888, Ahmed's vehicle (Ford Puma)
-const PLATE_SKODA = 'T-XAC-714' // Khadija's vehicle in the admin sim
+const PLATE_PUMA = DRIVER.vehiclePlate // T-XJJ-888, Lucas's vehicle (Ford Puma)
+const PLATE_SKODA = 'T-XAC-714' // Bram's vehicle in the admin sim
 const PLATE_BMW = 'T-XEJ-999' // Youssef's vehicle in the admin sim
 
 export const PLANNING: PlanningDay[] = [
   {
     dayKey: 'mon',
-    day: { driver: AHMED, plate: PLATE_PUMA },
-    night: { driver: LAYLA, plate: PLATE_PUMA },
+    day: { driver: LUCAS, plate: PLATE_PUMA },
+    night: { driver: MARCO, plate: PLATE_PUMA },
   },
   {
     dayKey: 'tue',
-    day: { driver: AHMED, plate: PLATE_PUMA },
-    night: { driver: LAYLA, plate: PLATE_PUMA },
+    day: { driver: LUCAS, plate: PLATE_PUMA },
+    night: { driver: MARCO, plate: PLATE_PUMA },
   },
   {
     dayKey: 'wed',
     day: { driver: MOHAMED, plate: PLATE_PUMA },
-    night: { driver: LAYLA, plate: PLATE_PUMA },
+    night: { driver: MARCO, plate: PLATE_PUMA },
   },
   {
     dayKey: 'thu',
-    day: { driver: AHMED, plate: PLATE_PUMA },
-    night: { driver: LAYLA, plate: PLATE_PUMA },
+    day: { driver: LUCAS, plate: PLATE_PUMA },
+    night: { driver: MARCO, plate: PLATE_PUMA },
   },
   {
     dayKey: 'fri',
     day: { driver: MOHAMED, plate: PLATE_PUMA },
-    night: { driver: AHMED, plate: PLATE_PUMA },
+    night: { driver: LUCAS, plate: PLATE_PUMA },
   },
   {
     dayKey: 'sat',
     day: { driver: null, plate: PLATE_SKODA },
-    night: { driver: AHMED, plate: PLATE_PUMA },
+    night: { driver: LUCAS, plate: PLATE_PUMA },
   },
   {
     dayKey: 'sun',

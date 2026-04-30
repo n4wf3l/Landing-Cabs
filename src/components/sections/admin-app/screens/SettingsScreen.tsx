@@ -6,6 +6,7 @@ import {
   ClockAlert,
   Fuel,
   Lock,
+  Plus,
   RotateCcw,
   Save,
   Settings as SettingsIcon,
@@ -13,12 +14,16 @@ import {
   Sun,
   Moon,
   Sparkle,
+  Sunrise,
+  Sunset,
+  Trash2,
   TriangleAlert,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import { useAdminApp } from '../useAdminApp'
+import { MAX_SHIFT_SLOTS, type ShiftSlot, type ShiftTone } from '../types'
 
 interface PlatformSetting {
   key: string
@@ -39,10 +44,6 @@ interface SettingsState {
   carwashSplit: SplitChoice
   fuelSplit: SplitChoice
   defaultFormula: WorkFormula
-  dayStart: string
-  dayEnd: string
-  nightStart: string
-  nightEnd: string
 }
 
 const DEFAULTS: SettingsState = {
@@ -60,10 +61,6 @@ const DEFAULTS: SettingsState = {
   carwashSplit: '50_50',
   fuelSplit: '50_50',
   defaultFormula: 'FIFTY_FIFTY',
-  dayStart: '06:00',
-  dayEnd: '18:00',
-  nightStart: '18:00',
-  nightEnd: '06:00',
 }
 
 export function SettingsScreen() {
@@ -493,7 +490,11 @@ function DefaultsSection({
   update: (patch: Partial<SettingsState>) => void
 }) {
   const { t } = useTranslation()
+  const { shiftSlots, updateShiftSlot, addShiftSlot, removeShiftSlot } =
+    useAdminApp()
   const formulas: WorkFormula[] = ['FIFTY_FIFTY', 'FLAT_RATE', 'RENTAL']
+  const canAdd = shiftSlots.length < MAX_SHIFT_SLOTS
+  const canRemove = shiftSlots.length > 1
 
   return (
     <SectionCard Icon={SettingsIcon} title={t('admin.settings.defaults.title')}>
@@ -522,65 +523,147 @@ function DefaultsSection({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <ShiftRange
-            Icon={Sun}
-            label={t('admin.settings.defaults.dayShift')}
-            startValue={state.dayStart}
-            endValue={state.dayEnd}
-            onStart={(v) => update({ dayStart: v })}
-            onEnd={(v) => update({ dayEnd: v })}
-          />
-          <ShiftRange
-            Icon={Moon}
-            label={t('admin.settings.defaults.nightShift')}
-            startValue={state.nightStart}
-            endValue={state.nightEnd}
-            onStart={(v) => update({ nightStart: v })}
-            onEnd={(v) => update({ nightEnd: v })}
-          />
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <FieldLabel>{t('admin.settings.defaults.shiftsTitle')}</FieldLabel>
+            <p className="text-[9px] text-muted-foreground">
+              {t('admin.settings.defaults.shiftsHint', {
+                count: shiftSlots.length,
+                max: MAX_SHIFT_SLOTS,
+              })}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+            {shiftSlots.map((slot) => (
+              <ShiftRow
+                key={slot.id}
+                slot={slot}
+                canRemove={canRemove}
+                onChange={(patch) => updateShiftSlot(slot.id, patch)}
+                onRemove={() => removeShiftSlot(slot.id)}
+              />
+            ))}
+          </div>
+          {canAdd && (
+            <button
+              type="button"
+              onClick={addShiftSlot}
+              className="inline-flex h-7 items-center gap-1.5 rounded-md border border-dashed border-border/60 bg-background/40 px-3 text-[10px] font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+            >
+              <Plus className="h-3 w-3" />
+              {t('admin.settings.defaults.addShift')}
+            </button>
+          )}
         </div>
       </div>
     </SectionCard>
   )
 }
 
-function ShiftRange({
-  Icon,
-  label,
-  startValue,
-  endValue,
-  onStart,
-  onEnd,
+const TONE_CYCLE: ShiftTone[] = ['amber', 'indigo', 'emerald', 'rose']
+
+const TONE_CLASS: Record<
+  ShiftTone,
+  { bg: string; text: string; ring: string; border: string }
+> = {
+  amber: {
+    bg: 'bg-amber-400/10',
+    text: 'text-amber-300',
+    ring: 'ring-amber-400/30',
+    border: 'border-amber-400/30',
+  },
+  indigo: {
+    bg: 'bg-indigo-400/10',
+    text: 'text-indigo-300',
+    ring: 'ring-indigo-400/30',
+    border: 'border-indigo-400/30',
+  },
+  emerald: {
+    bg: 'bg-emerald-400/10',
+    text: 'text-emerald-300',
+    ring: 'ring-emerald-400/30',
+    border: 'border-emerald-400/30',
+  },
+  rose: {
+    bg: 'bg-rose-400/10',
+    text: 'text-rose-300',
+    ring: 'ring-rose-400/30',
+    border: 'border-rose-400/30',
+  },
+}
+
+const TONE_ICON: Record<ShiftTone, LucideIcon> = {
+  amber: Sun,
+  indigo: Moon,
+  emerald: Sunrise,
+  rose: Sunset,
+}
+
+function ShiftRow({
+  slot,
+  canRemove,
+  onChange,
+  onRemove,
 }: {
-  Icon: LucideIcon
-  label: string
-  startValue: string
-  endValue: string
-  onStart: (v: string) => void
-  onEnd: (v: string) => void
+  slot: ShiftSlot
+  canRemove: boolean
+  onChange: (patch: Partial<ShiftSlot>) => void
+  onRemove: () => void
 }) {
+  const { t } = useTranslation()
+  const tone = TONE_CLASS[slot.tone]
+  const Icon = TONE_ICON[slot.tone]
+  const cycleTone = () => {
+    const i = TONE_CYCLE.indexOf(slot.tone)
+    onChange({ tone: TONE_CYCLE[(i + 1) % TONE_CYCLE.length] })
+  }
   return (
-    <div>
-      <p className="flex items-center gap-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+    <div
+      className={cn(
+        'flex items-center gap-2 rounded-md border bg-background/40 px-2 py-1.5',
+        tone.border,
+      )}
+    >
+      <button
+        type="button"
+        onClick={cycleTone}
+        title={t('admin.settings.defaults.cycleTone')}
+        className={cn(
+          'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded ring-1 transition-colors',
+          tone.bg,
+          tone.text,
+          tone.ring,
+        )}
+      >
         <Icon className="h-3 w-3" />
-        {label}
-      </p>
-      <div className="mt-1 flex items-center gap-1">
-        <input
-          type="time"
-          value={startValue}
-          onChange={(e) => onStart(e.target.value)}
-          className="flex-1 rounded-md border border-border/40 bg-background/60 px-1.5 py-1 text-[11px] tabular-nums outline-none transition-colors focus:border-primary/60 focus:bg-background"
-        />
-        <span className="text-muted-foreground">→</span>
-        <input
-          type="time"
-          value={endValue}
-          onChange={(e) => onEnd(e.target.value)}
-          className="flex-1 rounded-md border border-border/40 bg-background/60 px-1.5 py-1 text-[11px] tabular-nums outline-none transition-colors focus:border-primary/60 focus:bg-background"
-        />
-      </div>
+      </button>
+      <span className="w-12 shrink-0 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {slot.label ?? t(`admin.settings.defaults.shiftLabels.${slot.id}`)}
+      </span>
+      <input
+        type="time"
+        value={slot.start}
+        onChange={(e) => onChange({ start: e.target.value })}
+        className="w-20 rounded-md border border-border/40 bg-background/60 px-1.5 py-1 text-[11px] tabular-nums outline-none transition-colors focus:border-primary/60 focus:bg-background"
+      />
+      <span className="text-muted-foreground">→</span>
+      <input
+        type="time"
+        value={slot.end}
+        onChange={(e) => onChange({ end: e.target.value })}
+        className="w-20 rounded-md border border-border/40 bg-background/60 px-1.5 py-1 text-[11px] tabular-nums outline-none transition-colors focus:border-primary/60 focus:bg-background"
+      />
+      {canRemove && (
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={t('admin.settings.defaults.removeShift')}
+          title={t('admin.settings.defaults.removeShift')}
+          className="ml-auto inline-flex h-5 w-5 items-center justify-center rounded text-rose-400 transition-colors hover:bg-rose-500/15"
+        >
+          <Trash2 className="h-3 w-3" />
+        </button>
+      )}
     </div>
   )
 }

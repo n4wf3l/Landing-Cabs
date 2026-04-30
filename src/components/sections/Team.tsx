@@ -22,13 +22,21 @@ export function Team() {
   const activeFounder = FOUNDERS.find((f) => f.key === openKey) ?? null
 
   return (
-    <section id="team" className="scroll-mt-20 py-14 sm:py-24 lg:py-32">
+    <section className="py-14 sm:py-24 lg:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow={t('team.eyebrow')}
-          title={t('team.title')}
-          subtitle={t('team.subtitle')}
-        />
+        {/*
+          #team anchor lands on the heading wrapper, not the section, so
+          clicking the navbar link skips past the section's vertical
+          padding and parks the blue "L'équipe" eyebrow ~4 px under the
+          64 px navbar (scroll-mt = 68 px).
+        */}
+        <div id="team" className="scroll-mt-[68px]">
+          <SectionHeading
+            eyebrow={t('team.eyebrow')}
+            title={t('team.title')}
+            subtitle={t('team.subtitle')}
+          />
+        </div>
 
         {/*
           Mobile: horizontal row layout (avatar left, name/role right,

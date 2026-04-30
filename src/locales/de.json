@@ -432,7 +432,8 @@
       "success": {
         "title": "Fahrer hinzugefügt",
         "subtitle": "{{name}} wurde angelegt und erscheint oben in Ihrer Liste."
-      }
+      },
+      "saveAdvanced": "Speichern + erweiterte Bedingungen"
     },
     "map": {
       "live": "Live",
@@ -440,7 +441,37 @@
       "available": "Verfügbar",
       "onRide": "In Fahrt",
       "preview": "Mock-Vorschau",
-      "previewNotice": "Handcodierte Vorschau für die Demo. Die Produktivversion nutzt die Mapbox-API (interaktive 3D-Karte, Satellitenebene, Echtzeit-Navigation)."
+      "previewNotice": "Handcodierte Vorschau für die Demo. Die Produktivversion nutzt die Mapbox-API (interaktive 3D-Karte, Satellitenebene, Echtzeit-Navigation).",
+      "close": "Schließen",
+      "zoomIn": "Vergrößern",
+      "zoomOut": "Verkleinern",
+      "filter": {
+        "all": "Alle",
+        "available": "Verfügbar",
+        "onRide": "In Fahrt",
+        "idle": "Untätig ≥15m"
+      },
+      "search": {
+        "placeholder": "Fahrer suchen…",
+        "noResults": "Kein Fahrer gefunden"
+      },
+      "idle": {
+        "label": "Untätig",
+        "since": "Seit {{minutes}} Min verfügbar"
+      },
+      "detail": {
+        "vehicle": "Fahrzeug",
+        "shift": "Schicht",
+        "shiftHours": "{{hours}} h im Dienst",
+        "netToday": "Netto heute",
+        "ridesCount": "{{count}} Fahrten",
+        "platform": "Aktive Plattform",
+        "gpsFix": "GPS · aktualisiert vor {{age}}",
+        "currentTrip": "Aktuelle Fahrt",
+        "fare": "Tarif",
+        "eta": "ETA",
+        "contact": "Fahrer kontaktieren"
+      }
     },
     "revenue": {
       "title": "Kassenbericht",
@@ -523,7 +554,18 @@
           "RENTAL": "Miete"
         },
         "dayShift": "Tagschicht",
-        "nightShift": "Nachtschicht"
+        "nightShift": "Nachtschicht",
+        "shiftsTitle": "Standard-Schichten",
+        "shiftsHint": "{{count}} von {{max}}",
+        "addShift": "Schicht hinzufügen",
+        "removeShift": "Diese Schicht entfernen",
+        "cycleTone": "Farbe wechseln",
+        "shiftLabels": {
+          "morning": "Morgen",
+          "day": "Tag",
+          "afternoon": "Nachmittag",
+          "night": "Nacht"
+        }
       },
       "toast": {
         "saved": "Einstellungen gespeichert. Auto-Validierung binnen 48 Stunden.",
@@ -653,6 +695,52 @@
       "legalNote": "Konform mit ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) Vorgaben.",
       "print": "Drucken",
       "exportToast": "{{format}}-Export Fahrtenblatt {{plate}} — beim öffentlichen Launch verfügbar."
+    },
+    "driverConditions": {
+      "eyebrow": "Fahrerbedingungen",
+      "title": "Fahrerbedingungen",
+      "openLabel": "Bedingungen von {{name}} anzeigen",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saveToast": "Bedingungen von {{name}} gespeichert.",
+      "platforms": {
+        "title": "Zugewiesene Plattformen",
+        "description": "Aktivieren Sie die Plattformen, auf denen dieser Fahrer arbeitet. Deaktiviert = seine Fahrten erscheinen nicht für diese Plattform."
+      },
+      "formula": {
+        "title": "Vergütungsformel",
+        "description": "Pro Plattform: prozentualer Anteil am Netto (50/50, 60/40…) oder Pauschale.",
+        "empty": "Aktivieren Sie mindestens eine Plattform, um die Formel zu konfigurieren.",
+        "modes": {
+          "percentage": "Prozent",
+          "flat": "Pauschale"
+        },
+        "driverShare": "Anteil Fahrer",
+        "operatorShare": "Anteil Betreiber",
+        "flatAmount": "Betrag",
+        "periods": {
+          "day": "Tag",
+          "week": "Woche",
+          "month": "Monat"
+        }
+      },
+      "contract": {
+        "title": "Vertragsstunden",
+        "description": "Wöchentliche Stunden im Vertrag dieses Fahrers.",
+        "unit": "Stunden / Woche"
+      },
+      "overtime": {
+        "title": "Überstunden-Benachrichtigungen",
+        "description": "Wie Cabs den Fahrer informiert, wenn er seine Vertragsstunden überschreitet.",
+        "declared": {
+          "title": "Fahrer benachrichtigen",
+          "hint": "Der Fahrer erhält eine Push-Meldung in seiner App, sobald er überschreitet — gleicher Kanal wie andere Cabs-Erinnerungen."
+        },
+        "silent": {
+          "title": "Stiller Modus",
+          "hint": "Der Fahrer erhält keine Meldung in seiner App. Die Überstunden bleiben nur in Ihrem Dashboard sichtbar — praktisch für erfahrene Fahrer, die keine Erinnerung brauchen."
+        }
+      }
     }
   },
   "driverApp": {
@@ -1028,11 +1116,11 @@
     "fields": {
       "name": {
         "label": "Vollständiger Name",
-        "placeholder": "Sofia Rossi"
+        "placeholder": "Marco Rossi"
       },
       "email": {
         "label": "Geschäftliche E-Mail",
-        "placeholder": "sofia@ihrunternehmen.de"
+        "placeholder": "marco@ihrunternehmen.de"
       },
       "company": {
         "label": "Unternehmen (optional)",

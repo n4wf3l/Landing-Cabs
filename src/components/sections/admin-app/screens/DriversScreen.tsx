@@ -18,6 +18,7 @@ import { StatusBadge } from '../parts/StatusBadge'
 import { DRIVERS, KPI } from '../mockData'
 import type { DriverFormPayload, DriverRow, DriverStatus } from '../types'
 import { useAdminApp } from '../useAdminApp'
+import { cn } from '@/lib/utils'
 
 const STATUS_TONE: Record<DriverStatus, Parameters<typeof StatusBadge>[0]['tone']> = {
   active: 'emerald',
@@ -47,7 +48,7 @@ function payloadToRow(p: DriverFormPayload, i: number): DriverRow {
 
 export function DriversScreen() {
   const { t } = useTranslation()
-  const { addedDrivers, openModal } = useAdminApp()
+  const { addedDrivers, openModal, openConditionsFor } = useAdminApp()
 
   const rows = useMemo<DriverRow[]>(() => {
     const added = addedDrivers.map((p, i) => payloadToRow(p, i))
@@ -164,7 +165,22 @@ export function DriversScreen() {
                     </td>
                     <td className="px-3 py-1.5">
                       <div className="flex items-center justify-end gap-1">
-                        <ActionIcon Icon={Eye} accent="sky" actionKey="view" />
+                        <button
+                          type="button"
+                          onClick={() => openConditionsFor(d)}
+                          aria-label={t('admin.driverConditions.openLabel', {
+                            name: `${d.firstName} ${d.lastName}`.trim(),
+                          })}
+                          title={t('admin.driverConditions.openLabel', {
+                            name: `${d.firstName} ${d.lastName}`.trim(),
+                          })}
+                          className={cn(
+                            'inline-flex h-5 w-5 items-center justify-center rounded transition-colors',
+                            'text-sky-400 hover:bg-sky-500/15',
+                          )}
+                        >
+                          <Eye className="h-3 w-3" />
+                        </button>
                         <ActionIcon Icon={Pencil} accent="amber" actionKey="edit" />
                         <ActionIcon Icon={Trash2} accent="rose" actionKey="delete" />
                       </div>

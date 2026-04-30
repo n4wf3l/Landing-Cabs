@@ -432,7 +432,8 @@
       "success": {
         "title": "Chauffeur ajouté",
         "subtitle": "{{name}} a été créé et apparaît en tête de votre liste."
-      }
+      },
+      "saveAdvanced": "Enregistrer + conditions avancées"
     },
     "map": {
       "live": "Live",
@@ -440,7 +441,37 @@
       "available": "Disponible",
       "onRide": "En course",
       "preview": "Aperçu maquetté",
-      "previewNotice": "Aperçu codé à la main pour la démo. La version en production utilisera l'API Mapbox (carte interactive 3D, fond satellite, navigation temps réel)."
+      "previewNotice": "Aperçu codé à la main pour la démo. La version en production utilisera l'API Mapbox (carte interactive 3D, fond satellite, navigation temps réel).",
+      "close": "Fermer",
+      "zoomIn": "Zoomer",
+      "zoomOut": "Dézoomer",
+      "filter": {
+        "all": "Tous",
+        "available": "Dispo",
+        "onRide": "En course",
+        "idle": "Inactifs ≥15m"
+      },
+      "search": {
+        "placeholder": "Rechercher un chauffeur…",
+        "noResults": "Aucun chauffeur trouvé"
+      },
+      "idle": {
+        "label": "Inactif",
+        "since": "Dispo depuis {{minutes}} min"
+      },
+      "detail": {
+        "vehicle": "Véhicule",
+        "shift": "Shift",
+        "shiftHours": "{{hours}} h en service",
+        "netToday": "Net du jour",
+        "ridesCount": "{{count}} courses",
+        "platform": "Plateforme active",
+        "gpsFix": "GPS · MAJ il y a {{age}}",
+        "currentTrip": "Course en cours",
+        "fare": "Tarif",
+        "eta": "ETA",
+        "contact": "Contacter le chauffeur"
+      }
     },
     "revenue": {
       "title": "Bilan de caisse",
@@ -523,7 +554,18 @@
           "RENTAL": "Location"
         },
         "dayShift": "Shift jour",
-        "nightShift": "Shift nuit"
+        "nightShift": "Shift nuit",
+        "shiftsTitle": "Shifts par défaut",
+        "shiftsHint": "{{count}} sur {{max}}",
+        "addShift": "Ajouter un shift",
+        "removeShift": "Supprimer ce shift",
+        "cycleTone": "Changer la couleur",
+        "shiftLabels": {
+          "morning": "Matin",
+          "day": "Jour",
+          "afternoon": "Après-midi",
+          "night": "Nuit"
+        }
       },
       "toast": {
         "saved": "Paramètres enregistrés. Validation automatique sous 48h.",
@@ -653,6 +695,52 @@
       "legalNote": "Conforme aux obligations ATAS (BE) · VTC / Préfecture (FR) · TTO (NL).",
       "print": "Imprimer",
       "exportToast": "Export {{format}} de la feuille de route {{plate}} — disponible à la sortie publique."
+    },
+    "driverConditions": {
+      "eyebrow": "Conditions chauffeur",
+      "title": "Conditions chauffeur",
+      "openLabel": "Voir les conditions de {{name}}",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saveToast": "Conditions de {{name}} enregistrées.",
+      "platforms": {
+        "title": "Plateformes assignées",
+        "description": "Activez les plateformes que ce chauffeur prend. Désactiver = ses courses ne remonteront pas pour cette plateforme."
+      },
+      "formula": {
+        "title": "Formule de rémunération",
+        "description": "Choisissez par plateforme : pourcentage du net (50/50, 60/40…) ou forfait fixe.",
+        "empty": "Activez au moins une plateforme pour configurer sa formule.",
+        "modes": {
+          "percentage": "Pourcentage",
+          "flat": "Forfait"
+        },
+        "driverShare": "Part chauffeur",
+        "operatorShare": "Part patron",
+        "flatAmount": "Montant",
+        "periods": {
+          "day": "Jour",
+          "week": "Semaine",
+          "month": "Mois"
+        }
+      },
+      "contract": {
+        "title": "Contrat horaire",
+        "description": "Heures hebdomadaires déclarées dans le contrat de ce chauffeur.",
+        "unit": "heures / semaine"
+      },
+      "overtime": {
+        "title": "Notifications heures sup",
+        "description": "Comment Cabs prévient le chauffeur quand il dépasse ses heures contractuelles.",
+        "declared": {
+          "title": "Notification active",
+          "hint": "Le chauffeur reçoit une alerte sur son app dès qu'il dépasse, même message que les autres relances Cabs."
+        },
+        "silent": {
+          "title": "Mode silencieux",
+          "hint": "Le chauffeur ne reçoit pas d'alerte sur son app. Les heures supplémentaires restent visibles uniquement dans votre tableau de bord — utile pour les profils confirmés."
+        }
+      }
     }
   },
   "driverApp": {
@@ -1028,11 +1116,11 @@
     "fields": {
       "name": {
         "label": "Nom complet",
-        "placeholder": "Sofia Rossi"
+        "placeholder": "Marco Rossi"
       },
       "email": {
         "label": "Email professionnel",
-        "placeholder": "sofia@votresociete.be"
+        "placeholder": "marco@votresociete.be"
       },
       "company": {
         "label": "Société (optionnel)",

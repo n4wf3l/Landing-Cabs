@@ -31,7 +31,13 @@ export default function Landing() {
       />
       <Hero />
       <PainPoints />
-      <section id="admin" className="scroll-mt-0">
+      {/*
+        #admin anchor groups the operator-side showcase + features.
+        scroll-mt = 68 px (navbar 64 px + 4 px) matches the offset used
+        by the #team and #app anchors so all three navbar links park
+        their eyebrow at the same height under the navbar.
+      */}
+      <section id="admin" className="scroll-mt-[68px]">
         <ProductShowcase />
         <Features />
       </section>

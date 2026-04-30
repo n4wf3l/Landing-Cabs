@@ -432,7 +432,8 @@
       "success": {
         "title": "Chauffeur toegevoegd",
         "subtitle": "{{name}} is aangemaakt en staat bovenaan je lijst."
-      }
+      },
+      "saveAdvanced": "Opslaan + geavanceerde voorwaarden"
     },
     "map": {
       "live": "Live",
@@ -440,7 +441,37 @@
       "available": "Beschikbaar",
       "onRide": "Op rit",
       "preview": "Maquettevoorvertoning",
-      "previewNotice": "Met de hand gecodeerde voorvertoning voor de demo. De productieversie gebruikt de Mapbox-API (interactieve 3D-kaart, satellietlaag, realtime navigatie)."
+      "previewNotice": "Met de hand gecodeerde voorvertoning voor de demo. De productieversie gebruikt de Mapbox-API (interactieve 3D-kaart, satellietlaag, realtime navigatie).",
+      "close": "Sluiten",
+      "zoomIn": "Inzoomen",
+      "zoomOut": "Uitzoomen",
+      "filter": {
+        "all": "Alle",
+        "available": "Beschikbaar",
+        "onRide": "Op rit",
+        "idle": "Inactief ≥15m"
+      },
+      "search": {
+        "placeholder": "Chauffeur zoeken…",
+        "noResults": "Geen chauffeur gevonden"
+      },
+      "idle": {
+        "label": "Inactief",
+        "since": "{{minutes}} min beschikbaar"
+      },
+      "detail": {
+        "vehicle": "Voertuig",
+        "shift": "Dienst",
+        "shiftHours": "{{hours}} u in dienst",
+        "netToday": "Netto vandaag",
+        "ridesCount": "{{count}} ritten",
+        "platform": "Actief platform",
+        "gpsFix": "GPS · bijgewerkt {{age}} geleden",
+        "currentTrip": "Huidige rit",
+        "fare": "Tarief",
+        "eta": "ETA",
+        "contact": "Chauffeur bellen"
+      }
     },
     "revenue": {
       "title": "Kasoverzicht",
@@ -523,7 +554,18 @@
           "RENTAL": "Verhuur"
         },
         "dayShift": "Dagshift",
-        "nightShift": "Nachtshift"
+        "nightShift": "Nachtshift",
+        "shiftsTitle": "Standaardshifts",
+        "shiftsHint": "{{count}} van {{max}}",
+        "addShift": "Shift toevoegen",
+        "removeShift": "Deze shift verwijderen",
+        "cycleTone": "Kleur wisselen",
+        "shiftLabels": {
+          "morning": "Ochtend",
+          "day": "Dag",
+          "afternoon": "Middag",
+          "night": "Nacht"
+        }
       },
       "toast": {
         "saved": "Instellingen opgeslagen. Auto-validatie binnen 48u.",
@@ -653,6 +695,52 @@
       "legalNote": "Conform de ATAS (BE) · VTC / Préfecture (FR) · TTO (NL) verplichtingen.",
       "print": "Afdrukken",
       "exportToast": "{{format}}-export van ritblad {{plate}} — beschikbaar bij publieke lancering."
+    },
+    "driverConditions": {
+      "eyebrow": "Voorwaarden chauffeur",
+      "title": "Voorwaarden chauffeur",
+      "openLabel": "Bekijk voorwaarden van {{name}}",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "saveToast": "Voorwaarden van {{name}} opgeslagen.",
+      "platforms": {
+        "title": "Toegewezen platformen",
+        "description": "Activeer de platformen waarop deze chauffeur werkt. Uitgeschakeld = zijn ritten verschijnen niet voor dat platform."
+      },
+      "formula": {
+        "title": "Vergoedingsformule",
+        "description": "Per platform: percentage op het netto (50/50, 60/40…) of vast forfait.",
+        "empty": "Activeer minstens één platform om de formule in te stellen.",
+        "modes": {
+          "percentage": "Percentage",
+          "flat": "Forfait"
+        },
+        "driverShare": "Aandeel chauffeur",
+        "operatorShare": "Aandeel uitbater",
+        "flatAmount": "Bedrag",
+        "periods": {
+          "day": "Dag",
+          "week": "Week",
+          "month": "Maand"
+        }
+      },
+      "contract": {
+        "title": "Contracturen",
+        "description": "Wekelijkse uren in het contract van deze chauffeur.",
+        "unit": "uur / week"
+      },
+      "overtime": {
+        "title": "Overuur-meldingen",
+        "description": "Hoe Cabs de chauffeur waarschuwt wanneer hij zijn contracturen overschrijdt.",
+        "declared": {
+          "title": "Chauffeur waarschuwen",
+          "hint": "De chauffeur krijgt een melding in zijn app zodra hij overschrijdt — zelfde kanaal als de andere Cabs-herinneringen."
+        },
+        "silent": {
+          "title": "Stille modus",
+          "hint": "De chauffeur krijgt geen melding in zijn app. De overuren blijven enkel zichtbaar in je dashboard — handig voor ervaren chauffeurs die geen herinnering nodig hebben."
+        }
+      }
     }
   },
   "driverApp": {
@@ -1028,11 +1116,11 @@
     "fields": {
       "name": {
         "label": "Volledige naam",
-        "placeholder": "Sofia Rossi"
+        "placeholder": "Marco Rossi"
       },
       "email": {
         "label": "Werk-e-mail",
-        "placeholder": "sofia@jouwbedrijf.be"
+        "placeholder": "marco@jouwbedrijf.be"
       },
       "company": {
         "label": "Bedrijf (optioneel)",
