@@ -5,8 +5,6 @@ import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 import { SideNav } from './SideNav'
 import { SkipLink } from '@/components/common/SkipLink'
-import { CustomCursor } from '@/components/common/CustomCursor'
-import { PageLoadingBar } from '@/components/common/PageLoadingBar'
 import { ScrollToTopButton } from '@/components/common/ScrollToTopButton'
 
 export function RootLayout() {
@@ -43,8 +41,6 @@ export function RootLayout() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SkipLink />
-      <PageLoadingBar />
-      <CustomCursor />
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.main
