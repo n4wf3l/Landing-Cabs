@@ -29,7 +29,15 @@
     "title": "Ihre Fahrer, Ihre Fahrzeuge, Ihre Einnahmen. Ein Tool, zwei Seiten.",
     "subtitle": "Ein Dashboard für Sie. Eine App für Ihre Fahrer. Ohne Tabelle, ohne Handrechnerei.",
     "scrollHint": "Produkt ansehen",
-    "swipeHint": "Wischen zum Erkunden"
+    "swipeHint": "Wischen zum Erkunden",
+    "countdown": {
+      "eyebrow": "Öffentlicher Launch in",
+      "days": "Tage",
+      "hours": "Std",
+      "minutes": "Min",
+      "seconds": "Sek",
+      "aria": "Öffentlicher Launch in {{days}} Tagen, {{hours}} Stunden und {{minutes}} Minuten."
+    }
   },
   "ticker": {
     "keyboardHint": "zum Navigieren",

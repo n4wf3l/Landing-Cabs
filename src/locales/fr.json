@@ -29,7 +29,15 @@
     "title": "Vos chauffeurs, vos véhicules, vos revenus. Un outil, deux faces.",
     "subtitle": "Un tableau de bord pour vous. Une app pour vos chauffeurs. Sans tableur, sans calcul manuel.",
     "scrollHint": "Voir le produit",
-    "swipeHint": "Glisse pour explorer"
+    "swipeHint": "Glisse pour explorer",
+    "countdown": {
+      "eyebrow": "Sortie publique dans",
+      "days": "Jours",
+      "hours": "Heures",
+      "minutes": "Min",
+      "seconds": "Sec",
+      "aria": "Sortie publique dans {{days}} jours, {{hours}} heures et {{minutes}} minutes."
+    }
   },
   "ticker": {
     "keyboardHint": "pour naviguer",

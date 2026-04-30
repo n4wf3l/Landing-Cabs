@@ -3,6 +3,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { AnimatedGridBackground } from '@/components/common/AnimatedGridBackground'
 import { GlowEffect } from '@/components/common/GlowEffect'
+import { LaunchCountdown } from '@/components/common/LaunchCountdown'
 import { NotifyMeForm } from '@/components/common/NotifyMeForm'
 import { ProductTicker } from '@/components/common/ProductTicker'
 import { useFirstVisit } from '@/hooks/useFirstVisit'
@@ -57,11 +58,13 @@ export function Hero() {
               {t('hero.subtitle')}
             </motion.p>
 
+            <LaunchCountdown introReady={introReady} className="mt-7" />
+
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-              transition={{ duration: 0.55, delay: 0.24 }}
-              className="mt-8 w-full"
+              transition={{ duration: 0.55, delay: 0.28 }}
+              className="mt-7 w-full"
             >
               <NotifyMeForm size="lg" align="start" className="lg:mx-0" />
             </motion.div>

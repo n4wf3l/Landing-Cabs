@@ -29,7 +29,15 @@
     "title": "Your drivers, your vehicles, your revenue. One tool, two sides.",
     "subtitle": "A dashboard for you. An app for your drivers. No spreadsheet, no manual math.",
     "scrollHint": "See the product",
-    "swipeHint": "Swipe to explore"
+    "swipeHint": "Swipe to explore",
+    "countdown": {
+      "eyebrow": "Public launch in",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Min",
+      "seconds": "Sec",
+      "aria": "Public launch in {{days}} days, {{hours}} hours and {{minutes}} minutes."
+    }
   },
   "ticker": {
     "keyboardHint": "to navigate",
