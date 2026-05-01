@@ -155,14 +155,11 @@ export function AddDriverPanel({ open, onClose }: AddDriverPanelProps) {
 
   // Save + open the per-platform conditions panel for the just-created
   // driver, so the operator can configure 40/60 Uber, forfait Bolt, etc.
-  // without first having to find them in the drivers list.
+  // without first having to find them in the drivers list. This path
+  // intentionally skips form validation — the operator can land on the
+  // conditions panel without filling personal info first; missing
+  // values fall back to "—" via payloadToDriverRow.
   const handleSubmitAdvanced = () => {
-    if (!payload.user.firstName.trim() || !payload.user.lastName.trim()) {
-      // The HTML form's `required` will fire on the regular Save path;
-      // for this secondary route we need a manual minimal guard so the
-      // conditions panel doesn't open with an empty driver name.
-      return
-    }
     addDriver(payload)
     const newRow = payloadToDriverRow(payload)
     setPayload(INITIAL_PAYLOAD)

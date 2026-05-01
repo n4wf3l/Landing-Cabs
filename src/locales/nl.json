@@ -494,6 +494,37 @@
       "topVehicles": "Top voertuigen",
       "cashflow": "Komende uitbetalingen",
       "cashflowTotal": "Totaal binnenkomend",
+      "split": {
+        "patronShare": "Aandeel uitbater"
+      },
+      "cash": {
+        "title": "Cash te innen",
+        "subtitle": "Cash-ritten ingevoerd minus ontvangen stortingen",
+        "totalOwed": "{{count}} chauffeurs · {{amount}}",
+        "allClear": "Alles is bij",
+        "lastDeposit": "Laatste storting · {{date}}",
+        "noDeposits": "Nog geen storting",
+        "requestDeposit": "Storting opvragen"
+      },
+      "anomalies": {
+        "title": "Anomalieën gedetecteerd",
+        "subtitle": "Cabs houdt voor je een oogje in het zeil",
+        "totalFlagged": "{{count}} te bekijken",
+        "allClear": "Alles is OK",
+        "investigate": "Bekijken",
+        "types": {
+          "zeroFare": "Ritten op € 0",
+          "longRide": "Ritten > 3 u",
+          "missingPlatform": "Platform ontbreekt",
+          "shiftGap": "Gaten > 2 u tijdens actieve shift"
+        },
+        "descriptions": {
+          "zeroFare": "Tikfout of niet-gefactureerde rit",
+          "longRide": "Waarschijnlijk vergeten in de app",
+          "missingPlatform": "Tag ontbreekt — nodig voor afstemming",
+          "shiftGap": "Lange pauze of app open gelaten"
+        }
+      },
       "bestDay": "Beste dag van de week",
       "bestDayHint": "Piek op {{day}} — plan een extra voertuig in.",
       "bestHour": "Beste tijd van de dag",

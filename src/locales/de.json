@@ -494,6 +494,37 @@
       "topVehicles": "Top-Fahrzeuge",
       "cashflow": "Kommende Auszahlungen",
       "cashflowTotal": "Eingang gesamt",
+      "split": {
+        "patronShare": "Anteil Betreiber"
+      },
+      "cash": {
+        "title": "Bargeld einsammeln",
+        "subtitle": "Erfasste Bargeld-Fahrten minus erhaltene Einzahlungen",
+        "totalOwed": "{{count}} Fahrer · {{amount}}",
+        "allClear": "Alles ist aktuell",
+        "lastDeposit": "Letzte Einzahlung · {{date}}",
+        "noDeposits": "Noch keine Einzahlung",
+        "requestDeposit": "Einzahlung anfordern"
+      },
+      "anomalies": {
+        "title": "Erkannte Anomalien",
+        "subtitle": "Cabs passt für dich auf",
+        "totalFlagged": "{{count}} zu prüfen",
+        "allClear": "Alles in Ordnung",
+        "investigate": "Prüfen",
+        "types": {
+          "zeroFare": "Fahrten zu € 0",
+          "longRide": "Fahrten > 3 h",
+          "missingPlatform": "Plattform fehlt",
+          "shiftGap": "Lücken > 2 h in aktiver Schicht"
+        },
+        "descriptions": {
+          "zeroFare": "Tippfehler oder nicht abgerechnete Fahrt",
+          "longRide": "Vermutlich in der App vergessen",
+          "missingPlatform": "Tag fehlt — für Abgleich nötig",
+          "shiftGap": "Lange Pause oder App offen gelassen"
+        }
+      },
       "bestDay": "Bester Wochentag",
       "bestDayHint": "Spitze am {{day}} — ein Fahrzeug mehr einplanen.",
       "bestHour": "Beste Tageszeit",

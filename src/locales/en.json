@@ -494,6 +494,37 @@
       "topVehicles": "Top vehicles",
       "cashflow": "Upcoming payouts",
       "cashflowTotal": "Total incoming",
+      "split": {
+        "patronShare": "Patron share"
+      },
+      "cash": {
+        "title": "Cash to collect",
+        "subtitle": "Cash rides logged minus deposits received",
+        "totalOwed": "{{count}} drivers · {{amount}}",
+        "allClear": "All up to date",
+        "lastDeposit": "Last deposit · {{date}}",
+        "noDeposits": "No deposit yet",
+        "requestDeposit": "Request a deposit"
+      },
+      "anomalies": {
+        "title": "Anomalies detected",
+        "subtitle": "Cabs watches for you",
+        "totalFlagged": "{{count}} flagged",
+        "allClear": "All clean",
+        "investigate": "Review",
+        "types": {
+          "zeroFare": "Rides at €0",
+          "longRide": "Rides over 3 h",
+          "missingPlatform": "Missing platform tag",
+          "shiftGap": "Idle gaps over 2 h on active shift"
+        },
+        "descriptions": {
+          "zeroFare": "Typo or ride not invoiced",
+          "longRide": "Likely forgotten in the app",
+          "missingPlatform": "Tag missing — needed for reconciliation",
+          "shiftGap": "Long break or app left open"
+        }
+      },
       "bestDay": "Best day of the week",
       "bestDayHint": "Peak on {{day}} — schedule one more vehicle.",
       "bestHour": "Best time of day",

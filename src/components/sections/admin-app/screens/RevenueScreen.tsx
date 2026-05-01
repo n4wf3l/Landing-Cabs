@@ -1,14 +1,20 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import {
+  AlertTriangle,
   ArrowDownRight,
   ArrowUpRight,
+  Banknote,
   CarFront,
+  CheckCircle2,
+  Clock,
   Coins,
   FileSpreadsheet,
   FileText,
+  Hash,
+  ShieldAlert,
+  Timer,
   TrendingUp,
-  Wallet,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
@@ -31,19 +37,87 @@ interface PlatformShare {
   color: string
 }
 
-interface PayoutEntry {
-  platform: 'uber' | 'bolt' | 'heetch' | 'taxivert'
-  label: string
-  dateKey: string // ex "Jeudi 28/04"
-  amount: number
-  color: string
-}
-
 interface NameAmount {
   initials: string
   name: string
   net: number
+  // Driver-only fields. Vehicles don't have a compensation formula or
+  // a patron share, so these are optional and TopList renders them
+  // only when present.
+  formulaLabel?: string
+  patronShare?: number
+  hoursWorked?: number
 }
+
+// Snapshot of the cash a driver owes the patron right now: sum of cash
+// rides logged in Cabs minus the physical cash drops the driver has
+// brought in. Drivers carry cash in their pocket between deposits, so
+// this is the "carnet papier" the patron used to keep by hand.
+interface DriverCashBalance {
+  initials: string
+  name: string
+  cashRides: number
+  cashDeposits: number
+  balance: number
+  lastDeposit?: string
+}
+
+const CASH_BALANCES: DriverCashBalance[] = [
+  {
+    initials: 'LM',
+    name: 'Lucas Maes',
+    cashRides: 420,
+    cashDeposits: 140,
+    balance: 280,
+    lastDeposit: 'Lun 28/04',
+  },
+  {
+    initials: 'YS',
+    name: 'Youssef Sbai',
+    cashRides: 180,
+    cashDeposits: 0,
+    balance: 180,
+  },
+  {
+    initials: 'MY',
+    name: 'Mehmet Yilmaz',
+    cashRides: 280,
+    cashDeposits: 280,
+    balance: 0,
+    lastDeposit: 'Mer 30/04',
+  },
+  {
+    initials: 'BJ',
+    name: 'Bram Janssens',
+    cashRides: 90,
+    cashDeposits: 0,
+    balance: 90,
+  },
+]
+
+// Anomalies surfaced from the data drivers actually log: rides with €0
+// net, suspicious durations, missing platform tags, idle gaps inside an
+// active shift. Cabs flags them automatically; the patron skims this
+// card to know what's worth investigating Sunday evening.
+type AnomalyKey =
+  | 'zeroFare'
+  | 'longRide'
+  | 'missingPlatform'
+  | 'shiftGap'
+
+interface Anomaly {
+  key: AnomalyKey
+  count: number
+  Icon: typeof AlertTriangle
+  tone: 'high' | 'medium' | 'low'
+}
+
+const ANOMALIES: Anomaly[] = [
+  { key: 'zeroFare', count: 3, Icon: ShieldAlert, tone: 'high' },
+  { key: 'longRide', count: 1, Icon: Timer, tone: 'medium' },
+  { key: 'missingPlatform', count: 5, Icon: Hash, tone: 'medium' },
+  { key: 'shiftGap', count: 2, Icon: Clock, tone: 'low' },
+]
 
 const PALETTE = {
   uber: '#e5e7eb',
@@ -151,26 +225,31 @@ function platformShares(totalNet: number): PlatformShare[] {
   ]
 }
 
+// Top drivers per period, with the patron's share already computed
+// according to each driver's compensation formula. Mirrors the real
+// arithmetic the patron does by hand on Sunday evening:
+//   • 50/50  → patron gets net / 2
+//   • Forfait → patron gets net − fixed driver pay for the period
 const TOP_DRIVERS_BY_PERIOD: Record<Period, NameAmount[]> = {
   day: [
-    { initials: 'LM', name: 'Lucas Maes', net: 412 },
-    { initials: 'YS', name: 'Youssef Sbai', net: 388 },
-    { initials: 'MY', name: 'Mehmet Yilmaz', net: 354 },
+    { initials: 'LM', name: 'Lucas Maes', net: 412, formulaLabel: '50/50', patronShare: 206, hoursWorked: 8 },
+    { initials: 'YS', name: 'Youssef Sbai', net: 388, formulaLabel: '50/50', patronShare: 194, hoursWorked: 9 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 354, formulaLabel: 'Forfait €120/j', patronShare: 234, hoursWorked: 7 },
   ],
   week: [
-    { initials: 'LM', name: 'Lucas Maes', net: 2_780 },
-    { initials: 'MY', name: 'Mehmet Yilmaz', net: 2_540 },
-    { initials: 'YS', name: 'Youssef Sbai', net: 2_310 },
+    { initials: 'LM', name: 'Lucas Maes', net: 2_780, formulaLabel: '50/50', patronShare: 1_390, hoursWorked: 50 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 2_540, formulaLabel: 'Forfait €600/sem', patronShare: 1_940, hoursWorked: 60 },
+    { initials: 'YS', name: 'Youssef Sbai', net: 2_310, formulaLabel: '50/50', patronShare: 1_155, hoursWorked: 48 },
   ],
   month: [
-    { initials: 'LM', name: 'Lucas Maes', net: 11_840 },
-    { initials: 'MY', name: 'Mehmet Yilmaz', net: 10_620 },
-    { initials: 'BJ', name: 'Bram Janssens', net: 9_780 },
+    { initials: 'LM', name: 'Lucas Maes', net: 11_840, formulaLabel: '50/50', patronShare: 5_920, hoursWorked: 200 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 10_620, formulaLabel: 'Forfait €2600/mois', patronShare: 8_020, hoursWorked: 280 },
+    { initials: 'BJ', name: 'Bram Janssens', net: 9_780, formulaLabel: '50/50', patronShare: 4_890, hoursWorked: 180 },
   ],
   year: [
-    { initials: 'LM', name: 'Lucas Maes', net: 138_400 },
-    { initials: 'MY', name: 'Mehmet Yilmaz', net: 124_900 },
-    { initials: 'YS', name: 'Youssef Sbai', net: 117_300 },
+    { initials: 'LM', name: 'Lucas Maes', net: 138_400, formulaLabel: '50/50', patronShare: 69_200, hoursWorked: 2_300 },
+    { initials: 'MY', name: 'Mehmet Yilmaz', net: 124_900, formulaLabel: 'Forfait €2600/mois', patronShare: 93_700, hoursWorked: 3_120 },
+    { initials: 'YS', name: 'Youssef Sbai', net: 117_300, formulaLabel: '50/50', patronShare: 58_650, hoursWorked: 2_200 },
   ],
 }
 
@@ -196,37 +275,6 @@ const TOP_VEHICLES_BY_PERIOD: Record<Period, NameAmount[]> = {
     { initials: 'XEJ', name: 'T-XEJ-999 · BMW Série 3', net: 129_400 },
   ],
 }
-
-const PAYOUTS: PayoutEntry[] = [
-  {
-    platform: 'bolt',
-    label: 'Bolt',
-    dateKey: 'Lundi 28/04',
-    amount: 1_840,
-    color: PALETTE.bolt,
-  },
-  {
-    platform: 'uber',
-    label: 'Uber',
-    dateKey: 'Jeudi 01/05',
-    amount: 4_220,
-    color: PALETTE.uber,
-  },
-  {
-    platform: 'heetch',
-    label: 'Heetch',
-    dateKey: 'Vendredi 02/05',
-    amount: 980,
-    color: PALETTE.heetch,
-  },
-  {
-    platform: 'taxivert',
-    label: 'TaxiVert',
-    dateKey: 'Lundi 05/05',
-    amount: 1_360,
-    color: PALETTE.taxivert,
-  },
-]
 
 function fmtEUR(n: number): string {
   return `€${Math.round(n).toLocaleString('fr-BE')}`
@@ -371,7 +419,7 @@ export function RevenueScreen() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-2 lg:grid-cols-3">
+      <section className="grid grid-cols-1 gap-2 lg:grid-cols-2">
         <TopList
           title={t('admin.revenue.topDrivers')}
           Icon={TrendingUp}
@@ -382,42 +430,11 @@ export function RevenueScreen() {
           Icon={CarFront}
           items={TOP_VEHICLES_BY_PERIOD[period]}
         />
-        <div className="rounded-md border border-border/40 bg-background/40 p-3">
-          <h3 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            <Wallet className="h-3 w-3 text-primary" />
-            {t('admin.revenue.cashflow')}
-          </h3>
-          <ul className="mt-2 space-y-1.5">
-            {PAYOUTS.map((p) => (
-              <li
-                key={p.platform}
-                className="flex items-center gap-2 rounded-md border border-border/30 bg-card/40 px-2 py-1.5"
-              >
-                <span
-                  className="h-2 w-2 shrink-0 rounded-full"
-                  style={{ background: p.color }}
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-semibold leading-tight">
-                    {p.label}
-                  </p>
-                  <p className="text-[9px] tabular-nums text-muted-foreground">
-                    {p.dateKey}
-                  </p>
-                </div>
-                <span className="text-[11px] font-bold tabular-nums text-emerald-300">
-                  +{fmtEUR(p.amount)}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-2 text-right text-[10px] font-bold tabular-nums">
-            {t('admin.revenue.cashflowTotal')}{' '}
-            <span className="text-emerald-300">
-              +{fmtEUR(PAYOUTS.reduce((a, p) => a + p.amount, 0))}
-            </span>
-          </p>
-        </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+        <CashBalanceCard />
+        <AnomaliesCard />
       </section>
 
       <section className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -678,6 +695,185 @@ function Donut({
 }
 
 // ─────────────────────────────────────────────────────────
+// Cash balance card — running cash a driver still owes the patron
+// ─────────────────────────────────────────────────────────
+function CashBalanceCard() {
+  const { t } = useTranslation()
+  const { showDemoToast } = useAdminApp()
+  const totalOwed = CASH_BALANCES.reduce((a, b) => a + Math.max(0, b.balance), 0)
+  const driversOwing = CASH_BALANCES.filter((b) => b.balance > 0).length
+
+  return (
+    <div className="rounded-md border border-border/40 bg-background/40 p-3">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <Banknote className="h-3 w-3 text-primary" />
+            {t('admin.revenue.cash.title')}
+          </h3>
+          <p className="mt-0.5 text-[9px] text-muted-foreground">
+            {t('admin.revenue.cash.subtitle')}
+          </p>
+        </div>
+        {totalOwed > 0 ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold text-amber-300 ring-1 ring-amber-500/40">
+            {t('admin.revenue.cash.totalOwed', {
+              count: driversOwing,
+              amount: fmtEUR(totalOwed),
+            })}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300 ring-1 ring-emerald-500/40">
+            <CheckCircle2 className="h-2.5 w-2.5" />
+            {t('admin.revenue.cash.allClear')}
+          </span>
+        )}
+      </div>
+
+      <ul className="mt-2 space-y-1.5">
+        {CASH_BALANCES.map((b) => {
+          const owes = b.balance > 0
+          return (
+            <li
+              key={b.initials}
+              className="flex items-center gap-2 rounded-md border border-border/30 bg-card/40 px-2 py-1.5"
+            >
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[9px] font-bold text-primary">
+                {b.initials}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[11px] font-semibold leading-tight">
+                  {b.name}
+                </p>
+                <p className="text-[9px] tabular-nums text-muted-foreground">
+                  {b.lastDeposit
+                    ? t('admin.revenue.cash.lastDeposit', { date: b.lastDeposit })
+                    : t('admin.revenue.cash.noDeposits')}
+                </p>
+              </div>
+              <span
+                className={cn(
+                  'text-[11px] font-bold tabular-nums',
+                  owes ? 'text-amber-300' : 'text-emerald-300',
+                )}
+              >
+                {owes ? `+${fmtEUR(b.balance)}` : fmtEUR(0)}
+              </span>
+            </li>
+          )
+        })}
+      </ul>
+
+      <button
+        type="button"
+        onClick={() =>
+          showDemoToast(
+            t('admin.demoToast.actionLocked', {
+              action: t('admin.revenue.cash.requestDeposit'),
+            }),
+          )
+        }
+        className="mt-2 inline-flex w-full items-center justify-center gap-1 rounded-md border border-primary/30 bg-primary/5 px-2 py-1.5 text-[10px] font-semibold text-primary transition-colors hover:bg-primary/10"
+      >
+        <Banknote className="h-3 w-3" />
+        {t('admin.revenue.cash.requestDeposit')}
+      </button>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────
+// Anomalies card — flags Cabs surfaces from logged data
+// ─────────────────────────────────────────────────────────
+function AnomaliesCard() {
+  const { t } = useTranslation()
+  const { showDemoToast } = useAdminApp()
+  const total = ANOMALIES.reduce((a, b) => a + b.count, 0)
+
+  const toneClass = (tone: Anomaly['tone']) => {
+    switch (tone) {
+      case 'high':
+        return 'bg-rose-500/15 text-rose-300 ring-rose-500/30'
+      case 'medium':
+        return 'bg-amber-500/15 text-amber-300 ring-amber-500/30'
+      case 'low':
+        return 'bg-zinc-500/15 text-zinc-300 ring-zinc-500/30'
+    }
+  }
+
+  return (
+    <div className="rounded-md border border-border/40 bg-background/40 p-3">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <AlertTriangle className="h-3 w-3 text-primary" />
+            {t('admin.revenue.anomalies.title')}
+          </h3>
+          <p className="mt-0.5 text-[9px] text-muted-foreground">
+            {t('admin.revenue.anomalies.subtitle')}
+          </p>
+        </div>
+        {total > 0 ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 px-2 py-0.5 text-[9px] font-bold text-rose-300 ring-1 ring-rose-500/40">
+            {t('admin.revenue.anomalies.totalFlagged', { count: total })}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300 ring-1 ring-emerald-500/40">
+            <CheckCircle2 className="h-2.5 w-2.5" />
+            {t('admin.revenue.anomalies.allClear')}
+          </span>
+        )}
+      </div>
+
+      <ul className="mt-2 space-y-1.5">
+        {ANOMALIES.map((a) => {
+          const Icon = a.Icon
+          return (
+            <li
+              key={a.key}
+              className="flex items-center gap-2 rounded-md border border-border/30 bg-card/40 px-2 py-1.5"
+            >
+              <span
+                className={cn(
+                  'flex h-5 w-5 shrink-0 items-center justify-center rounded-md ring-1',
+                  toneClass(a.tone),
+                )}
+              >
+                <Icon className="h-3 w-3" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[11px] font-semibold leading-tight">
+                  {t(`admin.revenue.anomalies.types.${a.key}`)}
+                </p>
+                <p className="mt-0.5 text-[9px] leading-tight text-muted-foreground">
+                  {t(`admin.revenue.anomalies.descriptions.${a.key}`)}
+                </p>
+              </div>
+              <span className="shrink-0 rounded-full bg-background/60 px-1.5 py-0.5 text-[10px] font-bold tabular-nums">
+                {a.count}
+              </span>
+              <button
+                type="button"
+                onClick={() =>
+                  showDemoToast(
+                    t('admin.demoToast.actionLocked', {
+                      action: t('admin.revenue.anomalies.investigate'),
+                    }),
+                  )
+                }
+                className="shrink-0 text-[9px] font-semibold uppercase tracking-wider text-primary/80 hover:text-primary"
+              >
+                {t('admin.revenue.anomalies.investigate')}
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────
 // Top list (drivers / vehicles)
 // ─────────────────────────────────────────────────────────
 function TopList({
@@ -689,6 +885,7 @@ function TopList({
   Icon: typeof TrendingUp
   items: NameAmount[]
 }) {
+  const { t } = useTranslation()
   return (
     <div className="rounded-md border border-border/40 bg-background/40 p-3">
       <h3 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -699,17 +896,43 @@ function TopList({
         {items.map((it, idx) => (
           <li
             key={it.initials}
-            className="flex items-center gap-2 rounded-md border border-border/30 bg-card/40 px-2 py-1.5"
+            className="rounded-md border border-border/30 bg-card/40 px-2 py-1.5"
           >
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[9px] font-bold text-primary">
-              {idx + 1}
-            </span>
-            <span className="min-w-0 flex-1 truncate text-[11px] font-semibold">
-              {it.name}
-            </span>
-            <span className="text-[11px] font-bold tabular-nums text-emerald-300">
-              {fmtEUR(it.net)}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[9px] font-bold text-primary">
+                {idx + 1}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[11px] font-semibold leading-tight">
+                  {it.name}
+                </p>
+                <div className="mt-0.5 flex flex-wrap items-center gap-1">
+                  {it.formulaLabel ? (
+                    <span className="inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-primary ring-1 ring-primary/25">
+                      {it.formulaLabel}
+                    </span>
+                  ) : null}
+                  {it.hoursWorked && it.hoursWorked > 0 ? (
+                    <span className="inline-flex items-center gap-0.5 rounded-full bg-zinc-500/15 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-zinc-300 ring-1 ring-zinc-500/30">
+                      {fmtEUR(it.net / it.hoursWorked)}/h
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+              <span className="text-[11px] font-bold tabular-nums text-emerald-300">
+                {fmtEUR(it.net)}
+              </span>
+            </div>
+            {it.patronShare !== undefined ? (
+              <div className="mt-1 ml-7 flex items-center justify-between border-t border-border/30 pt-1 text-[10px]">
+                <span className="text-muted-foreground">
+                  {t('admin.revenue.split.patronShare')}
+                </span>
+                <span className="font-bold tabular-nums text-primary">
+                  {fmtEUR(it.patronShare)}
+                </span>
+              </div>
+            ) : null}
           </li>
         ))}
       </ol>

@@ -494,6 +494,37 @@
       "topVehicles": "Top véhicules",
       "cashflow": "Versements à venir",
       "cashflowTotal": "Total entrant",
+      "split": {
+        "patronShare": "Part patron"
+      },
+      "cash": {
+        "title": "Cash à récupérer",
+        "subtitle": "Courses cash saisies moins dépôts reçus",
+        "totalOwed": "{{count}} chauffeurs · {{amount}}",
+        "allClear": "Tout est à jour",
+        "lastDeposit": "Dernier dépôt · {{date}}",
+        "noDeposits": "Aucun dépôt",
+        "requestDeposit": "Demander un dépôt"
+      },
+      "anomalies": {
+        "title": "Anomalies détectées",
+        "subtitle": "Cabs surveille pour toi",
+        "totalFlagged": "{{count}} à examiner",
+        "allClear": "Tout est OK",
+        "investigate": "Examiner",
+        "types": {
+          "zeroFare": "Courses à 0 €",
+          "longRide": "Courses > 3 h",
+          "missingPlatform": "Plateforme manquante",
+          "shiftGap": "Gaps > 2 h sur shift actif"
+        },
+        "descriptions": {
+          "zeroFare": "Erreur de saisie ou course non facturée",
+          "longRide": "Course probablement oubliée dans l'app",
+          "missingPlatform": "Tag à compléter pour la réconciliation",
+          "shiftGap": "Pause longue ou app laissée ouverte"
+        }
+      },
       "bestDay": "Meilleur jour de la semaine",
       "bestDayHint": "Pic le {{day}} · planifier 1 véhicule de plus.",
       "bestHour": "Meilleure tranche horaire",
